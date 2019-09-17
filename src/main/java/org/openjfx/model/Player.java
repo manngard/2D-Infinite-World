@@ -1,4 +1,4 @@
-package org.openjfx;
+package org.openjfx.model;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
 public class Player {
