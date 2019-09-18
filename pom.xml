@@ -42,7 +42,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.1</version>
                 <configuration>
-                    <mainClass>org.openjfx.App</mainClass>
+                    <mainClass>org.openjfx.Controller</mainClass>
                 </configuration>
             </plugin>
         </plugins>
