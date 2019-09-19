@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
 import org.openjfx.model.World;
+import org.openjfx.utils.Event;
 import org.openjfx.view.View;
 
 import java.io.IOException;
@@ -26,9 +27,8 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(new AnchorPane(), 720, 720);
-        view = new View(stage, this::handleKeyPress);
         model = new Model();
+        view = new View(stage, this::handleKeyPress, model.modelUpdateEvent);
     }
 
     private void handleKeyPress(KeyEvent keyEvent) {
