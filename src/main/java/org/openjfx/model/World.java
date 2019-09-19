@@ -6,7 +6,7 @@ import java.util.List;
 public class World {
     List<List<Tile>> worldGrid;
     int worldSideLength;
-    //Player player;
+    Player player;
 
     //Initiates 10 rows for the grid matrix, then fills every row with 10 Tile objects
     public World(){
