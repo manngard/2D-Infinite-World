@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
+import org.openjfx.model.Player;
 import org.openjfx.model.World;
 import org.openjfx.utils.Event;
 import org.openjfx.view.View;
@@ -51,5 +52,4 @@ public class Controller extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }
