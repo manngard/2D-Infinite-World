@@ -40,7 +40,7 @@ public class Model {
 
     }
 
-    private void modelHasBeenUpdated() {
+    public void modelHasBeenUpdated() {
         modelUpdateEvent.dispatch(Event.EventMessage.UPDATE, world);
     }
 

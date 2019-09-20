@@ -1,15 +1,12 @@
 package org.openjfx.model.tilepackage;
 
-public class Tile {
+import org.openjfx.model.Entity;
 
-    //Describes what type of Tile
-    private String id;
-
+public class Tile extends Entity {
     //Describes if the Tile can be moved through
     private boolean isSolid;
 
-    Tile(String id){
-        this.id = id;
+    public Tile(String id){
+        super(id);
     }
-
 }

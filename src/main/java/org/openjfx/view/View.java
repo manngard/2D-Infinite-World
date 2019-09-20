@@ -13,7 +13,10 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.openjfx.model.Player;
 import org.openjfx.model.World;
+import org.openjfx.model.tilepackage.Tile;
 import org.openjfx.utils.Event;
+
+import java.util.List;
 
 import static org.openjfx.utils.Event.EventMessage.UPDATE;
 
@@ -33,8 +36,8 @@ public class View {
 
         //Uncomment below if you want to testdraw a image
 
-        Player player = new Player("Player",200,100,true,10,10);
-        drawObject(player.getId(),player.getXcoord(),player.getYcoord());
+        //Player player = new Player("Grass",200,100,true,10,10);
+        //drawObject(player.getId(),player.getXcoord(),player.getYcoord());
 
         stage.setScene(scene);
         stage.show();
@@ -52,7 +55,9 @@ public class View {
             case UPDATE:
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000, 1000);
                 World world = (World) data;
-                drawObject("Player", world.player.getXcoord(), world.player.getYcoord());
+                renderTileWorld(world);
+                drawObject(world.player.getId(), world.player.getXcoord(), world.player.getYcoord());
+
         }
     }
 
@@ -60,6 +65,19 @@ public class View {
     public void drawObject(String id, int x, int y){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
+    }
+    public void renderTileWorld(World world){
+        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
+        int tilePixelsize = -32;
+        int yOffset, xOffset = tilePixelsize;
+        for (List<Tile> tileRow: world.getWorldGrid()){
+            yOffset = tilePixelsize;
+            xOffset += 32;
+            for (Tile tile: tileRow){
+                yOffset += 32;
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + xOffset,tile.getYcoord()+ yOffset);
+            }
+        }
     }
 
     public Canvas getGameScreen() {

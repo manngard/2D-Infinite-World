@@ -2,6 +2,7 @@ package org.openjfx.model;
 
 public abstract class Entity {
 
+    //Describes what type of Entity
     protected String id;
     protected int xcoord, ycoord;
 
@@ -9,6 +10,9 @@ public abstract class Entity {
         this.id = i;
         this.xcoord = a;
         this.ycoord = b;
+    }
+    public Entity(String i){
+        this.id = i;
     }
 
     public String getId() {
@@ -22,7 +26,5 @@ public abstract class Entity {
     public int getYcoord() {
         return ycoord;
     }
-
-
 
 }

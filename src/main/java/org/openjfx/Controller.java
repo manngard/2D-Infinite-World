@@ -30,6 +30,7 @@ public class Controller extends Application {
     public void start(Stage stage) throws IOException {
         model = new Model();
         view = new View(stage, this::handleKeyPress, model.modelUpdateEvent);
+        model.modelHasBeenUpdated();
     }
 
     private void handleKeyPress(KeyEvent keyEvent) {

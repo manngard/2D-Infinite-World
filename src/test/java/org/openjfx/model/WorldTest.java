@@ -19,10 +19,10 @@ public class WorldTest {
     public void worldConstructorTest(){
         int columns = 0;
         for (List<Tile> worldrow: world.worldGrid){
-            assertTrue(worldrow.size() == world.worldSideLength);
+            assertTrue(worldrow.size() == world.worldVerticalSideLength);
             columns++;
         }
-        assertTrue(columns == world.worldSideLength);
+        assertTrue(columns == world.worldHorizontalSideLength);
     }
 
 }
