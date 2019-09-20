@@ -3,16 +3,13 @@ package org.openjfx.model;
 public class Tile {
 
     //Describes what type of Tile
-    Enum<Tiletype> tiletype;
+    String id;
 
     //Describes if the Tile can be moved through
     boolean isSolid;
 
-    public Tile(Tiletype tiletype){
-        this.tiletype = tiletype;
+    public Tile(String id){
+        this.id = id;
     }
 
-    public Enum<Tiletype> getTiletype() {
-        return tiletype;
-    }
 }
