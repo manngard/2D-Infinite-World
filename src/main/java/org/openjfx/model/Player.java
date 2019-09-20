@@ -1,18 +1,14 @@
 package org.openjfx.model;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
-public class Player implements Movable{
+public class Player extends Entity implements Movable{
 
-    private String id;
-    private int xcoord, ycoord;
     private boolean isAlive;
     private int hp;
     private int exp;
 
     public Player(String id, int xcoord, int ycoord, boolean isAlive, int hp, int exp) {
-        this.id = id;
-        this.xcoord = xcoord;
-        this.ycoord = ycoord;
+        super(id, xcoord, ycoord);
         this.isAlive = isAlive;
         this.hp = hp;
         this.exp = exp;
