@@ -1,4 +1,4 @@
-package org.openjfx.model;
+package org.openjfx.model.tilepackage;
 
 import java.util.ArrayList;
 import java.util.List;
