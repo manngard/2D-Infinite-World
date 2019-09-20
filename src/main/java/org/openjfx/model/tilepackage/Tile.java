@@ -1,14 +1,14 @@
-package org.openjfx.model;
+package org.openjfx.model.tilepackage;
 
 public class Tile {
 
     //Describes what type of Tile
-    String id;
+    private String id;
 
     //Describes if the Tile can be moved through
-    boolean isSolid;
+    private boolean isSolid;
 
-    public Tile(String id){
+    Tile(String id){
         this.id = id;
     }
 

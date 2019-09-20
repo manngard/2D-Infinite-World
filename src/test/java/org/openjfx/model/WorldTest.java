@@ -2,6 +2,8 @@ package org.openjfx.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openjfx.model.tilepackage.Tile;
+
 import java.util.List;
 
 import static org.junit.Assert.*;
