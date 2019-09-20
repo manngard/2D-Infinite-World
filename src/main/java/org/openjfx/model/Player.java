@@ -80,13 +80,13 @@ public class Player implements Movable{
     }
 
     @Override
-    public void moceUp() {
-        ycoord += 1;
+    public void moveUp() {
+        ycoord -= 1;
     }
 
     @Override
     public void moveDown() {
-        ycoord -= 1;
+        ycoord += 1;
     }
 }
 

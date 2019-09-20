@@ -47,7 +47,7 @@ public class PlayerTest {
 
     @Test   //  Test of move functions
     public void moveTest(){
-        player.moceUp();
+        player.moveUp();
         player.moveDown();
         player.moveLeft();
         player.moveRight();

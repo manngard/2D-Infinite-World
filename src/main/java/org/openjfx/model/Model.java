@@ -14,25 +14,34 @@ public class Model {
     public void movePlayerUp() {
         System.out.println("Up");
         //TODO
+        world.player.moveUp();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerDown() {
         //TODO
         System.out.println("Down");
+        world.player.moveDown();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerRight() {
         //TODO
         System.out.println("Right");
+        world.player.moveRight();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerLeft() {
         //TODO
         System.out.println("Left");
+        world.player.moveLeft();
+        modelHasBeenUpdated();
+
     }
 
     private void modelHasBeenUpdated() {
-        modelUpdateEvent.dispatch(Event.EventMessage.UPDATE, null);
+        modelUpdateEvent.dispatch(Event.EventMessage.UPDATE, world);
     }
 
 }

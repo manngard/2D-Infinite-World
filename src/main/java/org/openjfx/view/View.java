@@ -5,11 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.openjfx.model.Player;
+import org.openjfx.model.World;
 import org.openjfx.utils.Event;
+
+import static org.openjfx.utils.Event.EventMessage.UPDATE;
 
 public class View {
     private Stage stage;
@@ -34,16 +40,20 @@ public class View {
         stage.show();
         stage.addEventFilter(KeyEvent.KEY_PRESSED, handler);
         modelHasUpdatedEvent.addListener(new Event.EventListener() {
-                 @Override
-                 public void func(Event.EventMessage emsg, Object data) {
-                     rerender();
-                 }
-             }
-        );
+            @Override
+            public void func(Event.EventMessage emsg, Object data) {
+                rerender(emsg, data);
+            }
+        });
     }
 
-    private void rerender() {
-
+    private void rerender(Event.EventMessage emsg, Object data) {
+        switch (emsg) {
+            case UPDATE:
+                gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000, 1000);
+                World world = (World) data;
+                drawObject("Player", world.player.getXcoord(), world.player.getYcoord());
+        }
     }
 
     //Draws object with String id
