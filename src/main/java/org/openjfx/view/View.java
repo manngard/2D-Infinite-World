@@ -34,11 +34,6 @@ public class View {
         gameScreen = new Canvas(600,400);
         layers.getChildren().add(gameScreen);
 
-        //Uncomment below if you want to testdraw a image
-
-        //Player player = new Player("Grass",200,100,true,10,10);
-        //drawObject(player.getId(),player.getXcoord(),player.getYcoord());
-
         stage.setScene(scene);
         stage.show();
         stage.addEventFilter(KeyEvent.KEY_PRESSED, handler);
