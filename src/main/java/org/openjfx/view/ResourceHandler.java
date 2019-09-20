@@ -5,8 +5,7 @@ import javafx.scene.image.Image;
 public class ResourceHandler {
 
     //Fetches PNG Image called id.png
-    public Image getResource(String id){
-        ClassLoader classLoader = getClass().getClassLoader();
+    static public Image getResource(String id){
         String imageUrl = ClassLoader.getSystemResource(id + ".png").toExternalForm();
         Image image = new Image(imageUrl);
         return image;

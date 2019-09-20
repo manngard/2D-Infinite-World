@@ -8,15 +8,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.openjfx.model.Player;
 import org.openjfx.utils.Event;
 
 public class View {
-    private final ResourceHandler imageHandler = new ResourceHandler();
     private Stage stage;
     @FXML
     private Canvas gameScreen;
-
-    //Image playerImage = getAsset("Player.png");
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event modelHasUpdatedEvent) {
         this.stage = stage;
@@ -29,8 +27,8 @@ public class View {
 
         //Uncomment below if you want to testdraw a image
 
-        /*Player player = new Player("Player",200,100,true,10,10);
-        drawObject(player.getId(),player.getXcoord(),player.getYcoord());*/
+        Player player = new Player("Player",200,100,true,10,10);
+        drawObject(player.getId(),player.getXcoord(),player.getYcoord());
 
         stage.setScene(scene);
         stage.show();
@@ -51,7 +49,7 @@ public class View {
     //Draws object with String id
     public void drawObject(String id, int x, int y){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
-        graphics.drawImage(imageHandler.getResource(id),x,y);
+        graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
 
     public Canvas getGameScreen() {
