@@ -67,22 +67,22 @@ public class Player extends Entity implements Movable{
 
     @Override
     public void moveLeft() {
-        xcoord -= 20;
+        xcoord -= 10;
     }
 
     @Override
     public void moveRight() {
-        xcoord += 20;
+        xcoord += 10;
     }
 
     @Override
     public void moveUp() {
-        ycoord -= 20;
+        ycoord -= 10;
     }
 
     @Override
     public void moveDown() {
-        ycoord += 20;
+        ycoord += 10;
     }
 }
 
