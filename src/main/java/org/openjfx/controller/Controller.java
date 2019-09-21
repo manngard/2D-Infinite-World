@@ -1,22 +1,15 @@
-package org.openjfx;
+package org.openjfx.controller;
 
-import javafx.application.Application;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
 import org.openjfx.view.View;
 
-import java.io.IOException;
-
-/**
- * JavaFX Controller
- */
-public class Controller extends Application {
+public class Controller {
     View view;
     Model model;
 
-    @Override
-    public void start(Stage stage) throws IOException {
+    public Controller(Stage stage) {
         model = new Model();
         view = new View(stage, this::handleKeyPress, model.hasUpdateEvent);
         model.modelHasBeenUpdated();
@@ -37,9 +30,5 @@ public class Controller extends Application {
                 model.movePlayerLeft();
                 break;
         }
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
