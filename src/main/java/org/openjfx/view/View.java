@@ -5,27 +5,23 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import org.openjfx.model.Player;
+import org.openjfx.model.EventMessage;
 import org.openjfx.model.World;
 import org.openjfx.model.tilepackage.Tile;
 import org.openjfx.utils.Event;
+import org.openjfx.utils.Event.EventListener;
 
 import java.util.List;
-
-import static org.openjfx.utils.Event.EventMessage.UPDATE;
 
 public class View {
     private Stage stage;
     @FXML
     private Canvas gameScreen;
 
-    public View(Stage stage, EventHandler<KeyEvent> handler, Event modelHasUpdatedEvent) {
+    public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
 
         StackPane layers = new StackPane();
@@ -36,23 +32,24 @@ public class View {
 
         stage.setScene(scene);
         stage.show();
+
         stage.addEventFilter(KeyEvent.KEY_PRESSED, handler);
-        modelHasUpdatedEvent.addListener(new Event.EventListener() {
+
+        modelHasUpdateEvent.addListener(new EventListener<EventMessage>() {
             @Override
-            public void func(Event.EventMessage emsg, Object data) {
+            public void func(EventMessage emsg, Object data) {
                 rerender(emsg, data);
             }
         });
     }
 
-    private void rerender(Event.EventMessage emsg, Object data) {
+    private void rerender(EventMessage emsg, Object data) {
         switch (emsg) {
             case UPDATE:
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000, 1000);
                 World world = (World) data;
                 renderTileWorld(world);
                 drawObject(world.player.getId(), world.player.getXcoord(), world.player.getYcoord());
-
         }
     }
 
