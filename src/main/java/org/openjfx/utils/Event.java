@@ -2,16 +2,12 @@ package org.openjfx.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Event {
+public class Event<MsgT extends Enum> {
 
-    public enum EventMessage {
-        UPDATE
-    }
-
-
-    public abstract static class EventListener {
-        public abstract void func(EventMessage emsg, Object data);
+    public static abstract class EventListener<MsgU extends Enum> {
+        public abstract void func(MsgU emsg, Object data);
     }
 
     private List<EventListener> listeners = new ArrayList<>();
@@ -20,7 +16,13 @@ public class Event {
         listeners.add(el);
     }
 
-    public void dispatch(EventMessage em, Object data) {
+    public void removeListener(EventListener eventListener) {
+        listeners = listeners.stream()
+                .filter(el -> !el.equals(eventListener))
+                .collect(Collectors.toList());
+    };
+
+    public void dispatch(MsgT em, Object data) {
         for(EventListener l : listeners) {
             l.func(em, data);
         }
