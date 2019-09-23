@@ -44,17 +44,27 @@ public class View {
     }
 
     private void rerender(EventMessage emsg, Object data) {
+        World world = (World) data;
+        double modelX = world.player.getXcoord();
+        double modelY = world.player.getYcoord();
         switch (emsg) {
             case UPDATE:
-                gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000, 1000);
-                World world = (World) data;
+                gameScreen.getGraphicsContext2D().clearRect(0, 0, 0,0);
                 renderTileWorld(world);
-                drawObject(world.player.getId(), world.player.getXcoord(), world.player.getYcoord());
+                drawObject(world.player.getId(), translateX(modelX) , translateY(modelY));
         }
     }
 
+    public double translateY(double modelY){
+        return gameScreen.getHeight()/2 + modelY - 16;
+    }
+
+    public double translateX(double modelX){
+        return gameScreen.getWidth()/2 + modelX - 16;
+    }
+
     //Draws object with String id
-    public void drawObject(String id, int x, int y){
+    public void drawObject(String id, double x, double y){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
