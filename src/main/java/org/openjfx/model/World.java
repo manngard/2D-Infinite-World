@@ -25,7 +25,7 @@ public class World {
         }
         for (List<Tile> worldrow : worldGrid){
             for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.getTile("Grass"));
+                worldrow.add(tileFactory.getRandomTile());
             }
         }
     }
