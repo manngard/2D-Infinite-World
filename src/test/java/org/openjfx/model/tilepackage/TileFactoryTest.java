@@ -13,6 +13,7 @@ public class TileFactoryTest {
         TileFactory factory = new TileFactory();
         Tile tile = factory.getTile("Lava");
 
+        Assert.assertEquals("Lava", tile.getId());
 
     }
 }
