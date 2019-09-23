@@ -3,13 +3,11 @@ package org.openjfx.model;
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
 public class Player extends Entity implements Movable{
 
-    private boolean isAlive;
     private int hp;
     private int exp;
 
-    public Player(String id, int xcoord, int ycoord, boolean isAlive, int hp, int exp) {
+    public Player(String id, int xcoord, int ycoord, int hp, int exp) {
         super(id, xcoord, ycoord);
-        this.isAlive = isAlive;
         this.hp = hp;
         this.exp = exp;
     }
@@ -26,31 +24,19 @@ public class Player extends Entity implements Movable{
         return ycoord;
     }
 
-    public boolean getisAlive() {
-        return isAlive;
-    }
-
     public int getHp() {
         return hp;
     }
 
     public void decHp(int decAmount) {
-        if(decAmount >= hp){
-            hp = 0;
-            isAlive = false;
-        }
-        else{
+
             hp = hp - decAmount;
-        }
     }
 
     public void incHp(int incAmount){
-        if(incAmount >= 100 - hp){
-            hp = 100;
-        }
-        else{
+
             hp = hp + incAmount;
-        }
+
     }
 
     public int getExp() {

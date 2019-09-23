@@ -1,6 +1,6 @@
 package org.openjfx.model;
 
-public abstract class Entity {
+public abstract class Entity{
 
     //Describes what type of Entity
     protected String id;
