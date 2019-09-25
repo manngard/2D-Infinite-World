@@ -20,14 +20,17 @@ public class View {
     private Stage stage;
     @FXML
     private Canvas gameScreen;
+    final int pixelSize = 32;
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
 
         StackPane layers = new StackPane();
-        Scene scene = new Scene(layers, 600, 400);
+        int screenXSize = pixelSize*21 + 21; //why is constant offset needed here? (1 pizel gap between tiles?)
+        int screenYSize = pixelSize*13 + 13; //why is constant offset needed here?
+        Scene scene = new Scene(layers, screenXSize,screenYSize);
 
-        gameScreen = new Canvas(600,400);
+        gameScreen = new Canvas(screenXSize,screenYSize);
         layers.getChildren().add(gameScreen);
 
         stage.setScene(scene);
@@ -44,12 +47,12 @@ public class View {
     }
 
     private void rerender(EventMessage emsg, Object data) {
-        World world = (World) data;
-        double modelX = world.player.getXcoord();
-        double modelY = world.player.getYcoord();
         switch (emsg) {
             case UPDATE:
-                gameScreen.getGraphicsContext2D().clearRect(0, 0, 0,0);
+                World world = (World) data;
+                double modelX = world.player.getXcoord();
+                double modelY = world.player.getYcoord();
+                gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world);
                 drawObject(world.player.getId(), translateX(modelX) , translateY(modelY));
         }
@@ -70,10 +73,9 @@ public class View {
     }
     public void renderTileWorld(World world){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
-        int tilePixelsize = -32;
-        int yOffset, xOffset = tilePixelsize;
+        int xOffset = -21;
         for (List<Tile> tileRow: world.getWorldGrid()){
-            yOffset = tilePixelsize;
+            int yOffset = -24;
             xOffset += 32;
             for (Tile tile: tileRow){
                 yOffset += 32;
