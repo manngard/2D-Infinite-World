@@ -15,19 +15,19 @@ public class TileFactory {
     }
 
 
-    public Tile getTile(String id){
+    public Tile getTile(String id, double x, double y){
         for (String tiletype: tiletypes){
             if (tiletype.equals(id)){
-                return new Tile(id);
+                return new Tile(id,x,y);
             }
         }
         //Should never occur
         return null;
     }
-    public Tile getRandomTile(){
+    public Tile getRandomTile(double x, double y){
         Random rand = new Random();
         int randPos = rand.nextInt(tiletypes.size());
         String id = tiletypes.get(randPos);
-        return new Tile(id);
+        return new Tile(id,x,y);
     }
 }
