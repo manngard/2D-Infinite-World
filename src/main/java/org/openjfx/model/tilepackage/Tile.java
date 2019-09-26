@@ -6,7 +6,7 @@ public class Tile extends Entity {
     //Describes if the Tile can be moved through
     private boolean isSolid;
 
-    public Tile(String id){
-        super(id);
+    public Tile(String id,double x, double y){
+        super(id,x,y);
     }
 }

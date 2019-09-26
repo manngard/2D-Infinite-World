@@ -4,9 +4,9 @@ public abstract class Entity{
 
     //Describes what type of Entity
     protected String id;
-    protected int xcoord, ycoord;
+    protected double xcoord, ycoord;
 
-    public Entity(String i, int a, int b){
+    public Entity(String i, double a, double b){
         this.id = i;
         this.xcoord = a;
         this.ycoord = b;
@@ -19,11 +19,11 @@ public abstract class Entity{
         return id;
     }
 
-    public int getXcoord() {
+    public double getXcoord() {
         return xcoord;
     }
 
-    public int getYcoord() {
+    public double getYcoord() {
         return ycoord;
     }
 

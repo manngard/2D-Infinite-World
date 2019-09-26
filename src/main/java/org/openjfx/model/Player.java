@@ -14,11 +14,11 @@ public class Player extends Combatant implements Movable{
         return id;
     }
 
-    public int getXcoord() {
+    public double getXcoord() {
         return xcoord;
     }
 
-    public int getYcoord() {
+    public double getYcoord() {
         return ycoord;
     }
 
@@ -36,12 +36,13 @@ public class Player extends Combatant implements Movable{
 
     public void decHp(int decAmount) {
 
-            hp = hp - decAmount;
+        hp = hp - decAmount;
+
     }
 
     public void incHp(int incAmount){
 
-            hp = hp + incAmount;
+        hp = hp + incAmount;
 
     }
 
@@ -59,22 +60,22 @@ public class Player extends Combatant implements Movable{
 
     @Override
     public void moveLeft() {
-        xcoord -= 10;
+        xcoord -= 1;
     }
 
     @Override
     public void moveRight() {
-        xcoord += 10;
+        xcoord += 1;
     }
 
     @Override
     public void moveUp() {
-        ycoord -= 10;
+        ycoord -= 1;
     }
 
     @Override
     public void moveDown() {
-        ycoord += 10;
+        ycoord += 1;
     }
 }
 
