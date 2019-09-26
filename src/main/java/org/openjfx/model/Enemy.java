@@ -1,8 +1,8 @@
 package org.openjfx.model;
 
-public class Enemy extends Combatant implements Movable{
+public class Enemy extends Combatant {
 
-    public Enemy(String ID, int XCOORD, int YCOORD, int HP, int ATK,float ATKRANGE){
+    public Enemy(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE){
 
         super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
     }
@@ -19,33 +19,37 @@ public class Enemy extends Combatant implements Movable{
 
     public void decHp(int decAmount) {
 
-            hp = hp - decAmount;
+        hp = hp - decAmount;
     }
 
     public void incHp(int incAmount){
 
-            hp = hp + incAmount;
+        hp = hp + incAmount;
 
     }
 
     @Override
     public void moveLeft() {
-        xcoord -= 10;
+        xcoord -= 1;
+        direction = directions.LEFT;
     }
 
     @Override
     public void moveRight() {
-        xcoord += 10;
+        xcoord += 1;
+        direction = directions.RIGHT;
     }
 
     @Override
     public void moveUp() {
-        ycoord -= 10;
+        ycoord -= 1;
+        direction = directions.UP;
     }
 
     @Override
     public void moveDown() {
-        ycoord += 10;
+        ycoord += 1;
+        direction = directions.DOWN;
     }
 
 }

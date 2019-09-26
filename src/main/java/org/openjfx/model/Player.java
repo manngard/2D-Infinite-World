@@ -1,11 +1,11 @@
 package org.openjfx.model;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
-public class Player extends Combatant implements Movable{
+public class Player extends Combatant {
 
     private int exp = 0;
 
-    public Player(String ID, int XCOORD, int YCOORD, int HP, int ATK,float ATKRANGE) {
+    public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE) {
         super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
 
     }
@@ -61,21 +61,25 @@ public class Player extends Combatant implements Movable{
     @Override
     public void moveLeft() {
         xcoord -= 1;
+        direction = directions.LEFT;
     }
 
     @Override
     public void moveRight() {
         xcoord += 1;
+        direction = directions.RIGHT;
     }
 
     @Override
     public void moveUp() {
         ycoord -= 1;
+        direction = directions.UP;
     }
 
     @Override
     public void moveDown() {
         ycoord += 1;
+        direction = directions.DOWN;
     }
 }
 

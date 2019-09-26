@@ -11,6 +11,7 @@ public class World {
     List<List<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
+    ArrayList<Enemy> EnemiesInView;
 
     public Player player;
 
@@ -38,8 +39,120 @@ public class World {
     public List<List<Tile>> getWorldGrid() {
         return worldGrid;
     }
-    public void makeAttack(Entity e){
+    public void makeAttack(Combatant c){
 
+        double xDist;
+        double yDist;
 
+        if(c.id == "Player") {
+            switch (c.direction) {
+                case UP: {
+                    for(int i = 0; i < EnemiesInView.size();i++){
+                        if(EnemiesInView.get(i).ycoord > (c.ycoord + 0.5)){
+
+                            xDist = c.xcoord - EnemiesInView.get(i).xcoord;
+                            yDist = c.ycoord - EnemiesInView.get(i).ycoord;
+                            if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                                attackHit(c,EnemiesInView.get(i));
+                            }
+                        }
+                    }
+
+                }
+                case DOWN: {
+                    for(int i = 0; i < EnemiesInView.size();i++){
+                        if(EnemiesInView.get(i).ycoord < (c.ycoord - 0.5)){
+
+                            xDist = c.xcoord - EnemiesInView.get(i).xcoord;
+                            yDist = c.ycoord - EnemiesInView.get(i).ycoord;
+                            if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                                attackHit(c,EnemiesInView.get(i));
+                            }
+                        }
+                    }
+
+                }
+                case RIGHT: {
+                    for(int i = 0; i < EnemiesInView.size();i++){
+                        if(EnemiesInView.get(i).xcoord > (c.xcoord + 0.5)){
+
+                            xDist = c.xcoord - EnemiesInView.get(i).xcoord;
+                            yDist = c.ycoord - EnemiesInView.get(i).ycoord;
+                            if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                                attackHit(c,EnemiesInView.get(i));
+                            }
+                        }
+                    }
+
+                }
+                case LEFT: {
+                    for(int i = 0; i < EnemiesInView.size();i++){
+                        if(EnemiesInView.get(i).ycoord < (c.ycoord - 0.5)){
+
+                            xDist = c.xcoord - EnemiesInView.get(i).xcoord;
+                            yDist = c.ycoord - EnemiesInView.get(i).ycoord;
+                            if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                                attackHit(c,EnemiesInView.get(i));
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        if(c.id == "Enemy") {
+            switch (c.direction) {
+                case UP: {
+                    if(player.ycoord > (c.ycoord + 0.5)){
+
+                        xDist = c.xcoord - player.xcoord;
+                        yDist = c.ycoord - player.ycoord;
+                        if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                            attackHit(c,player);
+                        }
+                    }
+
+                }
+                case DOWN: {
+                    if(player.ycoord < (c.ycoord - 0.5)){
+
+                        xDist = c.xcoord - player.xcoord;
+                        yDist = c.ycoord - player.ycoord;
+                        if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                            attackHit(c,player);
+                        }
+                    }
+
+                }
+                case RIGHT: {
+                    if(player.xcoord > (c.xcoord + 0.5)){
+
+                        xDist = c.xcoord - player.xcoord;
+                        yDist = c.ycoord - player.ycoord;
+                        if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                            attackHit(c,player);
+                        }
+                    }
+
+                }
+                case LEFT: {
+                    if(player.xcoord < (c.xcoord - 0.5)){
+
+                        xDist = c.xcoord - player.xcoord;
+                        yDist = c.ycoord - player.ycoord;
+                        if(c.atkRange > (xDist * xDist) + (yDist * yDist)){
+                            attackHit(c,player);
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    public void attackHit(Combatant a, Combatant d){
+
+        d.decHp(a.getAtk());
     }
 }
