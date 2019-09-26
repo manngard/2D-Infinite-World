@@ -1,6 +1,6 @@
 package org.openjfx.model;
 
-import org.openjfx.utils.Event;
+import org.openjfx.utils.event.Event;
 
 public class Model {
 

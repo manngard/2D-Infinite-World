@@ -1,14 +1,10 @@
-package org.openjfx.utils;
+package org.openjfx.utils.event;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Event<MsgT extends Enum> {
-
-    public static abstract class EventListener<MsgU extends Enum> {
-        public abstract void func(MsgU emsg, Object data);
-    }
 
     private List<EventListener> listeners = new ArrayList<>();
 
