@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import org.openjfx.model.EventMessage;
 import org.openjfx.model.World;
 import org.openjfx.model.tilepackage.Tile;
-import org.openjfx.utils.Event;
-import org.openjfx.utils.Event.EventListener;
+import org.openjfx.utils.event.Event;
+import org.openjfx.utils.event.EventListener;
 
 import java.util.List;
 
