@@ -1,15 +1,13 @@
 package org.openjfx.model;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
-public class Player extends Entity implements Movable{
+public class Player extends Combatant implements Movable{
 
-    private int hp;
-    private int exp;
+    private int exp = 0;
 
-    public Player(String id, int xcoord, int ycoord, int hp, int exp) {
-        super(id, xcoord, ycoord);
-        this.hp = hp;
-        this.exp = exp;
+    public Player(String ID, int XCOORD, int YCOORD, int HP, int ATK,float ATKRANGE) {
+        super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
+
     }
 
     public String getId() {
@@ -26,6 +24,14 @@ public class Player extends Entity implements Movable{
 
     public int getHp() {
         return hp;
+    }
+
+    public int getAtk(){
+        return atk;
+    }
+
+    public float getAtkRange() {
+        return atkRange;
     }
 
     public void decHp(int decAmount) {

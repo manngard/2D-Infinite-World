@@ -1,14 +1,10 @@
 package org.openjfx.model;
 
-public class Enemy extends Entity implements Movable{
+public class Enemy extends Combatant implements Movable{
 
-    private int hp;
-    private int atk;
+    public Enemy(String ID, int XCOORD, int YCOORD, int HP, int ATK,float ATKRANGE){
 
-    public Enemy(String s, int a, int b, int c, int d){
-        super(s,a,b);
-        this.hp = c;
-        this.atk = d;
+        super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
     }
 
     public int getHp() {
@@ -19,10 +15,11 @@ public class Enemy extends Entity implements Movable{
         return atk;
     }
 
+    public float getAtkRange() { return atkRange; }
+
     public void decHp(int decAmount) {
 
             hp = hp - decAmount;
-
     }
 
     public void incHp(int incAmount){

@@ -15,7 +15,7 @@ public class World {
 
     //Initiates 10 rows for the grid matrix, then fills every row with 10 Tile objects
     public World(){
-        player = new Player("Player",200,100,true,10,10);
+        player = new Player("Player",200,100,10,10, 1);
         this.worldHorizontalSideLength = 20;
         this.worldVerticalSideLength = 13;
 
@@ -31,5 +31,9 @@ public class World {
     }
     public List<List<Tile>> getWorldGrid() {
         return worldGrid;
+    }
+    public void makeAttack(Entity e){
+
+
     }
 }

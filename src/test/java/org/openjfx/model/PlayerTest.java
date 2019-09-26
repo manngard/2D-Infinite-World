@@ -8,16 +8,17 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    Player player = new Player("1", 0, 0, true, 100, 0 );
+    Player player = new Player("1", 0, 0, 100, 50, 32 );
 
     @Test
     public void createPlayerTest(){
-        Assert.assertEquals(player.getisAlive(), true);
         Assert.assertEquals(player.getHp(), 100);
         Assert.assertEquals(player.getExp(), 0);
         Assert.assertEquals(player.getId(), "1");
         Assert.assertEquals(player.getYcoord(), 0);
         Assert.assertEquals(player.getXcoord(), 0);
+        //Assert.assertEquals(player.getAtkRange(), 100);
+        Assert.assertEquals(player.getAtk(), 50);
     }
 
     @Test   //Test of Hp methods
@@ -30,11 +31,10 @@ public class PlayerTest {
         Assert.assertEquals(player.getHp(), 80);
 
         player.incHp(500);
-        Assert.assertEquals(player.getHp(), 100);
+        Assert.assertEquals(player.getHp(), 580);
 
         player.decHp(200);
-        Assert.assertEquals(player.getHp(), 0);
-        Assert.assertEquals(player.getisAlive(), false);
+        Assert.assertEquals(player.getHp(), 380);
     }
 
     @Test   //Test of Exp methods
