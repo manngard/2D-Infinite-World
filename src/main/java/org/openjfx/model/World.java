@@ -14,7 +14,10 @@ public class World {
 
     public Player player;
 
-    //Initiates 10 rows for the grid matrix, then fills every row with 10 Tile objects
+    /*Initiates int worldHorizontalSideLength rows for the grid matrix,
+    then fills every row with int worldVerticalSideLength Tile Objects,
+    the center of matrix has coordinates 0,0*/
+
     public World(){
         player = new Player("Player",0,0,true,10,10);
         this.worldHorizontalSideLength = 21;
