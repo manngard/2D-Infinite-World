@@ -5,7 +5,7 @@ public abstract class Combatant extends Entity implements Movable{
     protected int hp;
     protected int atk;
     protected  float atkRange;
-    directions direction = directions.LEFT;
+    Direction direction = Direction.LEFT;
 
     public Combatant(String i, double a, double b, int HP, int ATK, float ATKRANGE){
         super(i, a, b);
@@ -38,8 +38,24 @@ public abstract class Combatant extends Entity implements Movable{
 
     }
 
-    public void moveLeft(){};
-    public void moveRight(){};
-    public void moveUp(){};
-    public void moveDown(){};
+    @Override
+    public void move(Direction direction){
+        switch(direction){
+            case UP:
+                this.ycoord -= 1;
+                break;
+
+            case DOWN:
+                this.ycoord += 1;
+                break;
+
+            case LEFT:
+                this.xcoord -= 1;
+                break;
+
+            case RIGHT:
+                this.xcoord += 1;
+                break;
+        }
+    }
 }

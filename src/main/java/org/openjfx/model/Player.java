@@ -57,33 +57,7 @@ public class Player extends Combatant {
         exp = exp - decAmount;
     }
 
-    @Override
-    public void moveLeft() {
-        xcoord -= 1;
 
-        direction = directions.LEFT;
-    }
-
-    @Override
-    public void moveRight() {
-        xcoord += 1;
-
-        direction = directions.RIGHT;
-    }
-
-    @Override
-    public void moveUp() {
-        ycoord -= 1;
-
-        direction = directions.UP;
-    }
-
-    @Override
-    public void moveDown() {
-        ycoord += 1;
-
-        direction = directions.DOWN;
-    }
 }
 
 

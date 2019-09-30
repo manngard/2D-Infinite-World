@@ -17,28 +17,28 @@ public class Model {
     public void movePlayerUp() {
         System.out.println("Up");
         //TODO
-        world.player.moveUp();
+        world.player.move(Movable.Direction.UP);
         modelHasBeenUpdated();
     }
 
     public void movePlayerDown() {
         //TODO
         System.out.println("Down");
-        world.player.moveDown();
+        world.player.move(Movable.Direction.DOWN);
         modelHasBeenUpdated();
     }
 
     public void movePlayerRight() {
         //TODO
         System.out.println("Right");
-        world.player.moveRight();
+        world.player.move(Movable.Direction.RIGHT);
         modelHasBeenUpdated();
     }
 
     public void movePlayerLeft() {
         //TODO
         System.out.println("Left");
-        world.player.moveLeft();
+        world.player.move(Movable.Direction.LEFT);
         modelHasBeenUpdated();
 
     }
@@ -62,16 +62,16 @@ public class Model {
         double yDistance = Math.abs(world.player.ycoord - enemy.ycoord);
 
         if(xDistance >= yDistance && enemy.xcoord > world.player.xcoord){
-            enemy.moveLeft();
+            enemy.move(Movable.Direction.LEFT);
         }
         else if(xDistance >= yDistance && enemy.xcoord < world.player.xcoord){
-            enemy.moveRight();
+            enemy.move(Movable.Direction.RIGHT);
         }
         else if(yDistance > xDistance && enemy.ycoord > world.player.ycoord){
-            enemy.moveDown();
+            enemy.move(Movable.Direction.DOWN);
         }
         else if(yDistance > xDistance && enemy.ycoord < world.player.ycoord){
-            enemy.moveUp();
+            enemy.move(Movable.Direction.UP);
         }
     }
 
