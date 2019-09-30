@@ -7,7 +7,7 @@ public class Player extends Entity implements Movable{
     private int hp;
     private int exp;
 
-    public Player(String id, int xcoord, int ycoord, boolean isAlive, int hp, int exp) {
+    public Player(String id, double xcoord, double ycoord, boolean isAlive, int hp, int exp) {
         super(id, xcoord, ycoord);
         this.isAlive = isAlive;
         this.hp = hp;
@@ -18,11 +18,11 @@ public class Player extends Entity implements Movable{
         return id;
     }
 
-    public int getXcoord() {
+    public double getXcoord() {
         return xcoord;
     }
 
-    public int getYcoord() {
+    public double getYcoord() {
         return ycoord;
     }
 
@@ -67,22 +67,22 @@ public class Player extends Entity implements Movable{
 
     @Override
     public void moveLeft() {
-        xcoord -= 10;
+        xcoord -= 20;
     }
 
     @Override
     public void moveRight() {
-        xcoord += 10;
+        xcoord += 20;
     }
 
     @Override
     public void moveUp() {
-        ycoord -= 10;
+        ycoord -= 20;
     }
 
     @Override
     public void moveDown() {
-        ycoord += 10;
+        ycoord += 20;
     }
 }
 

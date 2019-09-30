@@ -3,12 +3,14 @@ package org.openjfx.model;
 import org.openjfx.utils.Event;
 
 public class Model {
+
     private World world;
-    public Event modelUpdateEvent;
+
+    public Event<EventMessage> hasUpdateEvent;
 
     public Model() {
         world = new World();
-        modelUpdateEvent = new Event();
+        hasUpdateEvent = new Event<>();
     }
 
     public void movePlayerUp() {
@@ -41,7 +43,7 @@ public class Model {
     }
 
     public void modelHasBeenUpdated() {
-        modelUpdateEvent.dispatch(Event.EventMessage.UPDATE, world);
+        hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
 }

@@ -9,23 +9,32 @@ import java.util.List;
 public class World {
     private final TileFactory tileFactory = new TileFactory();
     List<List<Tile>> worldGrid;
-    int worldVerticalSideLength;
-    int worldHorizontalSideLength;
+    double worldVerticalSideLength;
+    double worldHorizontalSideLength;
+
     public Player player;
 
-    //Initiates 10 rows for the grid matrix, then fills every row with 10 Tile objects
+    /*Initiates int worldHorizontalSideLength rows for the grid matrix,
+    then fills every row with int worldVerticalSideLength Tile Objects,
+    the center of matrix has coordinates 0,0*/
+
     public World(){
-        player = new Player("Player",200,100,true,10,10);
-        this.worldHorizontalSideLength = 20;
+        player = new Player("Player",0,0,true,10,10);
+        this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
+        double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
+        double yCoord;
 
         worldGrid = new ArrayList<List<Tile>>();
         for (int i = 0; i<worldHorizontalSideLength;i++){
             worldGrid.add(new ArrayList<Tile>());
         }
         for (List<Tile> worldrow : worldGrid){
+            xCoord++;
+            yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.getTile("Grass"));
+                worldrow.add(tileFactory.getRandomTile(xCoord,yCoord));
+                yCoord++;
             }
         }
     }
