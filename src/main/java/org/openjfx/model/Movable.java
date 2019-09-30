@@ -1,12 +1,8 @@
 package org.openjfx.model;
 
 public interface Movable {
-    enum directions{
+    public enum Direction{
         LEFT, RIGHT, UP, DOWN;
     }
-
-    public void moveLeft();
-    public void moveRight();
-    public void moveUp();
-    public void moveDown();
+    public void move(Direction direction);
 }

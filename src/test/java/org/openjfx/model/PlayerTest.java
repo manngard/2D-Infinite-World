@@ -47,10 +47,10 @@ public class PlayerTest {
 
     @Test   //  Test of move functions
     public void moveTest(){
-        player.moveUp();
+        /*player.moveUp();
         player.moveDown();
         player.moveLeft();
-        player.moveRight();
+        player.moveRight();*/
 
         //Assert.assertEquals(player.getXcoord(), 0);
         //Assert.assertEquals(player.getYcoord(), 0);
