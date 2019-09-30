@@ -50,7 +50,7 @@ public class Model {
 
     public boolean isMobWithinDistance(Enemy enemy){
 
-        if(distance(world.player, enemy) <= maxDistance)
+        if(world.distance(world.player, enemy) <= maxDistance)
             return true;
         return false;
     }
@@ -71,13 +71,6 @@ public class Model {
         else if(yDistance > xDistance && enemy.ycoord < world.player.ycoord){
             enemy.move(Movable.Direction.UP);
         }
-    }
-
-    public double distance(Entity a, Entity b){
-
-        double xDist = Math.abs(a.xcoord - b.xcoord);
-        double yDist = Math.abs(a.ycoord - b.ycoord);
-        return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
     public void playerAttacks(){
