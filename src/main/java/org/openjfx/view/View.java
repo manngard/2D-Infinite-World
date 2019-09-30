@@ -53,8 +53,8 @@ public class View {
                 double modelX = world.player.getXcoord();
                 double modelY = world.player.getYcoord();
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
-                renderTileWorld(world);
-                drawObject(world.player.getId(), translateX(modelX) , translateY(modelY));
+                renderTileWorld(world,-modelX,-modelY);
+                drawObject(world.player.getId(),translateX(0),translateY(0));
         }
     }
 
@@ -71,7 +71,7 @@ public class View {
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
-    public void renderTileWorld(World world){
+    public void renderTileWorld(World world, double playerX, double playerY){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         int xOffset = -21;
         for (List<Tile> tileRow: world.getWorldGrid()){
@@ -79,7 +79,7 @@ public class View {
             xOffset += 32;
             for (Tile tile: tileRow){
                 yOffset += 32;
-                graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + xOffset,tile.getYcoord()+ yOffset);
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + xOffset + playerX,tile.getYcoord()+ yOffset + playerY);
             }
         }
     }
