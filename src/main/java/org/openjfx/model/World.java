@@ -22,7 +22,7 @@ public class World {
 
     public World(){
 
-        player = new Player("Player",200,100,10,10, 1);
+        player = new Player("Player",0,0,10,10, 1);
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
