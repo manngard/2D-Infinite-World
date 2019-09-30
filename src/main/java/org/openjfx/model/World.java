@@ -11,12 +11,17 @@ public class World {
     List<List<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
+
     ArrayList<Enemy> EnemiesInView;
 
     public Player player;
 
-    //Initiates 10 rows for the grid matrix, then fills every row with 10 Tile objects
+    /*Initiates int worldHorizontalSideLength rows for the grid matrix,
+    then fills every row with int worldVerticalSideLength Tile Objects,
+    the center of matrix has coordinates 0,0*/
+
     public World(){
+
         player = new Player("Player",200,100,10,10, 1);
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;

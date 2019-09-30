@@ -6,8 +6,7 @@ public class Player extends Combatant {
     private int exp = 0;
 
     public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE) {
-        super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
-
+        super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE);
     }
 
     public String getId() {
@@ -61,25 +60,33 @@ public class Player extends Combatant {
     @Override
     public void moveLeft() {
         xcoord -= 1;
+
         direction = directions.LEFT;
+
     }
 
     @Override
     public void moveRight() {
         xcoord += 1;
+
         direction = directions.RIGHT;
+
     }
 
     @Override
     public void moveUp() {
         ycoord -= 1;
+
         direction = directions.UP;
+
     }
 
     @Override
     public void moveDown() {
         ycoord += 1;
+
         direction = directions.DOWN;
+
     }
 }
 
