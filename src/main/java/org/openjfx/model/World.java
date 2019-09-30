@@ -13,7 +13,7 @@ public class World {
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
 
-    final private ArrayList<Enemy> EnemiesInView = new ArrayList<Enemy>();
+    final private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public Player player;
 
@@ -26,14 +26,14 @@ public class World {
         player = new Player("Player",0,0,10,10, 1);
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
-        double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
-        double yCoord;
-        Random rand = new Random();
 
         for(int i = 0; i < 4; i++) {
-            EnemiesInView.add(new Enemy("Mob", (rand.nextInt(100) - 50), rand.nextInt(100) - 50, 100, 10, 1));
+            Random rand = new Random();
+            enemies.add(new Enemy("Mob", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 100, 10, 1));
         }
 
+        double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
+        double yCoord;
         worldGrid = new ArrayList<List<Tile>>();
         for (int i = 0; i<worldHorizontalSideLength;i++){
             worldGrid.add(new ArrayList<Tile>());
@@ -55,40 +55,40 @@ public class World {
     public void didPlayerHit(){
         switch (player.direction) {
             case UP: {
-                for(int i = 0; i < EnemiesInView.size();i++){
-                    if(EnemiesInView.get(i).ycoord > (player.ycoord + 0.5)){
-                        if(player.atkRange > distance(EnemiesInView.get(i), player)){
-                            attackHit(player,EnemiesInView.get(i));
+                for(int i = 0; i < enemies.size(); i++){
+                    if(enemies.get(i).ycoord > (player.ycoord + 0.5)){
+                        if(player.atkRange > distance(enemies.get(i), player)){
+                            attackHit(player, enemies.get(i));
                         }
                     }
                 }
 
             }
             case DOWN: {
-                for(int i = 0; i < EnemiesInView.size();i++){
-                    if(EnemiesInView.get(i).ycoord < (player.ycoord - 0.5)){
-                        if(player.atkRange > distance(EnemiesInView.get(i), player)){
-                            attackHit(player,EnemiesInView.get(i));
+                for(int i = 0; i < enemies.size(); i++){
+                    if(enemies.get(i).ycoord < (player.ycoord - 0.5)){
+                        if(player.atkRange > distance(enemies.get(i), player)){
+                            attackHit(player, enemies.get(i));
                         }
                     }
                 }
 
             }
             case RIGHT: {
-                for(int i = 0; i < EnemiesInView.size();i++){
-                    if(EnemiesInView.get(i).xcoord > (player.xcoord + 0.5)){
-                        if(player.atkRange > distance(EnemiesInView.get(i), player)){
-                            attackHit(player,EnemiesInView.get(i));
+                for(int i = 0; i < enemies.size(); i++){
+                    if(enemies.get(i).xcoord > (player.xcoord + 0.5)){
+                        if(player.atkRange > distance(enemies.get(i), player)){
+                            attackHit(player, enemies.get(i));
                         }
                     }
                 }
 
             }
             case LEFT: {
-                for(int i = 0; i < EnemiesInView.size();i++){
-                    if(EnemiesInView.get(i).ycoord < (player.ycoord - 0.5)){
-                        if(player.atkRange > distance(EnemiesInView.get(i), player)){
-                            attackHit(player,EnemiesInView.get(i));
+                for(int i = 0; i < enemies.size(); i++){
+                    if(enemies.get(i).ycoord < (player.ycoord - 0.5)){
+                        if(player.atkRange > distance(enemies.get(i), player)){
+                            attackHit(player, enemies.get(i));
                         }
                     }
                 }
@@ -148,8 +148,8 @@ public class World {
 
     //getters and setters
 
-    public List<Enemy> getEnemiesInView(){
+    public List<Enemy> getEnemies(){
 
-        return EnemiesInView;
+        return enemies;
     }
 }

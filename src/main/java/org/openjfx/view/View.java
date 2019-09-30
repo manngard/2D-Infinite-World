@@ -21,14 +21,14 @@ public class View {
     private Stage stage;
     @FXML
     private Canvas gameScreen;
-    final int pixelSize = 32;
+    final int pixelSize = 33; //including 1px spacing between tiles
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
 
         StackPane layers = new StackPane();
-        int screenXSize = pixelSize*21 + 21; //why is constant offset needed here? (1 pizel gap between tiles?)
-        int screenYSize = pixelSize*13 + 13; //why is constant offset needed here?
+        int screenXSize = pixelSize*21;
+        int screenYSize = pixelSize*13;
         Scene scene = new Scene(layers, screenXSize,screenYSize);
 
         gameScreen = new Canvas(screenXSize,screenYSize);
@@ -56,18 +56,19 @@ public class View {
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,-modelX,-modelY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
-                for(Enemy e : world.getEnemiesInView()){
-                    drawObject(e.getId(), translateX(e.getXcoord()), translateY(e.getYcoord()));
+                for(Enemy e : world.getEnemies()){
+                    drawObject(e.getId(), translateX(e.getXcoord())-world.player.getXcoord(), translateY(e.getYcoord())-world.player.getYcoord());
                 }
+
         }
     }
 
     public double translateY(double modelY){
-        return gameScreen.getHeight()/2 + modelY - 16;
+        return gameScreen.getHeight()/2 + modelY*pixelSize - 16;
     }
 
     public double translateX(double modelX){
-        return gameScreen.getWidth()/2 + modelX - 16;
+        return gameScreen.getWidth()/2 + modelX*pixelSize - 16;
     }
 
     //Draws object with String id
