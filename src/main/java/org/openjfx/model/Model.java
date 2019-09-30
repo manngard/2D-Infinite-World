@@ -49,10 +49,8 @@ public class Model {
     }
 
     public boolean isMobWithinDistance(Enemy enemy){
-        double playerxcoord = world.player.xcoord;
-        double playerycoord = world.player.ycoord;
-        double distance = Math.sqrt(Math.pow((playerxcoord - enemy.xcoord),2) + Math.pow((playerycoord - enemy.ycoord),2));
-        if(distance <= maxDistance)
+
+        if(distance(world.player, enemy) <= maxDistance)
             return true;
         return false;
     }
@@ -73,6 +71,18 @@ public class Model {
         else if(yDistance > xDistance && enemy.ycoord < world.player.ycoord){
             enemy.moveUp();
         }
+    }
+
+    public double distance(Entity a, Entity b){
+
+        double xDist = Math.abs(a.xcoord - b.xcoord);
+        double yDist = Math.abs(a.ycoord - b.ycoord);
+        return Math.sqrt((yDist * yDist) + (xDist * xDist));
+    }
+
+    public void playerAttacks(){
+
+
     }
 
 }
