@@ -62,7 +62,6 @@ public class Player extends Combatant {
         xcoord -= 1;
 
         direction = directions.LEFT;
-
     }
 
     @Override
@@ -70,7 +69,6 @@ public class Player extends Combatant {
         xcoord += 1;
 
         direction = directions.RIGHT;
-
     }
 
     @Override
@@ -78,7 +76,6 @@ public class Player extends Combatant {
         ycoord -= 1;
 
         direction = directions.UP;
-
     }
 
     @Override
@@ -86,7 +83,6 @@ public class Player extends Combatant {
         ycoord += 1;
 
         direction = directions.DOWN;
-
     }
 }
 
