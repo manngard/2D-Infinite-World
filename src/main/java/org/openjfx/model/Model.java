@@ -44,24 +44,34 @@ public class Model {
     }
 
     public void modelHasBeenUpdated() {
+
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-    public boolean isMobWithinDistance(Entity entity){
-        int playerxcoord = world.player.xcoord;
-        int playerycoord = world.player.ycoord;
-        double distance = Math.sqrt(Math.pow((playerxcoord - entity.xcoord),2) + Math.pow((playerycoord - entity.ycoord),2));
+    public boolean isMobWithinDistance(Enemy enemy){
+        double playerxcoord = world.player.xcoord;
+        double playerycoord = world.player.ycoord;
+        double distance = Math.sqrt(Math.pow((playerxcoord - enemy.xcoord),2) + Math.pow((playerycoord - enemy.ycoord),2));
         if(distance <= maxDistance)
             return true;
         return false;
     }
 
-    public void moveMobToPlayer(Entity entity){
-        int xDistance = world.player.xcoord - entity.xcoord;
-        int yDistance = world.player.ycoord - entity.ycoord;
+    public void moveMobToPlayer(Enemy enemy){
+        double xDistance = Math.abs(world.player.xcoord - enemy.xcoord);
+        double yDistance = Math.abs(world.player.ycoord - enemy.ycoord);
 
-        if(xDistance > yDistance){
-            
+        if(xDistance >= yDistance && enemy.xcoord > world.player.xcoord){
+            enemy.moveLeft();
+        }
+        else if(xDistance >= yDistance && enemy.xcoord < world.player.xcoord){
+            enemy.moveRight();
+        }
+        else if(yDistance > xDistance && enemy.ycoord > world.player.ycoord){
+            enemy.moveDown();
+        }
+        else if(yDistance > xDistance && enemy.ycoord < world.player.ycoord){
+            enemy.moveUp();
         }
     }
 
