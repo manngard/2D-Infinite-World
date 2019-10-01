@@ -1,7 +1,7 @@
 package org.openjfx.model;
 
-import org.openjfx.model.tilepackage.Tile;
-import org.openjfx.model.tilepackage.TileFactory;
+import org.openjfx.model.tile.Tile;
+import org.openjfx.model.tile.TileFactory;
 
 import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
@@ -46,12 +46,11 @@ public class World {
             xCoord++;
             yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.getRandomTile(xCoord,yCoord));
+                worldrow.add(tileFactory.generateTile(xCoord,yCoord));
                 Chest chest = worldrow.get(i).getChest();
                 if (chest != null){
                     chests.add(chest);
                 }
-
                 yCoord++;
             }
         }
