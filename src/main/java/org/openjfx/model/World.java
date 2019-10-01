@@ -1,7 +1,7 @@
 package org.openjfx.model;
 
-import org.openjfx.model.tilepackage.Tile;
-import org.openjfx.model.tilepackage.TileFactory;
+import org.openjfx.model.tile.Tile;
+import org.openjfx.model.tile.TileFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class World {
             xCoord++;
             yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.getRandomTile(xCoord,yCoord));
+                worldrow.add(tileFactory.generateTile(xCoord,yCoord));
                 yCoord++;
             }
         }

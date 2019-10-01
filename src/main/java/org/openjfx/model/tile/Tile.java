@@ -1,4 +1,4 @@
-package org.openjfx.model.tilepackage;
+package org.openjfx.model.tile;
 
 import org.openjfx.model.Chest;
 import org.openjfx.model.Entity;

@@ -2,7 +2,7 @@ package org.openjfx.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openjfx.model.tilepackage.Tile;
+import org.openjfx.model.tile.Tile;
 
 import java.util.List;
 

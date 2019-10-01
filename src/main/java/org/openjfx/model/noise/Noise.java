@@ -28,7 +28,7 @@ public class Noise {
     }
 
     public double getValue(int xCoord, int yCoord) {
-        return noiseGenerator.eval(xCoord, yCoord);
+        return (noiseGenerator.eval(xCoord, yCoord) + 1) / 2;
     }
 
 }
