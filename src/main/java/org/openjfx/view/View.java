@@ -84,9 +84,7 @@ public class View {
     public void renderTileWorld(World world, double playerX, double playerY){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         for (List<Tile> tileRow: world.getWorldGrid()){
-            //xOffset += 32;
             for (Tile tile: tileRow){
-                //yOffset += 32;
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
             }
         }
