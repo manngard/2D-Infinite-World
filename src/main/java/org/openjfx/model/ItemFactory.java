@@ -5,20 +5,35 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemFactory {
-    List<String> itemtypes = new ArrayList<>();
+    List<String> weapontypes = new ArrayList<>();
+    List<String> armortypes = new ArrayList<>();
     private static ItemFactory instance;
 
 
     private ItemFactory(){
-        itemtypes.add("Sword");
-        itemtypes.add("Axe");
+        weapontypes.add("Sword");
+        weapontypes.add("Axe");
+
+        armortypes.add("Cloth armor");
+        armortypes.add("Plate armor");
     }
 
     public Item getRandomItem(){
         Random rand = new Random();
-        int randPos = rand.nextInt(itemtypes.size());
-        String id = itemtypes.get(randPos);
-        return new Weapon(id); //only creates weapons for now
+        int randIndex;
+        String id;
+        int itemtype = rand.nextInt(2);
+        switch(itemtype){
+            case 0:
+                randIndex = rand.nextInt(weapontypes.size());
+                id = weapontypes.get(randIndex);
+                return new Weapon(id);
+            case 1:
+                randIndex = rand.nextInt(armortypes.size());
+                id = armortypes.get(randIndex);
+                return new Armor(id);
+        }
+        return null; //will never happen
     }
 
     public static ItemFactory getInstance() {
