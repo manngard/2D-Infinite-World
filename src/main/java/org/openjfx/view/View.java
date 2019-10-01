@@ -80,6 +80,9 @@ public class View {
             for (Tile tile: tileRow){
                 yOffset += 32;
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + xOffset + playerX,tile.getYcoord()+ yOffset + playerY);
+                if (tile.getChest() != null){
+                    graphics.drawImage(ResourceHandler.getResource(tile.getChest().getId()),tile.getXcoord() + xOffset + playerX, tile.getYcoord() + yOffset + playerX);
+                }
             }
         }
     }

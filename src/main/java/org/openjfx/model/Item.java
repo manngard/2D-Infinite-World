@@ -1,17 +1,18 @@
 package org.openjfx.model;
 
-public class Item {
+public abstract class Item {
 
-    private String name;
+    private String id;
 
-    public Item(String s){
-        this.name = s;
+
+    public Item(String id){
+        this.id = id;
     }
 
     public String getName(){
-        return this.name;
+        return this.id;
     }
-    public void setName(String s){
-        this.name = s;
+    public void setName(String id){
+        this.id = id;
     }
 }
