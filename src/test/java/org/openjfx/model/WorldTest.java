@@ -24,5 +24,9 @@ public class WorldTest {
         }
         assertTrue(columns == world.worldHorizontalSideLength);
     }
+    @Test
+    public void attack(){
+
+    }
 
 }

@@ -55,26 +55,9 @@ public class Model {
         return false;
     }
 
-    public void moveMobToPlayer(Enemy enemy){
-        double xDistance = Math.abs(world.player.xcoord - enemy.xcoord);
-        double yDistance = Math.abs(world.player.ycoord - enemy.ycoord);
-
-        if(xDistance >= yDistance && enemy.xcoord > world.player.xcoord){
-            enemy.move(Movable.Direction.LEFT);
-        }
-        else if(xDistance >= yDistance && enemy.xcoord < world.player.xcoord){
-            enemy.move(Movable.Direction.RIGHT);
-        }
-        else if(yDistance > xDistance && enemy.ycoord > world.player.ycoord){
-            enemy.move(Movable.Direction.DOWN);
-        }
-        else if(yDistance > xDistance && enemy.ycoord < world.player.ycoord){
-            enemy.move(Movable.Direction.UP);
-        }
-    }
-
     public void playerAttacks(){
 
+        world.playerAttacks();
 
     }
 

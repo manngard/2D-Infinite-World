@@ -52,48 +52,55 @@ public class World {
     }
 
     //combat related
-    public void didPlayerHit(){
+    public void playerAttacks(){
+
+        System.out.print(player.direction);
+
         switch (player.direction) {
-            case UP: {
-                for(int i = 0; i < enemies.size(); i++){
-                    if(enemies.get(i).ycoord > (player.ycoord + 0.5)){
-                        if(player.atkRange > distance(enemies.get(i), player)){
-                            attackHit(player, enemies.get(i));
+            case UP:
+                for(Enemy e: enemies){
+                    System.out.print(" : " + e.ycoord + " " + player.ycoord);
+                    if(e.ycoord > (player.ycoord + 0.5)){
+                        System.out.print(" valid ");
+                        if(player.atkRange > distance(e, player)){
+                            attackHit(player, e);
                         }
                     }
                 }
-
-            }
-            case DOWN: {
-                for(int i = 0; i < enemies.size(); i++){
-                    if(enemies.get(i).ycoord < (player.ycoord - 0.5)){
-                        if(player.atkRange > distance(enemies.get(i), player)){
-                            attackHit(player, enemies.get(i));
+                break;
+            case DOWN:
+                for(Enemy e: enemies){
+                    System.out.print(" : " + e.ycoord + " " + player.ycoord);
+                    if(e.ycoord < (player.ycoord - 0.5)){
+                        System.out.print(" valid ");
+                        if(player.atkRange > distance(e, player)){
+                            attackHit(player, e);
                         }
                     }
                 }
-
-            }
-            case RIGHT: {
-                for(int i = 0; i < enemies.size(); i++){
-                    if(enemies.get(i).xcoord > (player.xcoord + 0.5)){
-                        if(player.atkRange > distance(enemies.get(i), player)){
-                            attackHit(player, enemies.get(i));
+                break;
+            case RIGHT:
+                for(Enemy e: enemies){
+                    System.out.print(" : " + e.xcoord + " " + player.xcoord);
+                    if(e.xcoord > (player.xcoord + 0.5)){
+                        System.out.print(" valid ");
+                        if(player.atkRange > distance(e, player)){
+                            attackHit(player, e);
                         }
                     }
                 }
-
-            }
-            case LEFT: {
-                for(int i = 0; i < enemies.size(); i++){
-                    if(enemies.get(i).ycoord < (player.ycoord - 0.5)){
-                        if(player.atkRange > distance(enemies.get(i), player)){
-                            attackHit(player, enemies.get(i));
+                break;
+            case LEFT:
+                for(Enemy e: enemies){
+                    System.out.print(" : " + e.xcoord + " " + player.xcoord);
+                    if(e.xcoord < (player.xcoord - 0.5)){
+                        System.out.print(" valid ");
+                        if(player.atkRange > distance(e, player)){
+                            attackHit(player, e);
                         }
                     }
                 }
-
-            }
+                break;
         }
 
     }
@@ -137,6 +144,12 @@ public class World {
     public void attackHit(Combatant a, Combatant d){
 
         d.decHp(a.getAtk());
+        System.out.print("Player hit enemy");
+        if(d.getHp() < 0){
+            enemies.remove(d);
+        }
+
+
     }
 
     public double distance(Entity a, Entity b){
@@ -144,6 +157,24 @@ public class World {
         double xDist = Math.abs(a.xcoord - b.xcoord);
         double yDist = Math.abs(a.ycoord - b.ycoord);
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
+    }
+
+    public void moveToEntity(Combatant a, Entity b){
+        double xDistance = Math.abs(player.xcoord - a.xcoord);
+        double yDistance = Math.abs(player.ycoord - a.ycoord);
+
+        if(xDistance >= yDistance && a.xcoord > b.xcoord){
+            a.move(Movable.Direction.LEFT);
+        }
+        else if(xDistance >= yDistance && a.xcoord < b.xcoord){
+            a.move(Movable.Direction.RIGHT);
+        }
+        else if(yDistance > xDistance && a.ycoord > b.ycoord){
+            a.move(Movable.Direction.DOWN);
+        }
+        else if(yDistance > xDistance && a.ycoord < b.ycoord){
+            a.move(Movable.Direction.UP);
+        }
     }
 
     //getters and setters

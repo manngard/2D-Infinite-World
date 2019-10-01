@@ -29,6 +29,9 @@ public class Controller {
             case LEFT:
                 model.movePlayerLeft();
                 break;
+            case SPACE:
+                model.playerAttacks();
+                break;
         }
     }
 }
