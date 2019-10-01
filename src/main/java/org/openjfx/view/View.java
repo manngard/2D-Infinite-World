@@ -21,14 +21,17 @@ public class View {
     private Stage stage;
     @FXML
     private Canvas gameScreen;
-    final int pixelSize = 33; //including 1px spacing between tiles
+    private final int pixelSize = 33; //including 1px spacing between tiles
+    private int screenXSize;
+    private int screenYSize;
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
 
         StackPane layers = new StackPane();
-        int screenXSize = pixelSize*21;
-        int screenYSize = pixelSize*13;
+
+        screenXSize = pixelSize*21;
+        screenYSize = pixelSize*13;
         Scene scene = new Scene(layers, screenXSize,screenYSize);
 
         gameScreen = new Canvas(screenXSize,screenYSize);
@@ -51,13 +54,15 @@ public class View {
         switch (emsg) {
             case UPDATE:
                 World world = (World) data;
-                double modelX = world.player.getXcoord();
-                double modelY = world.player.getYcoord();
+                double xOffset = (screenXSize/2) -pixelSize/2;
+                double yOffset = (screenYSize/2) -pixelSize/2;
+                double playerX = translateX(world.player.getXcoord()) - xOffset;
+                double playerY = translateY(world.player.getYcoord()) - yOffset;
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
-                renderTileWorld(world,-modelX,-modelY);
+                renderTileWorld(world,playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
                 for(Enemy e : world.getEnemies()){
-                    drawObject(e.getId(), translateX(e.getXcoord())-world.player.getXcoord(), translateY(e.getYcoord())-world.player.getYcoord());
+                    drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
                 }
 
         }
@@ -78,13 +83,11 @@ public class View {
     }
     public void renderTileWorld(World world, double playerX, double playerY){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
-        int xOffset = -21;
         for (List<Tile> tileRow: world.getWorldGrid()){
-            int yOffset = -24;
-            xOffset += 32;
+            //xOffset += 32;
             for (Tile tile: tileRow){
-                yOffset += 32;
-                graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + xOffset + playerX,tile.getYcoord()+ yOffset + playerY);
+                //yOffset += 32;
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
             }
         }
     }
