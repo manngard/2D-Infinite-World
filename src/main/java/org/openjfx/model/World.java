@@ -56,51 +56,46 @@ public class World {
 
         System.out.print(player.direction);
 
-        switch (player.direction) {
-            case UP:
-                for(Enemy e: enemies){
+        for(Enemy e: enemies){
+            switch (player.direction) {
+                case UP:
                     System.out.print(" : " + e.ycoord + " " + player.ycoord);
-                    if(e.ycoord > (player.ycoord + 0.5)){
+                    if (e.ycoord > (player.ycoord + 0.5)) {
                         System.out.print(" valid ");
-                        if(player.atkRange > distance(e, player)){
+                        if (player.atkRange > distance(e, player)) {
                             attackHit(player, e);
                         }
                     }
-                }
-                break;
-            case DOWN:
-                for(Enemy e: enemies){
+                    break;
+                case DOWN:
                     System.out.print(" : " + e.ycoord + " " + player.ycoord);
-                    if(e.ycoord < (player.ycoord - 0.5)){
+                    if (e.ycoord < (player.ycoord - 0.5)) {
                         System.out.print(" valid ");
-                        if(player.atkRange > distance(e, player)){
+                        if (player.atkRange > distance(e, player)) {
                             attackHit(player, e);
                         }
                     }
-                }
-                break;
-            case RIGHT:
-                for(Enemy e: enemies){
+                    break;
+                case RIGHT:
                     System.out.print(" : " + e.xcoord + " " + player.xcoord);
-                    if(e.xcoord > (player.xcoord + 0.5)){
+                    if (e.xcoord > (player.xcoord + 0.5)) {
                         System.out.print(" valid ");
-                        if(player.atkRange > distance(e, player)){
+                        if (player.atkRange > distance(e, player)) {
                             attackHit(player, e);
                         }
                     }
-                }
-                break;
-            case LEFT:
-                for(Enemy e: enemies){
+                    break;
+                case LEFT:
                     System.out.print(" : " + e.xcoord + " " + player.xcoord);
-                    if(e.xcoord < (player.xcoord - 0.5)){
+                    if (e.xcoord < (player.xcoord - 0.5)) {
                         System.out.print(" valid ");
-                        if(player.atkRange > distance(e, player)){
+                        if (player.atkRange > distance(e, player)) {
                             attackHit(player, e);
                         }
                     }
-                }
-                break;
+
+                    break;
+            }
         }
 
     }
@@ -157,6 +152,50 @@ public class World {
         double xDist = Math.abs(a.xcoord - b.xcoord);
         double yDist = Math.abs(a.ycoord - b.ycoord);
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
+    }
+
+    public boolean isPathFree(Combatant c){
+        double checkX1 = c.xcoord;
+        double checkY1 = c.ycoord;
+        double checkX2 = c.xcoord;
+        double checkY2 = c.ycoord;
+
+        switch(c.direction) {
+            case UP:
+                checkY1 = +0.5;
+                checkX1 = +0.5;
+                checkX2 = -0.5;
+                checkY2 = +0.5;
+                break;
+            case DOWN:
+                checkY1 = -0.5;
+                checkX1 = +0.5;
+                checkX2 = -0.5;
+                checkY2 = -0.5;
+                break;
+            case RIGHT:
+                checkY1 = +0.5;
+                checkX1 = +0.5;
+                checkX2 = +0.5;
+                checkY2 = -0.5;
+                break;
+            case LEFT:
+                checkY1 = +0.5;
+                checkX1 = -0.5;
+                checkX2 = -0.5;
+                checkY2 = -0.5;
+                break;
+        }
+
+        if (worldGrid.get(Math.toIntExact(Math.round(checkY1))).get(Math.toIntExact(Math.round(checkX1))).getISSolid()){
+            return false;
+        }
+        else if (worldGrid.get(Math.toIntExact(Math.round(checkY2))).get(Math.toIntExact(Math.round(checkX2))).getISSolid()){
+            return false;
+        }
+
+        return true;
+
     }
 
     public void moveToEntity(Combatant a, Entity b){

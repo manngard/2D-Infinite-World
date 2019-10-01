@@ -9,4 +9,8 @@ public class Tile extends Entity {
     public Tile(String id,double x, double y){
         super(id,x,y);
     }
+
+    public boolean getISSolid(){
+        return this.isSolid;
+    }
 }
