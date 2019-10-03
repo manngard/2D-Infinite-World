@@ -61,4 +61,23 @@ public class Model {
 
     }
 
+    public void moveMob(Enemy enemy){
+        int rand = (int)Math.ceil(Math.random() * 2);
+
+        if(isMobWithinDistance(enemy)){
+            if(world.player.xcoord < enemy.xcoord){
+                enemy.move(Movable.Direction.LEFT);
+            }
+            else if(world.player.xcoord > enemy.xcoord){
+                enemy.move(Movable.Direction.RIGHT);
+            }
+            else if(world.player.ycoord < enemy.ycoord){
+                enemy.move(Movable.Direction.UP);
+            }
+            else if(world.player.ycoord > enemy.ycoord){
+                enemy.move(Movable.Direction.DOWN);
+            }
+        }
+    }
+
 }
