@@ -8,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.openjfx.model.Combatant;
 import org.openjfx.model.Enemy;
 import org.openjfx.model.EventMessage;
 import org.openjfx.model.World;
@@ -61,7 +62,7 @@ public class View {
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
-                for(Enemy e : world.getEnemies()){
+                for(Combatant e : world.getEnemies()){
                     drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
                 }
 

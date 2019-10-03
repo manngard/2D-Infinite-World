@@ -13,7 +13,7 @@ public class World {
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
 
-    final private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
 
     public Player player;
 
@@ -23,7 +23,7 @@ public class World {
 
     public World(){
 
-        player = new Player("Player",0,0,10,10, 1);
+        player = new Player("Player",0,0,10,10, 2);
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
@@ -52,96 +52,68 @@ public class World {
     }
 
     //combat related
-    public void playerAttacks(){
+    public ArrayList<Combatant> playerAttacks(Combatant a, ArrayList<Combatant> d){
 
         System.out.print(player.direction);
 
-        for(Enemy e: enemies){
-            switch (player.direction) {
+        ArrayList<Combatant> combatantsHit = new ArrayList<Combatant>();
+
+        for(Combatant c: d){
+            switch (a.direction) {
                 case UP:
-                    System.out.print(" : " + e.ycoord + " " + player.ycoord);
-                    if (e.ycoord > (player.ycoord + 0.5)) {
+                    System.out.print(" : " + c.ycoord + " " + player.ycoord);
+                    if (c.ycoord < (a.ycoord)) {
                         System.out.print(" valid ");
-                        if (player.atkRange > distance(e, player)) {
-                            attackHit(player, e);
+                        if (a.atkRange > distance(c, a)) {
+                            combatantsHit.add(c);
                         }
                     }
                     break;
                 case DOWN:
-                    System.out.print(" : " + e.ycoord + " " + player.ycoord);
-                    if (e.ycoord < (player.ycoord - 0.5)) {
+                    System.out.print(" : " + c.ycoord + " " + player.ycoord);
+                    if (c.ycoord > (a.ycoord)) {
                         System.out.print(" valid ");
-                        if (player.atkRange > distance(e, player)) {
-                            attackHit(player, e);
+                        if (a.atkRange > distance(c, a)) {
+                            combatantsHit.add(c);
                         }
                     }
                     break;
                 case RIGHT:
-                    System.out.print(" : " + e.xcoord + " " + player.xcoord);
-                    if (e.xcoord > (player.xcoord + 0.5)) {
+                    System.out.print(" : " + c.xcoord + " " + player.xcoord);
+                    if (c.xcoord > (a.xcoord)) {
                         System.out.print(" valid ");
-                        if (player.atkRange > distance(e, player)) {
-                            attackHit(player, e);
+                        if (a.atkRange > distance(c, a)) {
+                            combatantsHit.add(c);
                         }
                     }
                     break;
                 case LEFT:
-                    System.out.print(" : " + e.xcoord + " " + player.xcoord);
-                    if (e.xcoord < (player.xcoord - 0.5)) {
+                    System.out.print(" : " + c.xcoord + " " + player.xcoord);
+                    if (c.xcoord < (a.xcoord)) {
                         System.out.print(" valid ");
-                        if (player.atkRange > distance(e, player)) {
-                            attackHit(player, e);
+                        if (a.atkRange > distance(c, a)) {
+                            combatantsHit.add(c);
                         }
                     }
 
                     break;
             }
+
         }
+
+        return combatantsHit;
 
     }
 
-    public void didEnemyHit(Enemy e){
-        switch (e.direction) {
-            case UP: {
-                if(player.ycoord > (e.ycoord + 0.5)){
-                    if(e.atkRange > distance(e, player)){
-                        attackHit(e, player);
-                    }
-                }
+    public void attackHit(Combatant a, ArrayList<Combatant> hit){
+
+        for(Combatant d: hit) {
+            d.decHp(a.getAtk());
+            System.out.print("Player hit enemy");
+            if(d.getHp() <= 0){
+                enemies.remove(d);
             }
-            case DOWN: {
-                if(player.ycoord < (e.ycoord - 0.5)){
-                    if(e.atkRange > distance(e, player)){
-                        attackHit(e, player);
-                    }
-                }
-            }
-            case RIGHT: {
-                if(player.xcoord > (e.xcoord + 0.5)){
-                    if(e.atkRange > distance(e, player)){
-                        attackHit(e, player);
-                    }
-                }
 
-            }
-            case LEFT: {
-                if(player.xcoord < (e.xcoord - 0.5)){
-                    if(e.atkRange > distance(e, player)){
-                        attackHit(e, player);
-                    }
-                }
-
-            }
-        }
-
-    }
-
-    public void attackHit(Combatant a, Combatant d){
-
-        d.decHp(a.getAtk());
-        System.out.print("Player hit enemy");
-        if(d.getHp() < 0){
-            enemies.remove(d);
         }
 
 
@@ -218,7 +190,7 @@ public class World {
 
     //getters and setters
 
-    public List<Enemy> getEnemies(){
+    public ArrayList<Combatant> getEnemies(){
 
         return enemies;
     }

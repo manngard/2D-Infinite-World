@@ -57,12 +57,14 @@ public class Model {
 
     public void playerAttacks(){
 
-        world.playerAttacks();
+        world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
 
     }
 
     public void moveMob(Enemy enemy){
-        int rand = (int)Math.ceil(Math.random() * 2);
+
+        //Int to use for future random mob movement
+        //int rand = (int)Math.ceil(Math.random() * 2);
 
         if(isMobWithinDistance(enemy)){
             if(world.player.xcoord < enemy.xcoord){
