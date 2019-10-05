@@ -21,9 +21,12 @@ import java.util.List;
 
 public class View {
     private Stage stage;
-    @FXML
     private Canvas gameScreen;
+    private Rectangle healthbar;
+
     final int pixelSize = 32;
+
+
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
@@ -36,7 +39,8 @@ public class View {
         gameScreen = new Canvas(screenXSize,screenYSize);
         layers.getChildren().add(gameScreen);
 
-
+        healthbar = new Rectangle(180,30,Color.color(1, 0.2, 0.2)
+        );
 
         stage.setScene(scene);
         stage.show();
@@ -82,7 +86,12 @@ public class View {
     private void renderOverlay(int HP){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         int healthbarWidth = 18*HP;
-        graphics.drawImage(ResourceHandler.getResource("Healthbar"),gameScreen.getWidth() -200, 20, healthbarWidth,30);
+        healthbar.setWidth(healthbarWidth);
+        graphics.setFill(Color.WHITE);
+        graphics.fillRect(gameScreen.getWidth() -200, 20, 180,30);
+        graphics.setFill(healthbar.getFill());
+        graphics.fillRect(gameScreen.getWidth() -200,20,healthbarWidth,healthbar.getHeight());
+        graphics.drawImage(ResourceHandler.getResource("HealthbarOutliner"),gameScreen.getWidth() -200, 20);
     }
 
     public void renderTileWorld(World world, double playerX, double playerY){
