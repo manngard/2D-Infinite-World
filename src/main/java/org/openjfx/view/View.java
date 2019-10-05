@@ -3,10 +3,13 @@ package org.openjfx.view;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.openjfx.model.EventMessage;
 import org.openjfx.model.World;
@@ -33,6 +36,8 @@ public class View {
         gameScreen = new Canvas(screenXSize,screenYSize);
         layers.getChildren().add(gameScreen);
 
+
+
         stage.setScene(scene);
         stage.show();
 
@@ -52,9 +57,11 @@ public class View {
                 World world = (World) data;
                 double modelX = world.player.getXcoord();
                 double modelY = world.player.getYcoord();
+                int playerHP = world.player.getHp();
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,-modelX,-modelY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
+                renderOverlay(playerHP);
         }
     }
 
@@ -71,6 +78,13 @@ public class View {
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
+
+    private void renderOverlay(int HP){
+        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
+        int healthbarWidth = 18*HP;
+        graphics.drawImage(ResourceHandler.getResource("Healthbar"),gameScreen.getWidth() -200, 20, healthbarWidth,30);
+    }
+
     public void renderTileWorld(World world, double playerX, double playerY){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         int xOffset = -21;
