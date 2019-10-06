@@ -17,6 +17,7 @@ public class Model {
         System.out.println("Up");
         //TODO
         world.player.moveUp();
+        world.updateWorldGrid(world.player);
         modelHasBeenUpdated();
     }
 
@@ -24,6 +25,7 @@ public class Model {
         //TODO
         System.out.println("Down");
         world.player.moveDown();
+        world.updateWorldGrid(world.player);
         modelHasBeenUpdated();
     }
 
@@ -31,6 +33,7 @@ public class Model {
         //TODO
         System.out.println("Right");
         world.player.moveRight();
+        world.updateWorldGrid(world.player);
         modelHasBeenUpdated();
     }
 
@@ -38,6 +41,7 @@ public class Model {
         //TODO
         System.out.println("Left");
         world.player.moveLeft();
+        world.updateWorldGrid(world.player);
         modelHasBeenUpdated();
 
     }
