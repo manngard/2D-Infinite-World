@@ -18,4 +18,5 @@ public class Chest extends Entity{
         return inventory.length;
     }
 
+
 }
