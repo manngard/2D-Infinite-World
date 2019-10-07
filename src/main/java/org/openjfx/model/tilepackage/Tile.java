@@ -12,6 +12,11 @@ public class Tile extends Entity {
         super(id,x,y);
         this.chest = chest;
     }
+
+    public Tile(String id, double x, double y){
+        this(null, id, x, y);
+    }
+
     public Chest getChest() {
         return chest;
     }
