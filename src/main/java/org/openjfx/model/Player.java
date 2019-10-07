@@ -4,6 +4,8 @@ package org.openjfx.model;
 public class Player extends Combatant {
 
     private int exp = 0;
+    private Item[] inventory = new Item[4];
+
 
     public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE) {
         super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE);
@@ -57,7 +59,9 @@ public class Player extends Combatant {
         exp = exp - decAmount;
     }
 
-
+    public Item[] getInventory() {
+        return inventory;
+    }
 }
 
 

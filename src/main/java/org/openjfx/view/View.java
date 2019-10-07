@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.openjfx.model.Combatant;
 import org.openjfx.model.Enemy;
 import org.openjfx.model.EventMessage;
+import org.openjfx.model.Item;
 import org.openjfx.model.World;
 import org.openjfx.model.tilepackage.Tile;
 import org.openjfx.utils.event.Event;
@@ -73,7 +74,7 @@ public class View {
 
 
                 int playerHP = world.player.getHp();
-
+                Item [] playerInventory = world.player.getInventory();
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
@@ -82,7 +83,7 @@ public class View {
                     drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
                 }
 
-                renderOverlay(playerHP);
+                renderOverlay(playerHP,playerInventory);
         }
     }
 
@@ -100,7 +101,7 @@ public class View {
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
 
-    private void renderOverlay(int HP){
+    private void renderOverlay(int HP, Item[] inventory){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         int healthbarWidth = 18*HP;
         healthbar.setWidth(healthbarWidth);
@@ -108,7 +109,18 @@ public class View {
         graphics.fillRect(gameScreen.getWidth() -200, 20, 180,30);
         graphics.setFill(healthbar.getFill());
         graphics.fillRect(gameScreen.getWidth() -200,20,healthbarWidth,healthbar.getHeight());
-        graphics.drawImage(ResourceHandler.getResource("HealthbarOutliner"),gameScreen.getWidth() -200, 20);
+        graphics.drawImage(ResourceHandler.getResource("HealthbarContainer"),gameScreen.getWidth() -200, 20);
+
+        for (int i = 0; i<inventory.length; i++){
+            double xCoord = gameScreen.getWidth() -(pixelSize*2*(inventory.length -i) + 20);
+            double yCoord = gameScreen.getHeight() - pixelSize*2 - 20;
+            graphics.setFill(Color.WHITE);
+            graphics.fillRect(xCoord, yCoord, 64,64);
+            graphics.drawImage(ResourceHandler.getResource(inventory[i].getId()),xCoord,yCoord);
+            graphics.drawImage(ResourceHandler.getResource("ItemContainer"),xCoord,yCoord);
+        }
+
+
     }
 
     public void renderTileWorld(World world, double playerX, double playerY){
