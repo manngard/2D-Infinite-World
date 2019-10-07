@@ -230,4 +230,8 @@ public class World {
     public ArrayList<Chest> getChests() {
         return chests;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
 }
