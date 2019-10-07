@@ -8,15 +8,14 @@ import org.openjfx.model.tilepackage.Tile;
 public class ChestTest {
 
 
-    /*Item[] items = {new Armor("Armor"),new Weapon("Weapon"),new Item("päron"), new Item("karta")};
-    private Chest chest = new Chest("kista", 1, 1,items);
+    private Chest chest = new Chest("Chest",1,1);
 
     @Test
-    public void chestest(){
+    public void inventoryTest(){
+        Assert.assertEquals(chest.getInventorySize(),4);
+        for (int i = 0; i<chest.getInventorySize(); i++){
+            Assert.assertTrue(chest.getItem(i).getId() == "Armor" || chest.getItem(i).getId() == "Sword" || chest.getItem(i).getId() == "Axe");
 
-        Assert.assertEquals(chest.inventory[0].getName(),"Armor");
-        Assert.assertEquals(chest.inventory[1].getName(),"Weapon");
-        Assert.assertEquals(chest.inventory[2].getName(),"päron");
-        Assert.assertEquals(chest.inventory[3].getName(),"karta");
-    }*/
+        }
+    }
 }
