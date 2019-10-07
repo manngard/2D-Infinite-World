@@ -9,10 +9,10 @@ public abstract class Item {
         this.id = id;
     }
 
-    public String getName(){
+    public String getId(){
         return this.id;
     }
-    public void setName(String id){
+    public void setId(String id){
         this.id = id;
     }
 }
