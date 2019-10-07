@@ -4,6 +4,7 @@ import org.openjfx.model.noise.NoiseGenerator;
 
 import org.openjfx.utils.event.Event;
 
+
 public class Model {
 
 
@@ -78,6 +79,7 @@ public class Model {
 
     public void moveMobsInWorld(){
         world.moveMobs();
+        modelHasBeenUpdated();
     }
 
 
