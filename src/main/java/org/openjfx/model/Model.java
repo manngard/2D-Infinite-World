@@ -4,6 +4,7 @@ import org.openjfx.model.noise.NoiseGenerator;
 
 import org.openjfx.utils.event.Event;
 
+
 public class Model {
 
 
@@ -61,6 +62,7 @@ public class Model {
                     world.player.setItem(chest.getItem(i),i);
             }
         }
+        modelHasBeenUpdated();
     }
 
 
