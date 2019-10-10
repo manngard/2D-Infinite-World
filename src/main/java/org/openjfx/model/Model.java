@@ -23,7 +23,7 @@ public class Model {
             public void handle(long now) {
                 long deltaTime = now - previousTime;
                 System.out.println(deltaTime / 1000000);
-                if(deltaTime / 1000000 > 500) {
+                if(deltaTime / 100000 > 500) {
                     world.moveMobs();
                     modelHasBeenUpdated();
                     previousTime = now;

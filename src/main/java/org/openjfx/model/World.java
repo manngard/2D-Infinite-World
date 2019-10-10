@@ -186,7 +186,8 @@ public class World {
             else if(player.xcoord > combatant.xcoord){
                 combatant.move(Movable.Direction.RIGHT);
             }
-            else if(player.ycoord < combatant.ycoord){
+
+            if(player.ycoord < combatant.ycoord){
                 combatant.move(Movable.Direction.UP);
             }
             else if(player.ycoord > combatant.ycoord){
