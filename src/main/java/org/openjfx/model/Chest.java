@@ -13,7 +13,9 @@ public class Chest extends Entity{
     public Item getItem(int index) {
         return inventory[index];
     }
+
     public int getInventorySize() {
         return inventory.length;
     }
+
 }

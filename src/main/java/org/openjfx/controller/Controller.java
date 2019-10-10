@@ -57,7 +57,6 @@ public class Controller {
             case DIGIT4:
                 model.selectInventory(Integer.parseInt(keyEvent.getCode().getName()));
                 break;
-
         }
     }
 

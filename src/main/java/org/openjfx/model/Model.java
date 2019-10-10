@@ -48,6 +48,7 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
+
     public void playerAttacks() {
 
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
@@ -83,6 +84,7 @@ public class Model {
     public void moveMobsInWorld(){
         world.moveMobs();
     }
+
 
 }
 
