@@ -14,8 +14,7 @@ public class ItemFactory {
         weapontypes.add("Sword");
         weapontypes.add("Axe");
 
-        armortypes.add("Cloth armor");
-        armortypes.add("Plate armor");
+        armortypes.add("Armor");
     }
 
     public Item getRandomItem(){

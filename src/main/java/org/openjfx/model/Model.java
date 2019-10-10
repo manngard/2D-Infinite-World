@@ -67,13 +67,20 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-
-
     public void playerAttacks(){
 
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
 
     }
+    public void playerInteracts(){
+        for (Chest chest : world.getChests()){
+            if (world.isEntityWithinDistance(chest)){
+                for (int i = 0; i<4; i++)
+                    world.player.setItem(chest.getItem(i),i);
+            }
+        }
+    }
+
 
 }
 
