@@ -9,4 +9,8 @@ public class Chest extends Entity{
             inventory[r] = ItemFactory.getInstance().getRandomItem();
         }
     }
+
+    public Item getItem(int index) {
+        return inventory[index];
+    }
 }

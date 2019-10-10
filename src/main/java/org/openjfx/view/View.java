@@ -11,11 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.openjfx.model.Combatant;
-import org.openjfx.model.Enemy;
-import org.openjfx.model.EventMessage;
-import org.openjfx.model.Item;
-import org.openjfx.model.World;
+import org.openjfx.model.*;
 import org.openjfx.model.tilepackage.Tile;
 import org.openjfx.utils.event.Event;
 import org.openjfx.utils.event.EventListener;
@@ -116,7 +112,9 @@ public class View {
             double yCoord = gameScreen.getHeight() - pixelSize*2 - 20;
             graphics.setFill(Color.WHITE);
             graphics.fillRect(xCoord, yCoord, 64,64);
-            graphics.drawImage(ResourceHandler.getResource(inventory[i].getId()),xCoord,yCoord);
+            if (inventory[i] != null){
+                graphics.drawImage(ResourceHandler.getResource(inventory[i].getId()),xCoord,yCoord);
+            }
             graphics.drawImage(ResourceHandler.getResource("ItemContainer"),xCoord,yCoord);
         }
 
@@ -128,6 +126,10 @@ public class View {
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
+                Chest chest = tile.getChest();
+                if (chest != null){
+                    graphics.drawImage(ResourceHandler.getResource(chest.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
+                }
             }
         }
     }

@@ -60,7 +60,15 @@ public class Player extends Combatant {
     }
 
     public Item[] getInventory() {
-        return inventory;
+        Item [] inventoryCopy = new Item[4];
+        for (int i = 0; i<inventory.length; i++){
+            inventoryCopy[i] = inventory[i];
+        }
+        return inventoryCopy;
+    }
+
+    public void setItem(Item item, int index) {
+        this.inventory[index] = item;
     }
 }
 

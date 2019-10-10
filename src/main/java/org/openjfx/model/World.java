@@ -16,6 +16,7 @@ public class World {
     private final int maxDistance = 5;
 
     final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
+    final private ArrayList<Chest> chests = new ArrayList<Chest>();
 
     public Player player;
 
@@ -26,12 +27,13 @@ public class World {
     public World(){
 
         player = new Player("Player",0,0,10,10, 2);
+
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
         for(int i = 0; i < 4; i++) {
             Random rand = new Random();
-            enemies.add(new Enemy("Mob", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 100, 10, 1));
+            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 100, 10, 1));
         }
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
@@ -45,6 +47,11 @@ public class World {
             yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
                 worldrow.add(tileFactory.getRandomTile(xCoord,yCoord));
+                Chest chest = worldrow.get(i).getChest();
+                if (chest != null){
+                    chests.add(chest);
+                }
+
                 yCoord++;
             }
         }
@@ -223,5 +230,9 @@ public class World {
     public ArrayList<Combatant> getEnemies(){
 
         return enemies;
+    }
+
+    public ArrayList<Chest> getChests() {
+        return chests;
     }
 }

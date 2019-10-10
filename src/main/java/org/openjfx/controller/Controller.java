@@ -48,6 +48,8 @@ public class Controller {
             case SPACE:
                 model.playerAttacks();
                 break;
+            case E:
+                model.playerInteracts();
         }
     }
 
