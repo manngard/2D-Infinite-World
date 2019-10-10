@@ -5,6 +5,7 @@ public class Enemy extends Combatant {
     public Enemy(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE){
 
         super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
+        this.moveSpeed = 0.5;
     }
 
     public int getHp() {
