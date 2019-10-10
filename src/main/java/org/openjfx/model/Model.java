@@ -1,19 +1,36 @@
 package org.openjfx.model;
 
+
+import javafx.animation.AnimationTimer;
 import org.openjfx.utils.event.Event;
 
 import java.util.ArrayList;
 
 public class Model {
 
+
     private World world;
     private final int maxDistance = 10;
+    private long previousTime = 0;
 
     public Event<EventMessage> hasUpdateEvent;
 
     public Model() {
         world = new World();
         hasUpdateEvent = new Event<>();
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long deltaTime = now - previousTime;
+                System.out.println(deltaTime / 1000000);
+                if(deltaTime / 1000000 > 500) {
+                    moveMobs();
+                    modelHasBeenUpdated();
+                    previousTime = now;
+                }
+            }
+        }.start();
+
     }
 
     public void movePlayerUp() {
