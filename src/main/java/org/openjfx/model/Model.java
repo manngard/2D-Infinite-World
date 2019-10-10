@@ -61,7 +61,6 @@ public class Model {
                     world.player.setItem(chest.getItem(i),i);
             }
         }
-        modelHasBeenUpdated();
     }
 
 
