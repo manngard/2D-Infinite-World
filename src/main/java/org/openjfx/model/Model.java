@@ -48,11 +48,8 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-
     public void playerAttacks() {
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
-        modelHasBeenUpdated();
-
     }
     public void playerInteracts(){
         for (Chest chest : world.getChests()){
@@ -63,7 +60,6 @@ public class Model {
         }
 
         selectInventory(1);
-        modelHasBeenUpdated();
     }
 
     public void selectInventory(int inventoryNumber) {
@@ -83,6 +79,7 @@ public class Model {
     public void moveMobsInWorld(){
         world.moveMobs();
     }
+
 
 }
 

@@ -250,7 +250,6 @@ public class World {
         return player;
     }
 
-
     public void updateWorldGrid() {
         Player p = this.player;
         final double maxYViewport = p.ycoord + (worldVerticalSideLength - 1) / 2;
