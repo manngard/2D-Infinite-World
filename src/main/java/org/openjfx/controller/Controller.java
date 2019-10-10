@@ -5,7 +5,9 @@ import javafx.stage.Stage;
 import org.openjfx.model.Model;
 import org.openjfx.view.View;
 
+
 public class Controller {
+
     View view;
     Model model;
 

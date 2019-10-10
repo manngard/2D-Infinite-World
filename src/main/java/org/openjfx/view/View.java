@@ -24,10 +24,12 @@ import java.util.List;
 public class View {
     private Stage stage;
     private Canvas gameScreen;
-    private final int pixelSize = 33; //including 1px spacing between tiles
     private int screenXSize;
     private int screenYSize;
     private Rectangle healthbar;
+
+    final int pixelSize = 32;
+
 
 
 
@@ -68,6 +70,7 @@ public class View {
                 double yOffset = (screenYSize/2) -pixelSize/2;
                 double playerX = translateX(world.player.getXcoord()) - xOffset;
                 double playerY = translateY(world.player.getYcoord()) - yOffset;
+
 
                 int playerHP = world.player.getHp();
 
@@ -113,7 +116,6 @@ public class View {
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
-
             }
         }
     }
