@@ -1,5 +1,7 @@
 package org.openjfx.model.tilepackage;
 
+import org.openjfx.model.Chest;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,16 +20,20 @@ public class TileFactory {
     public Tile getTile(String id, double x, double y){
         for (String tiletype: tiletypes){
             if (tiletype.equals(id)){
-                return new Tile(id,x,y);
+                return new Tile(null,id,x,y);
             }
         }
         //Should never occur
         return null;
     }
     public Tile getRandomTile(double x, double y){
+        Chest chest = null;
         Random rand = new Random();
         int randPos = rand.nextInt(tiletypes.size());
         String id = tiletypes.get(randPos);
-        return new Tile(id,x,y);
+        if (randPos == 2){
+            chest = new Chest("Chest",x,y);
+        }
+        return new Tile(chest,id,x,y);
     }
 }

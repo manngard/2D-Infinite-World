@@ -10,5 +10,4 @@ public class ResourceHandler {
         Image image = new Image(imageUrl);
         return image;
     }
-
 }

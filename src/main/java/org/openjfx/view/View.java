@@ -3,10 +3,13 @@ package org.openjfx.view;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.openjfx.model.Enemy;
 import org.openjfx.model.EventMessage;
@@ -19,11 +22,14 @@ import java.util.List;
 
 public class View {
     private Stage stage;
-    @FXML
     private Canvas gameScreen;
-    private final int pixelSize = 33; //including 1px spacing between tiles
     private int screenXSize;
     private int screenYSize;
+    private Rectangle healthbar;
+
+    final int pixelSize = 32;
+
+
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
@@ -36,6 +42,9 @@ public class View {
 
         gameScreen = new Canvas(screenXSize,screenYSize);
         layers.getChildren().add(gameScreen);
+
+        healthbar = new Rectangle(180,30,Color.color(1, 0.2, 0.2)
+        );
 
         stage.setScene(scene);
         stage.show();
@@ -54,17 +63,19 @@ public class View {
         switch (emsg) {
             case UPDATE:
                 World world = (World) data;
+
                 double xOffset = (screenXSize/2) -pixelSize/2;
                 double yOffset = (screenYSize/2) -pixelSize/2;
                 double playerX = translateX(world.player.getXcoord()) - xOffset;
                 double playerY = translateY(world.player.getYcoord()) - yOffset;
+                int playerHP = world.player.getHp();
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
                 for(Enemy e : world.getEnemies()){
                     drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
                 }
-
+                renderOverlay(playerHP);
         }
     }
 
@@ -81,11 +92,30 @@ public class View {
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id),x,y);
     }
+
+    private void renderOverlay(int HP){
+        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
+        int healthbarWidth = 18*HP;
+        healthbar.setWidth(healthbarWidth);
+        graphics.setFill(Color.WHITE);
+        graphics.fillRect(gameScreen.getWidth() -200, 20, 180,30);
+        graphics.setFill(healthbar.getFill());
+        graphics.fillRect(gameScreen.getWidth() -200,20,healthbarWidth,healthbar.getHeight());
+        graphics.drawImage(ResourceHandler.getResource("HealthbarOutliner"),gameScreen.getWidth() -200, 20);
+    }
+
     public void renderTileWorld(World world, double playerX, double playerY){
         GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
+
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
+
+
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),tile.getXcoord() + playerX,tile.getYcoord() + playerY);
+                if (tile.getChest() != null){
+                    graphics.drawImage(ResourceHandler.getResource(tile.getChest().getId()),tile.getXcoord() + playerX, tile.getYcoord() + playerX);
+                }
             }
         }
     }
