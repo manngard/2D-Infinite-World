@@ -12,6 +12,7 @@ public class World {
     List<List<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
+    private final int maxDistance = 10;
 
     final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
 
@@ -170,21 +171,34 @@ public class World {
 
     }
 
-    public void moveToEntity(Combatant a, Entity b){
-        double xDistance = Math.abs(player.xcoord - a.xcoord);
-        double yDistance = Math.abs(player.ycoord - a.ycoord);
+    public boolean isMobWithinDistance(Combatant combatant){
 
-        if(xDistance >= yDistance && a.xcoord > b.xcoord){
-            a.move(Movable.Direction.LEFT);
+        if(distance(player, combatant) <= maxDistance)
+            return true;
+        return false;
+    }
+
+    public void moveMobs(){
+
+        //Int to use for future random mob movement
+        //int rand = (int)Math.ceil(Math.random() * 2);
+        for(Combatant combatant: enemies)
+        if(isMobWithinDistance(combatant)){
+            if(player.xcoord < combatant.xcoord){
+                combatant.move(Movable.Direction.LEFT);
+            }
+            else if(player.xcoord > combatant.xcoord){
+                combatant.move(Movable.Direction.RIGHT);
+            }
+            else if(player.ycoord < combatant.ycoord){
+                combatant.move(Movable.Direction.UP);
+            }
+            else if(player.ycoord > combatant.ycoord){
+                combatant.move(Movable.Direction.DOWN);
+            }
         }
-        else if(xDistance >= yDistance && a.xcoord < b.xcoord){
-            a.move(Movable.Direction.RIGHT);
-        }
-        else if(yDistance > xDistance && a.ycoord > b.ycoord){
-            a.move(Movable.Direction.DOWN);
-        }
-        else if(yDistance > xDistance && a.ycoord < b.ycoord){
-            a.move(Movable.Direction.UP);
+        else{
+            int rand = (int)Math.ceil(Math.random() * 2);
         }
     }
 
