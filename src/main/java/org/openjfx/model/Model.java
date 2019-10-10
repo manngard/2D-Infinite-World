@@ -5,7 +5,7 @@ import org.openjfx.utils.event.Event;
 public class Model {
 
     private World world;
-    private final int maxDistance = 10;
+
 
     public Event<EventMessage> hasUpdateEvent;
 
@@ -48,12 +48,7 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-    public boolean isMobWithinDistance(Enemy enemy){
 
-        if(world.distance(world.player, enemy) <= maxDistance)
-            return true;
-        return false;
-    }
 
     public void playerAttacks(){
 
@@ -61,25 +56,6 @@ public class Model {
 
     }
 
-    public void moveMob(Enemy enemy){
 
-        //Int to use for future random mob movement
-        //int rand = (int)Math.ceil(Math.random() * 2);
-
-        if(isMobWithinDistance(enemy)){
-            if(world.player.xcoord < enemy.xcoord){
-                enemy.move(Movable.Direction.LEFT);
-            }
-            else if(world.player.xcoord > enemy.xcoord){
-                enemy.move(Movable.Direction.RIGHT);
-            }
-            else if(world.player.ycoord < enemy.ycoord){
-                enemy.move(Movable.Direction.UP);
-            }
-            else if(world.player.ycoord > enemy.ycoord){
-                enemy.move(Movable.Direction.DOWN);
-            }
-        }
-    }
 
 }
