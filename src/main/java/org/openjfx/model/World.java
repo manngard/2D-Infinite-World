@@ -180,17 +180,18 @@ public class World {
         //int rand = (int)Math.ceil(Math.random() * 2);
         for(Combatant combatant: enemies)
         if(isEntityWithinDistance(combatant)){
-            if(player.xcoord < combatant.xcoord){
+            if(player.xcoord + 0.9 < combatant.xcoord){
                 combatant.move(Movable.Direction.LEFT);
             }
-            else if(player.xcoord > combatant.xcoord){
+            else if(player.xcoord - 0.9 > combatant.xcoord){
                 combatant.move(Movable.Direction.RIGHT);
             }
 
-            if(player.ycoord < combatant.ycoord){
+            if(player.ycoord + 0.9 < combatant.ycoord){
+
                 combatant.move(Movable.Direction.UP);
             }
-            else if(player.ycoord > combatant.ycoord){
+            else if(player.ycoord - 0.9 > combatant.ycoord){
                 combatant.move(Movable.Direction.DOWN);
             }
         }

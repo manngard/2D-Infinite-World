@@ -74,6 +74,6 @@ public class Model {
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
 
     }
-    
+
 }
 
