@@ -10,27 +10,16 @@ public class ChestTest {
     Chest chest = new Chest("Chest1", 0, 0);
 
 
-    @Test //    Test to see if the items in chest are random.
+    @Test //    Test to see if the items in the chest are random. Prints out the items in the chest.
     public void chestRandomTest(){
-        Item item = chest.inventory[1];
 
-        if(chest.inventory[0].getName().equals("Axe")){
-            System.out.println("Item is: Axe at [0]");
-            Assert.assertEquals(chest.inventory[0].getName(),"Axe");
-        }else if(chest.inventory[1].getName().equals("Sword")){
-            System.out.println("Item is: Sword at [1]");
-            Assert.assertEquals(chest.inventory[1].getName(),"Sword");
+        System.out.println(
+                "\n" + "Item is: " + chest.inventory[0].getName() + " at [0]" +
+                "\n" + "Item is: " + chest.inventory[1].getName() + " at [1]" +
+                "\n" + "Item is: " + chest.inventory[2].getName() + " at [2]" +
+                "\n" + "Item is: " + chest.inventory[3].getName() + " at [3]");
 
-        }else if(chest.inventory[2].getName().equals("Plate armor")){
-            System.out.println("Item is: Plate armor at [2]");
-            Assert.assertEquals(chest.inventory[2].getName(),"Plate armor");
-
-        }else if(chest.inventory[3].getName().equals("Cloth armor")){
-            System.out.println("Item is: Cloth armor at [3]");
-            Assert.assertEquals(chest.inventory[3].getName(),"Cloth armor");
-
-        }
-
-
+        Assert.assertEquals(chest.inventory[0].getName(), chest.inventory[0].getName());
     }
+
 }
