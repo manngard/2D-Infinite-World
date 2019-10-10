@@ -61,50 +61,45 @@ public class World {
         ArrayList<Combatant> combatantsHit = new ArrayList<Combatant>();
 
         for(Combatant c: d){
-            switch (a.direction) {
-                case UP:
-                    System.out.print(" : " + c.ycoord + " " + player.ycoord);
-                    if (c.ycoord < (a.ycoord)) {
-                        System.out.print(" valid ");
-                        if (a.atkRange > distance(c, a)) {
-                            combatantsHit.add(c);
-                        }
-                    }
-                    break;
-                case DOWN:
-                    System.out.print(" : " + c.ycoord + " " + player.ycoord);
-                    if (c.ycoord > (a.ycoord)) {
-                        System.out.print(" valid ");
-                        if (a.atkRange > distance(c, a)) {
-                            combatantsHit.add(c);
-                        }
-                    }
-                    break;
-                case RIGHT:
-                    System.out.print(" : " + c.xcoord + " " + player.xcoord);
-                    if (c.xcoord > (a.xcoord)) {
-                        System.out.print(" valid ");
-                        if (a.atkRange > distance(c, a)) {
-                            combatantsHit.add(c);
-                        }
-                    }
-                    break;
-                case LEFT:
-                    System.out.print(" : " + c.xcoord + " " + player.xcoord);
-                    if (c.xcoord < (a.xcoord)) {
-                        System.out.print(" valid ");
-                        if (a.atkRange > distance(c, a)) {
-                            combatantsHit.add(c);
-                        }
-                    }
 
-                    break;
+            if(inSight(a, c)){
+                if(a.atkRange > distance(c, a)) {
+                    combatantsHit.add(c);
+                }
             }
 
         }
 
         return combatantsHit;
 
+    }
+
+    public boolean inSight(Combatant a, Entity b){
+
+        switch(a.direction){
+            case UP:
+                if (b.ycoord < (a.ycoord - 0.5)) {
+                    return true;
+                }
+                break;
+            case DOWN:
+                if (b.ycoord > (a.ycoord + 0.5)) {
+                    return true;
+                }
+                break;
+            case LEFT:
+                if (b.xcoord < (a.xcoord - 0.5)) {
+                    return true;
+                }
+                break;
+            case RIGHT:
+                if (b.xcoord > (a.xcoord + 0.5)) {
+                    return true;
+                }
+                break;
+        }
+
+        return false;
     }
 
     public void attackHit(Combatant a, ArrayList<Combatant> hit){
