@@ -9,9 +9,14 @@ public class ChestTest {
     
     private Chest chest = new Chest("Chest",1,1);
 
-    @Test //    Test to see if the items in chest are random.
+    @Test //    Test to see if the items in the chest are random. Prints out the items in the chest.
     public void chestRandomTest(){
-        Item item = chest.getItem(1);
+
+        System.out.println(
+                "\n" + "Item is: " + chest.getItem(0).getId() + " at [0]" +
+                        "\n" + "Item is: " + chest.getItem(1).getId() + " at [1]" +
+                        "\n" + "Item is: " + chest.getItem(2).getId() + " at [2]" +
+                        "\n" + "Item is: " + chest.getItem(3).getId() + " at [3]");
 
         if(chest.getItem(0).getId().equals("Axe")){
             System.out.println("Item is: Axe at [0]");
@@ -29,6 +34,7 @@ public class ChestTest {
             Assert.assertEquals(chest.getItem(3).getId(),"Cloth armor");
 
         }
-
+        
     }
+
 }
