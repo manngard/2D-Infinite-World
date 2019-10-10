@@ -15,9 +15,9 @@ public class PlayerTest {
         Assert.assertEquals(player.getHp(), 100);
         Assert.assertEquals(player.getExp(), 0);
         Assert.assertEquals(player.getId(), "1");
-        //Assert.assertEquals(player.getYcoord(), 0);
-        //Assert.assertEquals(player.getXcoord(), 0);
-        //Assert.assertEquals(player.getAtkRange(), 100);
+        Assert.assertEquals(player.getYcoord(), 0,0);
+        Assert.assertEquals(player.getXcoord(), 0,0);
+        Assert.assertEquals(player.getAtkRange(), 32,0);
         Assert.assertEquals(player.getAtk(), 50);
     }
 
@@ -47,12 +47,12 @@ public class PlayerTest {
 
     @Test   //  Test of move functions
     public void moveTest(){
-        /*player.moveUp();
-        player.moveDown();
-        player.moveLeft();
-        player.moveRight();*/
+        player.move(Movable.Direction.UP);
+        player.move(Movable.Direction.DOWN);
+        player.move(Movable.Direction.LEFT);
+        player.move(Movable.Direction.RIGHT);
 
-        //Assert.assertEquals(player.getXcoord(), 0);
-        //Assert.assertEquals(player.getYcoord(), 0);
+        Assert.assertEquals(player.getXcoord(), 0,0);
+        Assert.assertEquals(player.getYcoord(), 0,0);
     }
 }

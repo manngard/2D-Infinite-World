@@ -6,16 +6,29 @@ import org.junit.Test;
 import org.openjfx.model.tile.Tile;
 
 public class ChestTest {
-
-
+    
     private Chest chest = new Chest("Chest",1,1);
 
-    @Test
-    public void inventoryTest(){
-        Assert.assertEquals(chest.getInventorySize(),4);
-        for (int i = 0; i<chest.getInventorySize(); i++){
-            Assert.assertTrue(chest.getItem(i).getId() == "Armor" || chest.getItem(i).getId() == "Sword" || chest.getItem(i).getId() == "Axe");
+    @Test //    Test to see if the items in chest are random.
+    public void chestRandomTest(){
+        Item item = chest.getItem(1);
+
+        if(chest.getItem(0).getId().equals("Axe")){
+            System.out.println("Item is: Axe at [0]");
+            Assert.assertEquals(chest.getItem(0).getId(),"Axe");
+        }else if(chest.getItem(1).getId().equals("Sword")){
+            System.out.println("Item is: Sword at [1]");
+            Assert.assertEquals(chest.getItem(1).getId(),"Sword");
+
+        }else if(chest.getItem(2).getId().equals("Plate armor")){
+            System.out.println("Item is: Plate armor at [2]");
+            Assert.assertEquals(chest.getItem(2).getId(),"Plate armor");
+
+        }else if(chest.getItem(3).getId().equals("Cloth armor")){
+            System.out.println("Item is: Cloth armor at [3]");
+            Assert.assertEquals(chest.getItem(3).getId(),"Cloth armor");
 
         }
+
     }
 }
