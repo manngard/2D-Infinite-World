@@ -3,6 +3,7 @@ package org.openjfx.model;
 import org.openjfx.model.tilepackage.Tile;
 import org.openjfx.model.tilepackage.TileFactory;
 
+import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -171,9 +172,9 @@ public class World {
 
     }
 
-    public boolean isMobWithinDistance(Combatant combatant){
+    public boolean isEntityWithinDistance(Entity entity){
 
-        if(distance(player, combatant) <= maxDistance)
+        if(distance(player, entity) <= maxDistance)
             return true;
         return false;
     }
@@ -183,7 +184,7 @@ public class World {
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
         for(Combatant combatant: enemies)
-        if(isMobWithinDistance(combatant)){
+        if(isEntityWithinDistance(combatant)){
             if(player.xcoord < combatant.xcoord){
                 combatant.move(Movable.Direction.LEFT);
             }
@@ -197,8 +198,21 @@ public class World {
                 combatant.move(Movable.Direction.DOWN);
             }
         }
+        //  If mobs are not within distance the mobs shall move freely.
         else{
-            int rand = (int)Math.ceil(Math.random() * 2);
+            int rand = (int)Math.ceil(Math.random() * 4);
+            switch (rand){
+                case 1:
+                    combatant.move(Movable.Direction.DOWN);
+                    break;
+                case 2:
+                    combatant.move(Movable.Direction.UP);
+                    break;
+                case 3:
+                    combatant.move(Movable.Direction.LEFT);
+                case 4:
+                    combatant.move(Movable.Direction.RIGHT);
+            }
         }
     }
 
