@@ -18,7 +18,6 @@ public class Model {
     public Model(NoiseGenerator noiseGenerator) {
         world = new World(noiseGenerator);
         hasUpdateEvent = new Event<>();
-
     }
 
     public void movePlayerUp() {
@@ -49,7 +48,8 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-    public void playerAttacks(){
+
+    public void playerAttacks() {
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
         modelHasBeenUpdated();
 
@@ -61,7 +61,22 @@ public class Model {
                     world.player.setItem(chest.getItem(i),i);
             }
         }
+
+        selectInventory(1);
         modelHasBeenUpdated();
+    }
+
+    public void selectInventory(int inventoryNumber) {
+
+        for (Item item : world.player.getInventory()) {
+            if (item.getIsItemSelected()) {
+                item.setToNotSelected();
+                break;
+            }
+        }
+        world.player.getInventory()[inventoryNumber - 1].setToSelected();
+
+
     }
 
 
