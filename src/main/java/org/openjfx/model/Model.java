@@ -4,12 +4,6 @@ package org.openjfx.model;
 import javafx.animation.AnimationTimer;
 import org.openjfx.utils.event.Event;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
-import java.util.List;
->>>>>>> Fixed so view updates properly, Updated test for Chest Class
-
 public class Model {
 
 
