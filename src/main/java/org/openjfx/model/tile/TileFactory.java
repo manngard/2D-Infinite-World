@@ -1,11 +1,13 @@
 package org.openjfx.model.tile;
 
 import javafx.util.Pair;
+import org.openjfx.model.Chest;
 import org.openjfx.model.noise.DefaultNoiseGenerator;
 import org.openjfx.model.noise.NoiseGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TileFactory {
     List<Pair<String, Double>> tileTypes = new ArrayList<>();
@@ -22,12 +24,20 @@ public class TileFactory {
     }
 
     public Tile generateTile(double x, double y) {
+        Random rand = new Random();
+        int randInt = rand.nextInt(30);
         double tileValue = noiseGenerator.getValue((int) x, (int) y);
         double prevVal = 0.0;
         for(int i = 0; i < tileTypes.size(); i++) {
             if(prevVal < tileValue && tileValue <= tileTypes.get(i).getValue() + prevVal) {
-                return new Tile(null, tileTypes.get(i).getKey(), x, y);
+                if (randInt == 0 && tileTypes.get(i).getKey().equals("Grass")) {
+                    return new Tile(new Chest("Chest", x, y), tileTypes.get(i).getKey(), x, y);
+                }
+                else{
+                    return new Tile(null, tileTypes.get(i).getKey(), x, y);
+                }
             }
+            randInt = rand.nextInt(30);
             prevVal += tileTypes.get(i).getValue();
         }
 
