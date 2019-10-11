@@ -21,7 +21,7 @@ public class Model {
             public void handle(long now) {
                 long deltaTime = now - previousTime;
                 System.out.println(deltaTime / 1000000);
-                if(deltaTime / 100000 > 500) {
+                if (deltaTime / 100000 > 500) {
                     world.moveMobs();
                     modelHasBeenUpdated();
                     previousTime = now;
@@ -65,7 +65,7 @@ public class Model {
         hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
     }
 
-    public void playerAttacks(){
+    public void playerAttacks() {
 
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
         modelHasBeenUpdated();
@@ -78,7 +78,22 @@ public class Model {
                     world.player.setItem(chest.getItem(i),i);
             }
         }
+
+        selectInventory(1);
         modelHasBeenUpdated();
+    }
+
+    public void selectInventory(int inventoryNumber) {
+
+        for (Item item : world.player.getInventory()) {
+            if (item.getIsItemSelected()) {
+                item.setToNotSelected();
+                break;
+            }
+        }
+        world.player.getInventory()[inventoryNumber - 1].setToSelected();
+
+
     }
 
 

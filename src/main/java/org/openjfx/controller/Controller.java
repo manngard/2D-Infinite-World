@@ -36,6 +36,14 @@ public class Controller {
                 break;
             case E:
                 model.playerInteracts();
+                break;
+            case DIGIT1:
+            case DIGIT2:
+            case DIGIT3:
+            case DIGIT4:
+                model.selectInventory(Integer.parseInt(keyEvent.getCode().getName()));
+                break;
+
         }
     }
 }

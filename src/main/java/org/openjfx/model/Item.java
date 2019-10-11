@@ -3,6 +3,7 @@ package org.openjfx.model;
 public abstract class Item {
 
     private String id;
+    private  boolean isSelected = false;
 
 
     public Item(String id){
@@ -14,5 +15,17 @@ public abstract class Item {
     }
     public void setId(String id){
         this.id = id;
+    }
+
+    public void setToSelected(){
+        isSelected = true;
+    }
+
+    public void setToNotSelected(){
+        isSelected = false;
+    }
+
+    public boolean getIsItemSelected(){
+        return isSelected;
     }
 }
