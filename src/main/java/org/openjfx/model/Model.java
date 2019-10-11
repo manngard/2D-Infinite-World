@@ -37,28 +37,28 @@ public class Model {
         System.out.println("Up");
         //TODO
         world.player.move(Movable.Direction.UP);
-        modelHasBeenUpdated();
+        //modelHasBeenUpdated();
     }
 
     public void movePlayerDown() {
         //TODO
         System.out.println("Down");
         world.player.move(Movable.Direction.DOWN);
-        modelHasBeenUpdated();
+        //modelHasBeenUpdated();
     }
 
     public void movePlayerRight() {
         //TODO
         System.out.println("Right");
         world.player.move(Movable.Direction.RIGHT);
-        modelHasBeenUpdated();
+        //modelHasBeenUpdated();
     }
 
     public void movePlayerLeft() {
         //TODO
         System.out.println("Left");
         world.player.move(Movable.Direction.LEFT);
-        modelHasBeenUpdated();
+        //modelHasBeenUpdated();
 
     }
 
