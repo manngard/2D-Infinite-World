@@ -13,7 +13,7 @@ public class World {
     List<List<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
-    private final int maxDistance = 10;
+    private final int enemyDetectDistance = 10;
 
     final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
     final private ArrayList<Chest> chests = new ArrayList<Chest>();
@@ -68,11 +68,9 @@ public class World {
         ArrayList<Combatant> combatantsHit = new ArrayList<Combatant>();
 
         for(Combatant c: d){
+            if(inSight(a, c) & isEntityWithinDistance(c,enemyDetectDistance)){
+                combatantsHit.add(c);
 
-            if(inSight(a, c)){
-                if(a.atkRange > distance(c, a)) {
-                    combatantsHit.add(c);
-                }
             }
 
         }
@@ -174,9 +172,8 @@ public class World {
 
     }
 
-    public boolean isEntityWithinDistance(Entity entity){
-
-        if(distance(player, entity) <= maxDistance)
+    public boolean isEntityWithinDistance(Entity entity, double range){
+        if(distance(player, entity) <= range)
             return true;
         return false;
     }
@@ -186,7 +183,7 @@ public class World {
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
         for(Combatant combatant: enemies)
-        if(isEntityWithinDistance(combatant)){
+        if(isEntityWithinDistance(combatant, enemyDetectDistance)){
             if(player.xcoord + 0.9 < combatant.xcoord){
                 combatant.move(Movable.Direction.LEFT);
             }
