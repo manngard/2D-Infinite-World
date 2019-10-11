@@ -1,16 +1,20 @@
 package org.openjfx.model;
 
-import org.openjfx.model.tilepackage.Tile;
-import org.openjfx.model.tilepackage.TileFactory;
+import org.openjfx.model.noise.DefaultNoiseGenerator;
+import org.openjfx.model.noise.NoiseGenerator;
+import org.openjfx.model.tile.Tile;
+import org.openjfx.model.tile.TileFactory;
 
 import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.spi.LocaleNameProvider;
 
 public class World {
-    private final TileFactory tileFactory = new TileFactory();
-    List<List<Tile>> worldGrid;
+    private final TileFactory tileFactory;
+    LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
     private final int enemyDetectDistance = 10;
@@ -24,7 +28,17 @@ public class World {
     then fills every row with int worldVerticalSideLength Tile Objects,
     the center of matrix has coordinates 0,0*/
 
-    public World(){
+    public World() {
+        this(null);
+    }
+
+    public World(NoiseGenerator noiseGenerator){
+        if(noiseGenerator != null) {
+            tileFactory = new TileFactory(noiseGenerator);
+        }
+        else {
+            tileFactory = new TileFactory(new DefaultNoiseGenerator());
+        }
 
         player = new Player("Player",0,0,10,10, 2);
 
@@ -38,25 +52,25 @@ public class World {
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
         double yCoord;
-        worldGrid = new ArrayList<List<Tile>>();
+
+        worldGrid = new LinkedList<>();
         for (int i = 0; i<worldHorizontalSideLength;i++){
-            worldGrid.add(new ArrayList<Tile>());
+            worldGrid.add(new LinkedList<Tile>());
         }
         for (List<Tile> worldrow : worldGrid){
             xCoord++;
             yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.getRandomTile(xCoord,yCoord));
+                worldrow.add(tileFactory.generateTile(xCoord,yCoord));
                 Chest chest = worldrow.get(i).getChest();
                 if (chest != null){
                     chests.add(chest);
                 }
-
                 yCoord++;
             }
         }
     }
-    public List<List<Tile>> getWorldGrid() {
+    public LinkedList<LinkedList<Tile>> getWorldGrid() {
         return worldGrid;
     }
 
@@ -236,5 +250,42 @@ public class World {
         return player;
     }
 
+    public void updateWorldGrid() {
+        Player p = this.player;
+        final double maxYViewport = p.ycoord + (worldVerticalSideLength - 1) / 2;
+        final double minYViewport = p.ycoord - (worldVerticalSideLength - 1) / 2;
+        final double maxXViewport = p.xcoord + (worldHorizontalSideLength - 1) / 2;
+        final double minXViewport = p.xcoord - (worldHorizontalSideLength - 1) / 2;
+        switch(p.direction) {
+            case UP:
+                for(LinkedList<Tile> column : worldGrid) {
+                    column.removeLast();
+                    column.addFirst(tileFactory.generateTile(column.getFirst().xcoord, minYViewport));
+                }
+                break;
+            case DOWN:
+                for(LinkedList<Tile> column : worldGrid) {
+                    column.removeFirst();
+                    column.addLast(tileFactory.generateTile(column.getFirst().xcoord, maxYViewport));
+                }
+                break;
+            case LEFT:
+                worldGrid.removeLast();
+                LinkedList<Tile> newFirstColumn = new LinkedList<>();
+                for(int y = (int)minYViewport; y <= (int)maxYViewport; y++) {
+                    newFirstColumn.addLast(tileFactory.generateTile(minXViewport, y));
+                }
+                worldGrid.addFirst(newFirstColumn);
+                break;
+            case RIGHT:
+                worldGrid.removeFirst();
+                LinkedList<Tile> newLastColumn = new LinkedList<>();
+                for(int y = (int)minYViewport; y <= (int)maxYViewport; y++) {
+                    newLastColumn.addLast(tileFactory.generateTile(maxXViewport, y));
+                }
+                worldGrid.addLast(newLastColumn);
+                break;
+        }
+    }
 }
 

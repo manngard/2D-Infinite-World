@@ -1,5 +1,9 @@
 package org.openjfx.model;
 
+
+
+import org.openjfx.model.noise.NoiseGenerator;
+
 import org.openjfx.utils.event.Event;
 
 public class Model {
@@ -10,37 +14,40 @@ public class Model {
     public Event<EventMessage> hasUpdateEvent;
 
     public Model() {
-        world = new World();
+        this(null);
+    }
+
+    public Model(NoiseGenerator noiseGenerator) {
+        world = new World(noiseGenerator);
         hasUpdateEvent = new Event<>();
     }
 
     public void movePlayerUp() {
         System.out.println("Up");
-        //TODO
         world.player.move(Movable.Direction.UP);
-        //modelHasBeenUpdated();
+        world.updateWorldGrid();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerDown() {
-        //TODO
         System.out.println("Down");
         world.player.move(Movable.Direction.DOWN);
-        //modelHasBeenUpdated();
+        world.updateWorldGrid();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerRight() {
-        //TODO
         System.out.println("Right");
         world.player.move(Movable.Direction.RIGHT);
-        //modelHasBeenUpdated();
+        world.updateWorldGrid();
+        modelHasBeenUpdated();
     }
 
     public void movePlayerLeft() {
-        //TODO
         System.out.println("Left");
         world.player.move(Movable.Direction.LEFT);
-        //modelHasBeenUpdated();
-
+        world.updateWorldGrid();
+        modelHasBeenUpdated();
     }
 
     public void modelHasBeenUpdated() {
@@ -64,9 +71,8 @@ public class Model {
         }
 
         selectInventory(1);
-
-        modelHasBeenUpdated();
     }
+
 
     public void selectInventory(int inventoryNumber) {
 

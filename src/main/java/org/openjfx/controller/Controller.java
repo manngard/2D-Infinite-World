@@ -14,7 +14,7 @@ public class Controller {
     private long previousTime = 0;
 
     public Controller(Stage stage) {
-        model = new Model();
+        model = new Model(OpenSimplexAdapter.getInstance());
         view = new View(stage, this::handleKeyPress, model.hasUpdateEvent);
         new AnimationTimer() {
             @Override
