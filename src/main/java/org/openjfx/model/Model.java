@@ -2,6 +2,7 @@ package org.openjfx.model;
 
 
 import javafx.animation.AnimationTimer;
+import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.utils.event.Event;
 
 public class Model {
@@ -14,7 +15,11 @@ public class Model {
     public Event<EventMessage> hasUpdateEvent;
 
     public Model() {
-        world = new World();
+        this(null);
+    }
+
+    public Model(NoiseGenerator noiseGenerator) {
+        world = new World(noiseGenerator);
         hasUpdateEvent = new Event<>();
         new AnimationTimer() {
             @Override
@@ -34,28 +39,28 @@ public class Model {
     public void movePlayerUp() {
         System.out.println("Up");
         world.player.move(Movable.Direction.UP);
-        world.updateWorldGrid(world.player);
+        world.updateWorldGrid();
         modelHasBeenUpdated();
     }
 
     public void movePlayerDown() {
         System.out.println("Down");
         world.player.move(Movable.Direction.DOWN);
-        world.updateWorldGrid(world.player);
+        world.updateWorldGrid();
         modelHasBeenUpdated();
     }
 
     public void movePlayerRight() {
         System.out.println("Right");
         world.player.move(Movable.Direction.RIGHT);
-        world.updateWorldGrid(world.player);
+        world.updateWorldGrid();
         modelHasBeenUpdated();
     }
 
     public void movePlayerLeft() {
         System.out.println("Left");
         world.player.move(Movable.Direction.LEFT);
-        world.updateWorldGrid(world.player);
+        world.updateWorldGrid();
         modelHasBeenUpdated();
 
     }

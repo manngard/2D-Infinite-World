@@ -12,7 +12,7 @@ public class Controller {
     Model model;
 
     public Controller(Stage stage) {
-        model = new Model();
+        model = new Model(OpenSimplexAdapter.getInstance());
         view = new View(stage, this::handleKeyPress, model.hasUpdateEvent);
         model.modelHasBeenUpdated();
     }

@@ -1,4 +1,4 @@
-package org.openjfx.model.noise;/*
+package org.openjfx.staticlibrary;/*
  * OpenSimplex Noise in Java.
  * by Kurt Spencer
  * 
@@ -14,7 +14,7 @@ package org.openjfx.model.noise;/*
  *   will be the same when ported to other languages.
  */
  
-class OpenSimplexNoise {
+public class OpenSimplexNoise {
 
 	private static final double STRETCH_CONSTANT_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
 	private static final double SQUISH_CONSTANT_2D = 0.366025403784439;      //(Math.sqrt(2+1)-1)/2;

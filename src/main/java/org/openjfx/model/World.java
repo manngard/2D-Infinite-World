@@ -1,5 +1,7 @@
 package org.openjfx.model;
 
+import org.openjfx.model.noise.DefaultNoiseGenerator;
+import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.model.tile.Tile;
 import org.openjfx.model.tile.TileFactory;
 
@@ -11,7 +13,7 @@ import java.util.Random;
 import java.util.spi.LocaleNameProvider;
 
 public class World {
-    private final TileFactory tileFactory = new TileFactory();
+    private final TileFactory tileFactory;
     LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
@@ -26,7 +28,17 @@ public class World {
     then fills every row with int worldVerticalSideLength Tile Objects,
     the center of matrix has coordinates 0,0*/
 
-    public World(){
+    public World() {
+        this(null);
+    }
+
+    public World(NoiseGenerator noiseGenerator){
+        if(noiseGenerator != null) {
+            tileFactory = new TileFactory(noiseGenerator);
+        }
+        else {
+            tileFactory = new TileFactory(new DefaultNoiseGenerator());
+        }
 
         player = new Player("Player",0,0,10,10, 2);
 
@@ -238,7 +250,8 @@ public class World {
     }
 
 
-    public void updateWorldGrid(Player p) {
+    public void updateWorldGrid() {
+        Player p = this.player;
         final double maxYViewport = p.ycoord + (worldVerticalSideLength - 1) / 2;
         final double minYViewport = p.ycoord - (worldVerticalSideLength - 1) / 2;
         final double maxXViewport = p.xcoord + (worldHorizontalSideLength - 1) / 2;
