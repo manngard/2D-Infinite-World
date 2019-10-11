@@ -1,5 +1,6 @@
 package org.openjfx.controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
@@ -10,10 +11,23 @@ public class Controller {
 
     View view;
     Model model;
+    private long previousTime = 0;
 
     public Controller(Stage stage) {
         model = new Model(OpenSimplexAdapter.getInstance());
         view = new View(stage, this::handleKeyPress, model.hasUpdateEvent);
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long deltaTime = now - previousTime;
+                System.out.println(deltaTime / 1000000);
+                if(deltaTime / 100000 > 500) {
+                    model.moveMobsInWorld();
+                    model.modelHasBeenUpdated();
+                    previousTime = now;
+                }
+            }
+        }.start();
         model.modelHasBeenUpdated();
     }
 
@@ -38,4 +52,6 @@ public class Controller {
                 model.playerInteracts();
         }
     }
+
+
 }

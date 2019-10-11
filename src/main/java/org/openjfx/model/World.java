@@ -17,7 +17,7 @@ public class World {
     LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
-    private final int maxDistance = 10;
+    private final int maxDistance = 5;
 
     final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
     final private ArrayList<Chest> chests = new ArrayList<Chest>();
@@ -199,39 +199,44 @@ public class World {
 
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
-        for(Combatant combatant: enemies)
-        if(isEntityWithinDistance(combatant)){
-            if(player.xcoord + 0.9 < combatant.xcoord){
-                combatant.move(Movable.Direction.LEFT);
-            }
-            else if(player.xcoord - 0.9 > combatant.xcoord){
-                combatant.move(Movable.Direction.RIGHT);
-            }
 
-            if(player.ycoord + 0.9 < combatant.ycoord){
-
-                combatant.move(Movable.Direction.UP);
-            }
-            else if(player.ycoord - 0.9 > combatant.ycoord){
-                combatant.move(Movable.Direction.DOWN);
-            }
-        }
-        //  If mobs are not within distance the mobs shall move freely.
-        else{
-            int rand = (int)Math.ceil(Math.random() * 4);
-            switch (rand){
-                case 1:
-                    combatant.move(Movable.Direction.DOWN);
-                    break;
-                case 2:
-                    combatant.move(Movable.Direction.UP);
-                    break;
-                case 3:
+        for(Combatant combatant: enemies){
+            if(isEntityWithinDistance(combatant)){
+                if(player.xcoord + 0.9 < combatant.xcoord){
                     combatant.move(Movable.Direction.LEFT);
-                case 4:
+                }
+                else if(player.xcoord - 0.9 > combatant.xcoord){
                     combatant.move(Movable.Direction.RIGHT);
+                }
+                if(player.ycoord + 0.9 < combatant.ycoord){
+                    combatant.move(Movable.Direction.UP);
+                }
+                else if(player.ycoord - 0.9 > combatant.ycoord){
+                    combatant.move(Movable.Direction.DOWN);
+                }
+            }
+            //  If mobs are not within distance the mobs shall move freely.
+            else{
+                int rand = (int)Math.ceil(Math.random() * 5);
+                switch (rand){
+                    case 1:
+                        combatant.move(Movable.Direction.DOWN);
+                        break;
+                    case 2:
+                        combatant.move(Movable.Direction.UP);
+                        break;
+                    case 3:
+                        combatant.move(Movable.Direction.LEFT);
+                        break;
+                    case 4:
+                        combatant.move(Movable.Direction.RIGHT);
+                        break;
+                    case 5:
+                        break;
+                }
             }
         }
+
     }
 
     //getters and setters
