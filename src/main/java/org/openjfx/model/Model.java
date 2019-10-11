@@ -71,8 +71,6 @@ public class Model {
             }
         }
         world.player.getInventory()[inventoryNumber - 1].setToSelected();
-
-
     }
 
 
@@ -80,6 +78,7 @@ public class Model {
         world.moveMobs();
         modelHasBeenUpdated();
     }
+
 
 
 }
