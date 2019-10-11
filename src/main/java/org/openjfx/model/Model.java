@@ -51,11 +51,12 @@ public class Model {
     public void playerAttacks() {
         world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
     }
-    public void playerInteracts(){
-        for (Chest chest : world.getChests()){
-            if (world.isEntityWithinDistance(chest,1) & world.inSight(world.getPlayer(),chest)){
-                for (int i = 0; i<4; i++)
-                    world.player.setItem(chest.getItem(i),i);
+
+    public void playerInteracts() {
+        for (Chest chest : world.getChests()) {
+            if (world.isEntityWithinDistance(chest, 1) & world.inSight(world.getPlayer(), chest)) {
+                for (int i = 0; i < 4; i++)
+                    world.player.setItem(chest.getItem(i), i);
             }
         }
 
@@ -64,15 +65,16 @@ public class Model {
 
     public void selectInventory(int inventoryNumber) {
 
-        for (Item item : world.player.getInventory()) {
-            if (item.getIsItemSelected()) {
-                item.setToNotSelected();
-                break;
+        if (world.player.getInventory()[inventoryNumber -1] != null) {
+            for (Item item : world.player.getInventory()) {
+                if (item.getIsItemSelected()) {
+                    item.setToNotSelected();
+                    break;
+                }
             }
+            world.player.getInventory()[inventoryNumber - 1].setToSelected();
         }
-        world.player.getInventory()[inventoryNumber - 1].setToSelected();
     }
-
 
     public void moveMobsInWorld(){
         world.moveMobs();
