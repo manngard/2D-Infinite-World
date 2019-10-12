@@ -19,8 +19,8 @@ public class World {
     double worldHorizontalSideLength;
     private final int enemyDetectDistance = 10;
 
-    final private ArrayList<Combatant> enemies = new ArrayList<Combatant>();
-    final private ArrayList<Chest> chests = new ArrayList<Chest>();
+    final private List<Combatant> enemies = new ArrayList<Combatant>();
+    final private List<Chest> chests = new ArrayList<Chest>();
 
     public Player player;
 
@@ -40,14 +40,14 @@ public class World {
             tileFactory = new TileFactory(new DefaultNoiseGenerator());
         }
 
-        player = new Player("Player",0,0,10,10, 2);
+        player = new Player("Player",0,0,10,2, 2);
 
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
         for(int i = 0; i < 4; i++) {
             Random rand = new Random();
-            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 100, 10, 1));
+            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 10, 10, 1));
         }
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
@@ -75,14 +75,14 @@ public class World {
     }
 
     //combat related
-    public ArrayList<Combatant> playerAttacks(Combatant a, ArrayList<Combatant> d){
+    public List<Combatant> playerAttacks(Combatant a, List<Combatant> d){
 
         System.out.print(player.direction);
 
-        ArrayList<Combatant> combatantsHit = new ArrayList<Combatant>();
+        List<Combatant> combatantsHit = new ArrayList<Combatant>();
 
         for(Combatant c: d){
-            if(inSight(a, c) & isEntityWithinDistance(c,enemyDetectDistance)){
+            if(inSight(a, c) && isEntityWithinDistance(c,player.getAtkRange())){
                 combatantsHit.add(c);
 
             }
@@ -121,7 +121,7 @@ public class World {
         return false;
     }
 
-    public void attackHit(Combatant a, ArrayList<Combatant> hit){
+    public void attackHit(Combatant a, List<Combatant> hit){
 
         for(Combatant d: hit) {
             d.decHp(a.getAtk());
@@ -237,12 +237,12 @@ public class World {
 
     //getters and setters
 
-    public ArrayList<Combatant> getEnemies(){
+    public List<Combatant> getEnemies(){
 
         return enemies;
     }
 
-    public ArrayList<Chest> getChests() {
+    public List<Chest> getChests() {
         return chests;
     }
 
