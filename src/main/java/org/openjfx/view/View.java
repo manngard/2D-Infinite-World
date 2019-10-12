@@ -109,7 +109,7 @@ public class View {
         graphics.fillRect(gameScreen.getWidth() - 200, 20, 180, 30);
         graphics.setFill(playerHealthbar.getFill());
         graphics.fillRect(gameScreen.getWidth() - 200, 20, healthbarWidth, playerHealthbar.getHeight());
-        graphics.drawImage(ResourceHandler.getResource("HealthbarContainer"), gameScreen.getWidth() - 200, 20);
+        graphics.drawImage(ResourceHandler.getResource("PlayerHealthbarContainer"), gameScreen.getWidth() - 200, 20);
 
         for (int i = 0; i < inventory.length; i++) {
             double xCoord = gameScreen.getWidth() - (pixelSize * 2 * (inventory.length - i) + 20);
@@ -134,9 +134,12 @@ public class View {
 
     public void renderEnemies(List <Combatant> enemies, double playerX, double playerY){
         for(Combatant e : enemies){
+            double healthbarXCoord = translateX(e.getXcoord())-playerX - 15;
+            double healthbarYCoord = translateY(e.getYcoord())-playerY - pixelSize/2;
             drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
             graphics.setFill(playerHealthbar.getFill());
-            graphics.fillRect(translateX(e.getXcoord())-playerX - 15,translateY(e.getYcoord())-playerY - pixelSize/2,6*e.getHp(),10);
+            graphics.fillRect(healthbarXCoord,healthbarYCoord,6*e.getHp(),10);
+            drawObject("EnemyHealthbarContainer",healthbarXCoord,healthbarYCoord);
         }
     }
 
