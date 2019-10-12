@@ -1,9 +1,7 @@
 package org.openjfx.view;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -28,9 +26,11 @@ public class View {
     private Canvas gameScreen;
     private int screenXSize;
     private int screenYSize;
-    private Rectangle healthbar;
+    private Rectangle playerHealthbar;
 
     final int pixelSize = 32;
+
+    private GraphicsContext graphics;
 
 
     public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
@@ -44,8 +44,9 @@ public class View {
 
         gameScreen = new Canvas(screenXSize, screenYSize);
         layers.getChildren().add(gameScreen);
+        graphics = gameScreen.getGraphicsContext2D();
 
-        healthbar = new Rectangle(180, 30, Color.color(1, 0.2, 0.2)
+        playerHealthbar = new Rectangle(180, 30, Color.color(1, 0.2, 0.2)
         );
 
         stage.setScene(scene);
@@ -70,19 +71,15 @@ public class View {
                 double yOffset = (screenYSize / 2) - pixelSize / 2;
                 double playerX = translateX(world.player.getXcoord()) - xOffset;
                 double playerY = translateY(world.player.getYcoord()) - yOffset;
-
-
                 int playerHP = world.player.getHp();
-                Item[] playerInventory = world.player.getInventory();
-                gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000, 1000);
-                renderTileWorld(world, playerX, playerY);
-                drawObject(world.player.getId(), translateX(0), translateY(0));
+                Item [] playerInventory = world.player.getInventory();
 
-                for (Combatant e : world.getEnemies()) {
-                    drawObject(e.getId(), translateX(e.getXcoord()) - playerX, translateY(e.getYcoord()) - playerY);
-                }
+                gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
+                renderTileWorld(world,playerX,playerY);
+                drawObject(world.player.getId(),translateX(0),translateY(0));
+                renderEnemies(world.getEnemies(),playerX,playerY);
+                renderOverlay(playerHP,playerInventory);
 
-                renderOverlay(playerHP, playerInventory);
         }
     }
 
@@ -96,18 +93,16 @@ public class View {
 
     //Draws object with String id
     public void drawObject(String id, double x, double y) {
-        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
         graphics.drawImage(ResourceHandler.getResource(id), x, y);
     }
 
-    private void renderOverlay(int HP, Item[] inventory) {
-        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
+    private void renderOverlay(int HP, Item[] inventory){
         int healthbarWidth = 18 * HP;
-        healthbar.setWidth(healthbarWidth);
+        playerHealthbar.setWidth(healthbarWidth);
         graphics.setFill(Color.WHITE);
         graphics.fillRect(gameScreen.getWidth() - 200, 20, 180, 30);
-        graphics.setFill(healthbar.getFill());
-        graphics.fillRect(gameScreen.getWidth() - 200, 20, healthbarWidth, healthbar.getHeight());
+        graphics.setFill(playerHealthbar.getFill());
+        graphics.fillRect(gameScreen.getWidth() - 200, 20, healthbarWidth, playerHealthbar.getHeight());
         graphics.drawImage(ResourceHandler.getResource("HealthbarContainer"), gameScreen.getWidth() - 200, 20);
 
         for (int i = 0; i < inventory.length; i++) {
@@ -131,11 +126,18 @@ public class View {
 
     }
 
+    public void renderEnemies(List <Combatant> enemies, double playerX, double playerY){
+        for(Combatant e : enemies){
+            drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
+            graphics.setFill(playerHealthbar.getFill());
+            graphics.fillRect(translateX(e.getXcoord())-playerX - 15,translateY(e.getYcoord())-playerY - pixelSize/2,6*e.getHp(),10);
+        }
+    }
+
     public void renderTileWorld(World world, double playerX, double playerY) {
-        GraphicsContext graphics = gameScreen.getGraphicsContext2D();
-        for (List<Tile> tileRow : world.getWorldGrid()) {
-            for (Tile tile : tileRow) {
-                graphics.drawImage(ResourceHandler.getResource(tile.getId()), translateX(tile.getXcoord()) - playerX, translateY(tile.getYcoord()) - playerY);
+        for (List<Tile> tileRow: world.getWorldGrid()){
+            for (Tile tile: tileRow){
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
                 Chest chest = tile.getChest();
                 if (chest != null) {
                     graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(tile.getXcoord()) - playerX, translateY(tile.getYcoord()) - playerY);
