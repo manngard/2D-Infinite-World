@@ -1,9 +1,6 @@
 package org.openjfx.view;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -29,10 +26,10 @@ public class View {
 
     final int pixelSize = 32;
 
+    private Event<ViewEventMessages> viewEvent;
 
 
-
-    public View(Stage stage, EventHandler<KeyEvent> handler, Event<EventMessage> modelHasUpdateEvent) {
+    public View(Stage stage, Event<EventMessage> modelHasUpdateEvent) {
         this.stage = stage;
 
         StackPane layers = new StackPane();
@@ -50,7 +47,9 @@ public class View {
         stage.setScene(scene);
         stage.show();
 
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, handler);
+        viewEvent = new Event<>();
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> viewEvent.dispatch(ViewEventMessages.KEYPRESS ,event.getCode()));
+        viewEvent = new Event<>();
 
         modelHasUpdateEvent.addListener(new EventListener<EventMessage>() {
             @Override
@@ -138,5 +137,9 @@ public class View {
 
     public Canvas getGameScreen() {
         return gameScreen;
+    }
+
+    public Event<ViewEventMessages> getViewEvent() {
+        return viewEvent;
     }
 }
