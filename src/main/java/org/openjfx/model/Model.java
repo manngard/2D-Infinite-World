@@ -67,10 +67,13 @@ public class Model {
             if (world.isEntityWithinDistance(chest, 1) & world.inSight(world.getPlayer(), chest)) {
                 for (int i = 0; i < 4; i++)
                     world.player.setItem(chest.getItem(i), i);
+                if(world.player.getSelectedItem() == 0){
+                    selectInventory(1);
+                }
+                else
+                    selectInventory(world.player.getSelectedItem());
             }
         }
-
-        selectInventory(1);
     }
 
 
@@ -84,6 +87,7 @@ public class Model {
                 }
             }
             world.player.getInventory()[inventoryNumber - 1].setToSelected();
+            world.player.setSelectedItem(inventoryNumber);
         }
     }
 

@@ -5,9 +5,17 @@ public class Player extends Combatant {
 
     private int exp = 0;
     private Item[] inventory = new Item[4];
+    private int selectedItem = 0;
 
+    public int getSelectedItem() {
+        return selectedItem;
+    }
 
-    public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE) {
+    public void setSelectedItem(int selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+
+    public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK, float ATKRANGE) {
         super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE);
     }
 
