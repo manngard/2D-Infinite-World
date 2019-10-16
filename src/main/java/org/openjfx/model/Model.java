@@ -1,12 +1,9 @@
 package org.openjfx.model;
 
 import org.openjfx.model.noise.NoiseGenerator;
-
 import org.openjfx.utils.event.Event;
 
 public class Model {
-
-
     private World world;
 
     public Event<EventMessage> hasUpdateEvent;
@@ -49,23 +46,22 @@ public class Model {
     }
 
     public void playerAttacks() {
-        world.attackHit(world.player, world.playerAttacks(world.player, world.getEnemies()));
+        world.attackHit(world.player, world.combatantAttacks(world.player, world.getEnemies()));
     }
 
     public void playerInteracts() {
         for (Chest chest : world.getChests()) {
-            if (world.isEntityWithinDistance(chest, 1) & world.inSight(world.getPlayer(), chest)) {
+            if (world.isEntityWithinDistance(chest, world.getPlayer(), world.getPlayer().getAtkRange()) & world.inSight(world.getPlayer(), chest)) {
                 for (int i = 0; i < 4; i++)
                     world.player.setItem(chest.getItem(i), i);
             }
         }
-
         selectInventory(1);
     }
 
     public void selectInventory(int inventoryNumber) {
 
-        if (world.player.getInventory()[inventoryNumber -1] != null) {
+        if (world.player.getInventory()[inventoryNumber - 1] != null) {
             for (Item item : world.player.getInventory()) {
                 if (item.getIsItemSelected()) {
                     item.setToNotSelected();
@@ -76,12 +72,14 @@ public class Model {
         }
     }
 
-    public void moveMobsInWorld(){
+    public void moveMobsInWorld() {
         world.moveMobs();
-        modelHasBeenUpdated();
     }
 
-
-
+    public void mobsAttack() {
+        for (Combatant enemy : world.getEnemies()) {
+            world.attackHit(enemy, world.combatantAttacks(enemy, world.getPlayers()));
+        }
+    }
 }
 

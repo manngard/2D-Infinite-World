@@ -8,7 +8,6 @@ import org.openjfx.view.View;
 
 
 public class Controller {
-
     View view;
     Model model;
     private long previousTime = 0;
@@ -23,6 +22,7 @@ public class Controller {
                 System.out.println(deltaTime / 1000000);
                 if(deltaTime / 100000 > 500) {
                     model.moveMobsInWorld();
+                    model.mobsAttack();
                     model.modelHasBeenUpdated();
                     previousTime = now;
                 }

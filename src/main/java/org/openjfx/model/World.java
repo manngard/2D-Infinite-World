@@ -5,23 +5,21 @@ import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.model.tile.Tile;
 import org.openjfx.model.tile.TileFactory;
 
-import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.spi.LocaleNameProvider;
 
 public class World {
     private final TileFactory tileFactory;
     LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
-    private final int enemyDetectDistance = 10;
 
+    private final double enemyDetectDistance = 10; //MOVE LATER
     final private List<Combatant> enemies = new ArrayList<Combatant>();
     final private List<Chest> chests = new ArrayList<Chest>();
-
+    final private List<Combatant> players = new ArrayList<>();
     public Player player;
 
     /*Initiates int worldHorizontalSideLength rows for the grid matrix,
@@ -41,13 +39,14 @@ public class World {
         }
 
         player = new Player("Player",0,0,10,2, 2);
+        players.add(player);
 
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
         for(int i = 0; i < 4; i++) {
             Random rand = new Random();
-            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 10, 10, 1));
+            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 10, 1, 2));
         }
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
@@ -75,18 +74,17 @@ public class World {
     }
 
     //combat related
-    public List<Combatant> playerAttacks(Combatant a, List<Combatant> d){
+    public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders){
 
         System.out.print(player.direction);
 
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
 
-        for(Combatant c: d){
-            if(inSight(a, c) && isEntityWithinDistance(c,player.getAtkRange())){
-                combatantsHit.add(c);
-
+        for(Combatant defender: defenders){
+            if(inSight(attacker, defender) && isEntityWithinDistance(defender,attacker,attacker.getAtkRange()) && attacker.canAttack()){
+                attacker.setAttackOnCooldown();
+                combatantsHit.add(defender);
             }
-
         }
 
         return combatantsHit;
@@ -186,8 +184,14 @@ public class World {
 
     }
 
-    public boolean isEntityWithinDistance(Entity entity, double range){
+    /*public boolean isEntityWithinDistance(Entity entity, double range){
         if(distance(player, entity) <= range)
+            return true;
+        return false;
+    }*/
+
+    public boolean isEntityWithinDistance(Entity entity, Combatant attacker, double range){
+        if(distance(attacker, entity) <= range)
             return true;
         return false;
     }
@@ -197,7 +201,7 @@ public class World {
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
         for(Combatant combatant: enemies){
-            if(isEntityWithinDistance(combatant, enemyDetectDistance)){
+            if(isEntityWithinDistance(player, combatant, enemyDetectDistance)){
                 if(player.xcoord + 0.9 < combatant.xcoord){
                     combatant.move(Movable.Direction.LEFT);
                 }
@@ -286,6 +290,10 @@ public class World {
                 worldGrid.addLast(newLastColumn);
                 break;
         }
+    }
+
+    public List<Combatant> getPlayers() {
+        return players;
     }
 }
 

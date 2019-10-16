@@ -31,7 +31,7 @@ public class Player extends Combatant {
         return atk;
     }
 
-    public float getAtkRange() {
+    public double getAtkRange() {
         return atkRange;
     }
 
@@ -69,6 +69,10 @@ public class Player extends Combatant {
 
     public void setItem(Item item, int index) {
         this.inventory[index] = item;
+    }
+
+    public boolean canAttack(){
+        return true;
     }
 }
 
