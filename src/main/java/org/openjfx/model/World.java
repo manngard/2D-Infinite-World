@@ -5,19 +5,19 @@ import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.model.tile.Tile;
 import org.openjfx.model.tile.TileFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class World {
     private final TileFactory tileFactory;
+    private final EntityFactory entityFactory;
     LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
 
-    private final double enemyDetectDistance = 10; //MOVE LATER
-    final private List<Combatant> enemies = new ArrayList<Combatant>();
+    private final double enemyDetectDistance = 7; //MOVE LATER
+    private final double activeDistance = 22;
+    final private List<Combatant> activeEnemies = new ArrayList<Combatant>();
+    final private Map<Coords,Combatant> inactiveEnemies = new HashMap<>();
     final private List<Chest> chests = new ArrayList<Chest>();
     final private List<Combatant> players = new ArrayList<>();
     public Player player;
@@ -37,6 +37,7 @@ public class World {
         else {
             tileFactory = new TileFactory(new DefaultNoiseGenerator());
         }
+        entityFactory = new EntityFactory();
 
         player = new Player("Player",0,0,10,2, 2);
         players.add(player);
@@ -44,9 +45,14 @@ public class World {
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
-        for(int i = 0; i < 4; i++) {
-            Random rand = new Random();
-            enemies.add(new Enemy("Goblin", (rand.nextInt(10) - 5), rand.nextInt(10) - 5, 10, 1, 2));
+        for(int i = 0; i < 100000; i++) {
+            Combatant enemy = entityFactory.generateEnemy();
+            inactiveEnemies.put((enemy.getCoords()),enemy);
+        }
+
+        for(int i = 0; i < 100; i++) {
+            Chest chest = entityFactory.generateChest();
+            chests.add(chest);
         }
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
@@ -61,10 +67,6 @@ public class World {
             yCoord = (0 - (worldVerticalSideLength - 1)/2);
             for (int i = 0; i<worldVerticalSideLength;i++){
                 worldrow.add(tileFactory.generateTile(xCoord,yCoord));
-                Chest chest = worldrow.get(i).getChest();
-                if (chest != null){
-                    chests.add(chest);
-                }
                 yCoord++;
             }
         }
@@ -92,25 +94,24 @@ public class World {
     }
 
     public boolean inSight(Combatant a, Entity b){
-
         switch(a.direction){
             case UP:
-                if (b.ycoord < (a.ycoord - 0.5)) {
+                if (b.getYcoord() < (a.getYcoord() - 0.5)) {
                     return true;
                 }
                 break;
             case DOWN:
-                if (b.ycoord > (a.ycoord + 0.5)) {
+                if (b.getYcoord() > (a.getYcoord() + 0.5)) {
                     return true;
                 }
                 break;
             case LEFT:
-                if (b.xcoord < (a.xcoord - 0.5)) {
+                if (b.getXcoord() < (a.getXcoord() - 0.5)) {
                     return true;
                 }
                 break;
             case RIGHT:
-                if (b.xcoord > (a.xcoord + 0.5)) {
+                if (b.getXcoord() > (a.getXcoord() + 0.5)) {
                     return true;
                 }
                 break;
@@ -125,7 +126,7 @@ public class World {
             d.decHp(a.getAtk());
             System.out.print("Player hit enemy");
             if(d.getHp() <= 0){
-                enemies.remove(d);
+                activeEnemies.remove(d);
             }
 
         }
@@ -135,16 +136,16 @@ public class World {
 
     public double distance(Entity a, Entity b){
 
-        double xDist = Math.abs(a.xcoord - b.xcoord);
-        double yDist = Math.abs(a.ycoord - b.ycoord);
+        double xDist = Math.abs(a.getXcoord() - b.getXcoord());
+        double yDist = Math.abs(a.getYcoord() - b.getYcoord());
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
     public boolean isPathFree(Combatant c){
-        double checkX1 = c.xcoord;
-        double checkY1 = c.ycoord;
-        double checkX2 = c.xcoord;
-        double checkY2 = c.ycoord;
+        double checkX1 = c.getXcoord();
+        double checkY1 = c.getYcoord();
+        double checkX2 = c.getXcoord();
+        double checkY2 = c.getYcoord();
 
         switch(c.direction) {
             case UP:
@@ -197,21 +198,22 @@ public class World {
     }
 
     public void moveMobs(){
-
+        checkIfEnemiesInactive();
+        checkIfEnemiesActive();
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
-        for(Combatant combatant: enemies){
+        for(Combatant combatant: activeEnemies){
             if(isEntityWithinDistance(player, combatant, enemyDetectDistance)){
-                if(player.xcoord + 0.9 < combatant.xcoord){
+                if(player.getXcoord() + 0.9 < combatant.getXcoord()){
                     combatant.move(Movable.Direction.LEFT);
                 }
-                else if(player.xcoord - 0.9 > combatant.xcoord){
+                else if(player.getXcoord() - 0.9 > combatant.getXcoord()){
                     combatant.move(Movable.Direction.RIGHT);
                 }
-                if(player.ycoord + 0.9 < combatant.ycoord){
+                if(player.getYcoord() + 0.9 < combatant.getYcoord()){
                     combatant.move(Movable.Direction.UP);
                 }
-                else if(player.ycoord - 0.9 > combatant.ycoord){
+                else if(player.getYcoord() - 0.9 > combatant.getYcoord()){
                     combatant.move(Movable.Direction.DOWN);
                 }
             }
@@ -241,9 +243,40 @@ public class World {
 
     //getters and setters
 
-    public List<Combatant> getEnemies(){
+    public List<Combatant> getActiveEnemies(){
 
-        return enemies;
+        return activeEnemies;
+    }
+
+    public void checkIfEnemiesInViewport(){
+
+    }
+
+    public void checkIfEnemiesInactive() {
+        List<Combatant> newlyInactive = new ArrayList<>();
+        for (Combatant combatant : activeEnemies) {
+            if (!isEntityWithinDistance(combatant, player, activeDistance)) {
+                newlyInactive.add(combatant);
+            }
+        }
+        for (Combatant combatant : newlyInactive){
+            activeEnemies.remove(combatant);
+            inactiveEnemies.put(combatant.getCoords(), combatant);
+        }
+    }
+
+    public void checkIfEnemiesActive(){
+        List<Combatant> newlyActive = new ArrayList<>();
+        for (Combatant combatant : inactiveEnemies.values()) {
+            if (isEntityWithinDistance(combatant, player, activeDistance)) {
+                activeEnemies.add(combatant);
+                newlyActive.add(combatant);
+            }
+        }
+        for (Combatant combatant : newlyActive){
+            inactiveEnemies.remove(combatant.getCoords());
+        }
+
     }
 
     public List<Chest> getChests() {
@@ -256,21 +289,21 @@ public class World {
 
     public void updateWorldGrid() {
         Player p = this.player;
-        final double maxYViewport = p.ycoord + (worldVerticalSideLength - 1) / 2;
-        final double minYViewport = p.ycoord - (worldVerticalSideLength - 1) / 2;
-        final double maxXViewport = p.xcoord + (worldHorizontalSideLength - 1) / 2;
-        final double minXViewport = p.xcoord - (worldHorizontalSideLength - 1) / 2;
+        final double maxYViewport = p.getYcoord() + (worldVerticalSideLength - 1) / 2;
+        final double minYViewport = p.getYcoord() - (worldVerticalSideLength - 1) / 2;
+        final double maxXViewport = p.getXcoord() + (worldHorizontalSideLength - 1) / 2;
+        final double minXViewport = p.getXcoord() - (worldHorizontalSideLength - 1) / 2;
         switch(p.direction) {
             case UP:
                 for(LinkedList<Tile> column : worldGrid) {
                     column.removeLast();
-                    column.addFirst(tileFactory.generateTile(column.getFirst().xcoord, minYViewport));
+                    column.addFirst(tileFactory.generateTile(column.getFirst().getXcoord(), minYViewport));
                 }
                 break;
             case DOWN:
                 for(LinkedList<Tile> column : worldGrid) {
                     column.removeFirst();
-                    column.addLast(tileFactory.generateTile(column.getFirst().xcoord, maxYViewport));
+                    column.addLast(tileFactory.generateTile(column.getFirst().getXcoord(), maxYViewport));
                 }
                 break;
             case LEFT:

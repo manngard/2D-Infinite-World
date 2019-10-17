@@ -46,7 +46,7 @@ public class Model {
     }
 
     public void playerAttacks() {
-        world.attackHit(world.player, world.combatantAttacks(world.player, world.getEnemies()));
+        world.attackHit(world.player, world.combatantAttacks(world.player, world.getActiveEnemies()));
     }
 
     public void playerInteracts() {
@@ -77,7 +77,7 @@ public class Model {
     }
 
     public void mobsAttack() {
-        for (Combatant enemy : world.getEnemies()) {
+        for (Combatant enemy : world.getActiveEnemies()) {
             world.attackHit(enemy, world.combatantAttacks(enemy, world.getPlayers()));
         }
     }

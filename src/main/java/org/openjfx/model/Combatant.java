@@ -49,22 +49,22 @@ public abstract class Combatant extends Entity implements Movable{
     public void move(Direction direction){
         switch(direction){
             case UP:
-                this.ycoord -= moveSpeed;
+                coords.yCoord -= moveSpeed;
                 this.direction = Direction.UP;
                 break;
 
             case DOWN:
-                this.ycoord += moveSpeed;
+                coords.yCoord += moveSpeed;
                 this.direction = Direction.DOWN;
                 break;
 
             case LEFT:
-                this.xcoord -= moveSpeed;
+                coords.xCoord -= moveSpeed;
                 this.direction = Direction.LEFT;
                 break;
 
             case RIGHT:
-                this.xcoord += moveSpeed;
+                coords.xCoord += moveSpeed;
                 this.direction = Direction.RIGHT;
                 break;
         }

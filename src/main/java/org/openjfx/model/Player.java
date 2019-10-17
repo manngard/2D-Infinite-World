@@ -15,13 +15,6 @@ public class Player extends Combatant {
         return id;
     }
 
-    public double getXcoord() {
-        return xcoord;
-    }
-
-    public double getYcoord() {
-        return ycoord;
-    }
 
     public int getHp() {
         return hp;

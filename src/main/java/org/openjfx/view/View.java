@@ -77,7 +77,7 @@ public class View {
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
-                renderEnemies(world.getEnemies(),playerX,playerY);
+                renderEnemies(world.getActiveEnemies(), world.getChests(),playerX,playerY);
                 renderOverlay(playerHP,playerInventory);
 
         }
@@ -126,7 +126,11 @@ public class View {
 
     }
 
-    public void renderEnemies(List <Combatant> enemies, double playerX, double playerY){
+    public void renderEnemies(List <Combatant> enemies, List<Chest> chests, double playerX, double playerY){
+        for (Chest chest : chests){
+            graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(chest.getXcoord()) - playerX, translateY(chest.getYcoord()) - playerY);
+        }
+
         for(Combatant e : enemies){
             double healthbarXCoord = translateX(e.getXcoord())-playerX - 15;
             double healthbarYCoord = translateY(e.getYcoord())-playerY - pixelSize/2;
@@ -141,10 +145,6 @@ public class View {
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
-                Chest chest = tile.getChest();
-                if (chest != null) {
-                    graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(tile.getXcoord()) - playerX, translateY(tile.getYcoord()) - playerY);
-                }
             }
         }
     }
