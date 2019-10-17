@@ -69,7 +69,7 @@ public class Controller {
             case DIGIT2:
             case DIGIT3:
             case DIGIT4:
-                model.selectInventory(Integer.parseInt(keyEvent.getCode().getName()));
+                model.selectInventory(Integer.parseInt(keyCode.getName()));
                 break;
         }
     }
