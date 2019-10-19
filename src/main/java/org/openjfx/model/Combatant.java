@@ -5,7 +5,7 @@ public abstract class Combatant extends Entity implements Movable{
     protected int atk;
     protected double atkRange;
     protected double moveSpeed = 1;
-    protected int attackCooldownTicker = 0;
+    protected int attackCooldownTicker = 20;
     Direction direction = Direction.LEFT;
 
     public Combatant(String i, double a, double b, int HP, int ATK, double ATKRANGE){

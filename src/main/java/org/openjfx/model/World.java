@@ -16,9 +16,10 @@ public class World {
 
     private final double enemyDetectDistance = 7; //MOVE LATER
     private final double activeDistance = 22;
-    final private List<Combatant> activeEnemies = new ArrayList<Combatant>();
+    final private List<Combatant> activeEnemies = new ArrayList<>();
     final private Map<Coords,Combatant> inactiveEnemies = new HashMap<>();
-    final private List<Chest> chests = new ArrayList<Chest>();
+    final private List<Chest> activeChests = new ArrayList<>();
+    final private Map<Coords,Chest> inactiveChests = new HashMap<>();
     final private List<Combatant> players = new ArrayList<>();
     public Player player;
 
@@ -50,9 +51,9 @@ public class World {
             inactiveEnemies.put((enemy.getCoords()),enemy);
         }
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 100000; i++) {
             Chest chest = entityFactory.generateChest();
-            chests.add(chest);
+            inactiveChests.put((chest.getCoords()),chest);
         }
 
         double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
@@ -185,12 +186,6 @@ public class World {
 
     }
 
-    /*public boolean isEntityWithinDistance(Entity entity, double range){
-        if(distance(player, entity) <= range)
-            return true;
-        return false;
-    }*/
-
     public boolean isEntityWithinDistance(Entity entity, Combatant attacker, double range){
         if(distance(attacker, entity) <= range)
             return true;
@@ -198,8 +193,8 @@ public class World {
     }
 
     public void moveMobs(){
-        checkIfEnemiesInactive();
-        checkIfEnemiesActive();
+        checkIfEntitiesInactive();
+        checkIfEntitiesActive();
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
         for(Combatant combatant: activeEnemies){
@@ -248,24 +243,30 @@ public class World {
         return activeEnemies;
     }
 
-    public void checkIfEnemiesInViewport(){
-
-    }
-
-    public void checkIfEnemiesInactive() {
-        List<Combatant> newlyInactive = new ArrayList<>();
+    public void checkIfEntitiesInactive() { //not optimized
+        List<Combatant> newlyInactiveEnemies = new ArrayList<>();
         for (Combatant combatant : activeEnemies) {
             if (!isEntityWithinDistance(combatant, player, activeDistance)) {
-                newlyInactive.add(combatant);
+                newlyInactiveEnemies.add(combatant);
             }
         }
-        for (Combatant combatant : newlyInactive){
+        for (Combatant combatant : newlyInactiveEnemies){
             activeEnemies.remove(combatant);
             inactiveEnemies.put(combatant.getCoords(), combatant);
         }
+        List<Chest> newlyInactiveChests = new ArrayList<>();
+        for (Chest chest : activeChests) {
+            if (!isEntityWithinDistance(chest, player, activeDistance)) {
+                newlyInactiveChests.add(chest);
+            }
+        }
+        for (Chest chest : newlyInactiveChests){
+            activeChests.remove(chest);
+            inactiveChests.put(chest.getCoords(), chest);
+        }
     }
 
-    public void checkIfEnemiesActive(){
+    public void checkIfEntitiesActive(){ //not optimized
         List<Combatant> newlyActive = new ArrayList<>();
         for (Combatant combatant : inactiveEnemies.values()) {
             if (isEntityWithinDistance(combatant, player, activeDistance)) {
@@ -276,11 +277,21 @@ public class World {
         for (Combatant combatant : newlyActive){
             inactiveEnemies.remove(combatant.getCoords());
         }
+        List<Chest> newlyActive2 = new ArrayList<>();
+        for (Chest chest : inactiveChests.values()) {
+            if (isEntityWithinDistance(chest, player, activeDistance)) {
+                activeChests.add(chest);
+                newlyActive2.add(chest);
+            }
+        }
+        for (Chest chest : newlyActive2){
+            inactiveChests.remove(chest.getCoords());
+        }
 
     }
 
-    public List<Chest> getChests() {
-        return chests;
+    public List<Chest> getActiveChests() {
+        return activeChests;
     }
 
     public Player getPlayer() {

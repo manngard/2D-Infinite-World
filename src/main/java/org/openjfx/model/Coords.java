@@ -16,12 +16,4 @@ public class Coords {
     public double getyCoord() {
         return yCoord;
     }
-
-    public void setxCoord(double xCoord) {
-        this.xCoord = xCoord;
-    }
-
-    public void setyCoord(double yCoord) {
-        this.yCoord = yCoord;
-    }
 }

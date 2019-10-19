@@ -76,8 +76,8 @@ public class View {
 
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);
+                renderEnemies(world.getActiveEnemies(), world.getActiveChests(),playerX,playerY);
                 drawObject(world.player.getId(),translateX(0),translateY(0));
-                renderEnemies(world.getActiveEnemies(), world.getChests(),playerX,playerY);
                 renderOverlay(playerHP,playerInventory);
 
         }

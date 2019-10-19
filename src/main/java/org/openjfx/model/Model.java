@@ -50,7 +50,7 @@ public class Model {
     }
 
     public void playerInteracts() {
-        for (Chest chest : world.getChests()) {
+        for (Chest chest : world.getActiveChests()) {
             if (world.isEntityWithinDistance(chest, world.getPlayer(), world.getPlayer().getAtkRange()) & world.inSight(world.getPlayer(), chest)) {
                 for (int i = 0; i < 4; i++)
                     world.player.setItem(chest.getItem(i), i);

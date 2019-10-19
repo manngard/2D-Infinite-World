@@ -65,7 +65,11 @@ public class Player extends Combatant {
     }
 
     public boolean canAttack(){
-        return true;
+        if (attackCooldownTicker > 0){
+            return true;
+        }
+        attackCooldownTicker++;
+        return false;
     }
 }
 

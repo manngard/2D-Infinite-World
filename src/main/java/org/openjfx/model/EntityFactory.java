@@ -6,10 +6,11 @@ import java.util.Random;
 
 public class EntityFactory {
     private List<String> enemyTypes = new ArrayList<>();
-    int spawnAreaSide = 10000;
+    int spawnAreaSide = 5000;
 
     public EntityFactory(){
         enemyTypes.add("Goblin");
+        enemyTypes.add("Rat");
     }
 
     public Combatant generateEnemy() {
@@ -22,8 +23,8 @@ public class EntityFactory {
     public Chest generateChest() {
 
         Random rand = new Random();
-        double randX = rand.nextInt(400) - 200;
-        double randY = rand.nextInt(400) - 200;
+        double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
+        double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
         return new Chest("Chest",randX,randY);
     }
 }
