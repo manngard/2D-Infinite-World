@@ -8,8 +8,8 @@ import org.openjfx.view.View;
 
 
 public class Controller {
-    View view;
-    Model model;
+    private View view;
+    private Model model;
     private long previousTime = 0;
 
     public Controller(Stage stage) {

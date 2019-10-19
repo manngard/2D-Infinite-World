@@ -28,7 +28,7 @@ public class View {
     private int screenYSize;
     private Rectangle playerHealthbar;
 
-    final int pixelSize = 32;
+    private final int pixelSize = 32;
 
     private GraphicsContext graphics;
 
@@ -83,16 +83,16 @@ public class View {
         }
     }
 
-    public double translateY(double modelY) {
+    private double translateY(double modelY) {
         return gameScreen.getHeight() / 2 + modelY * pixelSize - 16;
     }
 
-    public double translateX(double modelX) {
+    private double translateX(double modelX) {
         return gameScreen.getWidth() / 2 + modelX * pixelSize - 16;
     }
 
     //Draws object with String id
-    public void drawObject(String id, double x, double y) {
+    private void drawObject(String id, double x, double y) {
         graphics.drawImage(ResourceHandler.getResource(id), x, y);
     }
 
@@ -126,7 +126,7 @@ public class View {
 
     }
 
-    public void renderEnemies(List <Combatant> enemies, List<Chest> chests, double playerX, double playerY){
+    private void renderEnemies(List <Combatant> enemies, List<Chest> chests, double playerX, double playerY){
         for (Chest chest : chests){
             graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(chest.getXcoord()) - playerX, translateY(chest.getYcoord()) - playerY);
         }
@@ -141,7 +141,7 @@ public class View {
         }
     }
 
-    public void renderTileWorld(World world, double playerX, double playerY) {
+    private void renderTileWorld(World world, double playerX, double playerY) {
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
                 graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
@@ -149,7 +149,7 @@ public class View {
         }
     }
 
-    public Canvas getGameScreen() {
+    private Canvas getGameScreen() {
         return gameScreen;
     }
 }

@@ -14,77 +14,76 @@ public class World {
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
 
-    private final double enemyDetectDistance = 7; //MOVE LATER
+    private final double enemyDetectDistance = 7;
     private final double activeDistance = 22;
     final private List<Combatant> activeEnemies = new ArrayList<>();
-    final private Map<Coords,Combatant> inactiveEnemies = new HashMap<>();
+    final private Map<Coordinates, Combatant> inactiveEnemies = new HashMap<>();
     final private List<Chest> activeChests = new ArrayList<>();
-    final private Map<Coords,Chest> inactiveChests = new HashMap<>();
+    final private Map<Coordinates, Chest> inactiveChests = new HashMap<>();
     final private List<Combatant> players = new ArrayList<>();
     public Player player;
-
-    /*Initiates int worldHorizontalSideLength rows for the grid matrix,
-    then fills every row with int worldVerticalSideLength Tile Objects,
-    the center of matrix has coordinates 0,0*/
 
     public World() {
         this(null);
     }
 
-    public World(NoiseGenerator noiseGenerator){
-        if(noiseGenerator != null) {
+    /*Initiates int worldHorizontalSideLength rows for the grid matrix,
+    then fills every row with int worldVerticalSideLength Tile Objects,
+    the center of worldGrid matrix is set to coordinates 0,0
+
+    Initiates inactiveEnemies and inactiveChests with a large pool of enemies/chests
+     to be loaded in when their respective Coordinate coords come into activeDistance of Player
+    */
+
+    public World(NoiseGenerator noiseGenerator) {
+        if (noiseGenerator != null) {
             tileFactory = new TileFactory(noiseGenerator);
-        }
-        else {
+        } else {
             tileFactory = new TileFactory(new DefaultNoiseGenerator());
         }
         entityFactory = new EntityFactory();
 
-        player = new Player("Player",0,0,10,2, 2);
+        player = new Player("Player", 0, 0, 10, 2, 2);
         players.add(player);
 
         this.worldHorizontalSideLength = 21;
         this.worldVerticalSideLength = 13;
 
-        for(int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 100000; i++) {
             Combatant enemy = entityFactory.generateEnemy();
-            inactiveEnemies.put((enemy.getCoords()),enemy);
+            inactiveEnemies.put((enemy.getCoords()), enemy);
         }
 
-        for(int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 100000; i++) {
             Chest chest = entityFactory.generateChest();
-            inactiveChests.put((chest.getCoords()),chest);
+            inactiveChests.put((chest.getCoords()), chest);
         }
 
-        double xCoord = 0 - ((worldHorizontalSideLength - 1)/2) - 1;
+        double xCoord = 0 - ((worldHorizontalSideLength - 1) / 2) - 1;
         double yCoord;
 
         worldGrid = new LinkedList<>();
-        for (int i = 0; i<worldHorizontalSideLength;i++){
+        for (int i = 0; i < worldHorizontalSideLength; i++) {
             worldGrid.add(new LinkedList<Tile>());
         }
-        for (List<Tile> worldrow : worldGrid){
+        for (List<Tile> worldrow : worldGrid) {
             xCoord++;
-            yCoord = (0 - (worldVerticalSideLength - 1)/2);
-            for (int i = 0; i<worldVerticalSideLength;i++){
-                worldrow.add(tileFactory.generateTile(xCoord,yCoord));
+            yCoord = (0 - (worldVerticalSideLength - 1) / 2);
+            for (int i = 0; i < worldVerticalSideLength; i++) {
+                worldrow.add(tileFactory.generateTile(xCoord, yCoord));
                 yCoord++;
             }
         }
     }
-    public LinkedList<LinkedList<Tile>> getWorldGrid() {
-        return worldGrid;
-    }
 
-    //combat related
-    public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders){
+    public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
 
         System.out.print(player.direction);
 
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
 
-        for(Combatant defender: defenders){
-            if(inSight(attacker, defender) && isEntityWithinDistance(defender,attacker,attacker.getAtkRange()) && attacker.canAttack()){
+        for (Combatant defender : defenders) {
+            if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {
                 attacker.setAttackOnCooldown();
                 combatantsHit.add(defender);
             }
@@ -94,8 +93,8 @@ public class World {
 
     }
 
-    public boolean inSight(Combatant a, Entity b){
-        switch(a.direction){
+    public boolean inSight(Combatant a, Entity b) {
+        switch (a.direction) {
             case UP:
                 if (b.getYcoord() < (a.getYcoord() - 0.5)) {
                     return true;
@@ -121,34 +120,38 @@ public class World {
         return false;
     }
 
-    public void attackHit(Combatant a, List<Combatant> hit){
+    /*For each Combatant damaged in List<Combatant> hit, HP of damaged is decreased by Combatant attacker's
+      atk value, if Combatant damaged's HP falls under 0 it is removed from world*/
 
-        for(Combatant d: hit) {
-            d.decHp(a.getAtk());
+    public void attackHit(Combatant attacker, List<Combatant> hit) {
+
+        for (Combatant damaged : hit) {
+            damaged.decHp(attacker.getAtk());
             System.out.print("Player hit enemy");
-            if(d.getHp() <= 0){
-                activeEnemies.remove(d);
+            if (damaged.getHp() <= 0) {
+                activeEnemies.remove(damaged);
             }
 
         }
 
 
     }
+    /*Calculates the absolute distance between entity a and b using the pythagorean theorem and
+     returns the corresponding double value */
 
-    public double distance(Entity a, Entity b){
-
+    public double distance(Entity a, Entity b) {
         double xDist = Math.abs(a.getXcoord() - b.getXcoord());
         double yDist = Math.abs(a.getYcoord() - b.getYcoord());
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
-    public boolean isPathFree(Combatant c){
+    public boolean isPathFree(Combatant c) {
         double checkX1 = c.getXcoord();
         double checkY1 = c.getYcoord();
         double checkX2 = c.getXcoord();
         double checkY2 = c.getYcoord();
 
-        switch(c.direction) {
+        switch (c.direction) {
             case UP:
                 checkY1 = +0.5;
                 checkX1 = +0.5;
@@ -175,10 +178,9 @@ public class World {
                 break;
         }
 
-        if (worldGrid.get(Math.toIntExact(Math.round(checkY1))).get(Math.toIntExact(Math.round(checkX1))).getISSolid()){
+        if (worldGrid.get(Math.toIntExact(Math.round(checkY1))).get(Math.toIntExact(Math.round(checkX1))).getISSolid()) {
             return false;
-        }
-        else if (worldGrid.get(Math.toIntExact(Math.round(checkY2))).get(Math.toIntExact(Math.round(checkX2))).getISSolid()){
+        } else if (worldGrid.get(Math.toIntExact(Math.round(checkY2))).get(Math.toIntExact(Math.round(checkX2))).getISSolid()) {
             return false;
         }
 
@@ -186,36 +188,37 @@ public class World {
 
     }
 
-    public boolean isEntityWithinDistance(Entity entity, Combatant attacker, double range){
-        if(distance(attacker, entity) <= range)
+    /*Checks if the absolute distance between Entity requester and Combatant target.
+    If less or equal to double range, returns true. If higher than double range, returns false  */
+
+    public boolean isEntityWithinDistance(Entity target, Combatant requester, double range) {
+        if (distance(requester, target) <= range)
             return true;
         return false;
     }
 
-    public void moveMobs(){
+    public void moveMobs() {
         checkIfEntitiesInactive();
         checkIfEntitiesActive();
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
-        for(Combatant combatant: activeEnemies){
-            if(isEntityWithinDistance(player, combatant, enemyDetectDistance)){
-                if(player.getXcoord() + 0.9 < combatant.getXcoord()){
+        for (Combatant combatant : activeEnemies) {
+            if (isEntityWithinDistance(player, combatant, enemyDetectDistance)) {
+                if (player.getXcoord() + 0.9 < combatant.getXcoord()) {
                     combatant.move(Movable.Direction.LEFT);
-                }
-                else if(player.getXcoord() - 0.9 > combatant.getXcoord()){
+                } else if (player.getXcoord() - 0.9 > combatant.getXcoord()) {
                     combatant.move(Movable.Direction.RIGHT);
                 }
-                if(player.getYcoord() + 0.9 < combatant.getYcoord()){
+                if (player.getYcoord() + 0.9 < combatant.getYcoord()) {
                     combatant.move(Movable.Direction.UP);
-                }
-                else if(player.getYcoord() - 0.9 > combatant.getYcoord()){
+                } else if (player.getYcoord() - 0.9 > combatant.getYcoord()) {
                     combatant.move(Movable.Direction.DOWN);
                 }
             }
             //  If mobs are not within distance the mobs shall move freely.
-            else{
-                int rand = (int)Math.ceil(Math.random() * 5);
-                switch (rand){
+            else {
+                int rand = (int) Math.ceil(Math.random() * 5);
+                switch (rand) {
                     case 1:
                         combatant.move(Movable.Direction.DOWN);
                         break;
@@ -236,12 +239,11 @@ public class World {
 
     }
 
-    //getters and setters
 
-    public List<Combatant> getActiveEnemies(){
 
-        return activeEnemies;
-    }
+    /*Checks if entities in inactiveChests and inactiveEnemies have come into viewport,
+    If they have come into viewport they are removed from inactiveChests or inactiveEnemies Map
+    and added to activeChests or activeEnemies List*/
 
     public void checkIfEntitiesInactive() { //not optimized
         List<Combatant> newlyInactiveEnemies = new ArrayList<>();
@@ -250,7 +252,7 @@ public class World {
                 newlyInactiveEnemies.add(combatant);
             }
         }
-        for (Combatant combatant : newlyInactiveEnemies){
+        for (Combatant combatant : newlyInactiveEnemies) {
             activeEnemies.remove(combatant);
             inactiveEnemies.put(combatant.getCoords(), combatant);
         }
@@ -260,13 +262,17 @@ public class World {
                 newlyInactiveChests.add(chest);
             }
         }
-        for (Chest chest : newlyInactiveChests){
+        for (Chest chest : newlyInactiveChests) {
             activeChests.remove(chest);
             inactiveChests.put(chest.getCoords(), chest);
         }
     }
 
-    public void checkIfEntitiesActive(){ //not optimized
+    /*Checks if entities in activeChests and activeEnemies still are in viewport,
+    If they are no longer in viewport they are stored in inactiveChests or inactiveEnemies Map and
+    removed from activeChests or activeEnemies List*/
+
+    public void checkIfEntitiesActive() {
         List<Combatant> newlyActive = new ArrayList<>();
         for (Combatant combatant : inactiveEnemies.values()) {
             if (isEntityWithinDistance(combatant, player, activeDistance)) {
@@ -274,7 +280,7 @@ public class World {
                 newlyActive.add(combatant);
             }
         }
-        for (Combatant combatant : newlyActive){
+        for (Combatant combatant : newlyActive) {
             inactiveEnemies.remove(combatant.getCoords());
         }
         List<Chest> newlyActive2 = new ArrayList<>();
@@ -284,19 +290,12 @@ public class World {
                 newlyActive2.add(chest);
             }
         }
-        for (Chest chest : newlyActive2){
+        for (Chest chest : newlyActive2) {
             inactiveChests.remove(chest.getCoords());
         }
 
     }
 
-    public List<Chest> getActiveChests() {
-        return activeChests;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
 
     public void updateWorldGrid() {
         Player p = this.player;
@@ -304,15 +303,15 @@ public class World {
         final double minYViewport = p.getYcoord() - (worldVerticalSideLength - 1) / 2;
         final double maxXViewport = p.getXcoord() + (worldHorizontalSideLength - 1) / 2;
         final double minXViewport = p.getXcoord() - (worldHorizontalSideLength - 1) / 2;
-        switch(p.direction) {
+        switch (p.direction) {
             case UP:
-                for(LinkedList<Tile> column : worldGrid) {
+                for (LinkedList<Tile> column : worldGrid) {
                     column.removeLast();
                     column.addFirst(tileFactory.generateTile(column.getFirst().getXcoord(), minYViewport));
                 }
                 break;
             case DOWN:
-                for(LinkedList<Tile> column : worldGrid) {
+                for (LinkedList<Tile> column : worldGrid) {
                     column.removeFirst();
                     column.addLast(tileFactory.generateTile(column.getFirst().getXcoord(), maxYViewport));
                 }
@@ -320,7 +319,7 @@ public class World {
             case LEFT:
                 worldGrid.removeLast();
                 LinkedList<Tile> newFirstColumn = new LinkedList<>();
-                for(int y = (int)minYViewport; y <= (int)maxYViewport; y++) {
+                for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
                     newFirstColumn.addLast(tileFactory.generateTile(minXViewport, y));
                 }
                 worldGrid.addFirst(newFirstColumn);
@@ -328,7 +327,7 @@ public class World {
             case RIGHT:
                 worldGrid.removeFirst();
                 LinkedList<Tile> newLastColumn = new LinkedList<>();
-                for(int y = (int)minYViewport; y <= (int)maxYViewport; y++) {
+                for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
                     newLastColumn.addLast(tileFactory.generateTile(maxXViewport, y));
                 }
                 worldGrid.addLast(newLastColumn);
@@ -339,5 +338,22 @@ public class World {
     public List<Combatant> getPlayers() {
         return players;
     }
+
+    public List<Combatant> getActiveEnemies() {
+        return activeEnemies;
+    }
+
+    public List<Chest> getActiveChests() {
+        return activeChests;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public LinkedList<LinkedList<Tile>> getWorldGrid() {
+        return worldGrid;
+    }
+
 }
 

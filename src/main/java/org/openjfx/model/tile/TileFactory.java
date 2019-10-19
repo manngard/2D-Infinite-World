@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 public class TileFactory {
-    List<Pair<String, Double>> tileTypes = new ArrayList<>();
-    NoiseGenerator noiseGenerator;
+    private final List<Pair<String, Double>> tileTypes = new ArrayList<>();
+    private NoiseGenerator noiseGenerator;
 
     public TileFactory(NoiseGenerator ng) {
         this.noiseGenerator = ng;

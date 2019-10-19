@@ -1,10 +1,10 @@
 package org.openjfx.model;
 
-public class Coords {
+public class Coordinates {
     double xCoord;
     double yCoord;
 
-    public Coords(double xCoord, double yCoord){
+    public Coordinates(double xCoord, double yCoord){
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class EntityFactory {
-    private List<String> enemyTypes = new ArrayList<>();
-    int spawnAreaSide = 5000;
+    private final List<String> enemyTypes = new ArrayList<>();
+    private int spawnAreaSide = 5000;
 
     public EntityFactory(){
         enemyTypes.add("Goblin");

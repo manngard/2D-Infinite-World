@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemFactory {
-    List<String> weapontypes = new ArrayList<>();
-    List<String> armortypes = new ArrayList<>();
+    private final List<String> weapontypes = new ArrayList<>();
+    private final List<String> armortypes = new ArrayList<>();
     private static ItemFactory instance;
 
 
