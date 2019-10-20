@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 public class TileFactory {
-    List<Pair<String, Double>> tileTypes = new ArrayList<>();
-    NoiseGenerator noiseGenerator;
+    private final List<Pair<String, Double>> tileTypes = new ArrayList<>();
+    private NoiseGenerator noiseGenerator;
 
     public TileFactory(NoiseGenerator ng) {
         this.noiseGenerator = ng;
@@ -24,20 +24,12 @@ public class TileFactory {
     }
 
     public Tile generateTile(double x, double y) {
-        Random rand = new Random();
-        int randInt = rand.nextInt(30);
         double tileValue = noiseGenerator.getValue((int) x, (int) y);
         double prevVal = 0.0;
         for(int i = 0; i < tileTypes.size(); i++) {
             if(prevVal < tileValue && tileValue <= tileTypes.get(i).getValue() + prevVal) {
-                if (randInt == 0 && tileTypes.get(i).getKey().equals("Grass")) {
-                    return new Tile(new Chest("Chest", x, y), tileTypes.get(i).getKey(), x, y);
-                }
-                else{
-                    return new Tile(null, tileTypes.get(i).getKey(), x, y);
-                }
+                return new Tile(tileTypes.get(i).getKey(), x, y);
             }
-            randInt = rand.nextInt(30);
             prevVal += tileTypes.get(i).getValue();
         }
 

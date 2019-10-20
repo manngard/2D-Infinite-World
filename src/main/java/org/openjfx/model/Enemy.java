@@ -1,7 +1,6 @@
 package org.openjfx.model;
 
 public class Enemy extends Combatant {
-
     public Enemy(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE){
 
         super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
@@ -16,7 +15,7 @@ public class Enemy extends Combatant {
         return atk;
     }
 
-    public float getAtkRange() { return atkRange; }
+    public double getAtkRange() { return atkRange; }
 
     public void decHp(int decAmount) {
 
@@ -26,6 +25,15 @@ public class Enemy extends Combatant {
     public void incHp(int incAmount){
 
         hp = hp + incAmount;
+
+    }
+
+    public boolean canAttack(){
+        if (attackCooldownTicker > 20){
+            return true;
+        }
+        attackCooldownTicker++;
+        return false;
 
     }
 }

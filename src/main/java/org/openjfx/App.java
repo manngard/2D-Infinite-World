@@ -8,7 +8,7 @@ import org.openjfx.controller.Controller;
  * JavaFX Controller
  */
 public class App extends Application {
-    Controller controller;
+    private Controller controller;
 
     @Override
     public void start(Stage stage) {

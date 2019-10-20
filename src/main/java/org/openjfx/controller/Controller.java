@@ -12,9 +12,8 @@ import org.openjfx.view.ViewEventMessages;
 
 
 public class Controller {
-
-    View view;
-    Model model;
+    private View view;
+    private Model model;
     private long previousTime = 0;
 
     public Controller(Stage stage) {
@@ -24,9 +23,10 @@ public class Controller {
             @Override
             public void handle(long now) {
                 long deltaTime = now - previousTime;
-                //System.out.println(deltaTime / 1000000);
+                System.out.println(deltaTime / 1000000);
                 if(deltaTime / 100000 > 500) {
                     model.moveMobsInWorld();
+                    model.mobsAttack();
                     model.modelHasBeenUpdated();
                     previousTime = now;
                 }

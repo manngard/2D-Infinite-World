@@ -27,13 +27,6 @@ public class Player extends Combatant {
         return id;
     }
 
-    public double getXcoord() {
-        return xcoord;
-    }
-
-    public double getYcoord() {
-        return ycoord;
-    }
 
     public int getHp() {
         return hp;
@@ -43,7 +36,7 @@ public class Player extends Combatant {
         return atk;
     }
 
-    public float getAtkRange() {
+    public double getAtkRange() {
         return atkRange;
     }
 
@@ -84,8 +77,8 @@ public class Player extends Combatant {
         this.inventory[index] = item;
     }
 
-    public void itemBonus(Item item){
-        switch(item.getId()){
+    public void itemBonus(Item item) {
+        switch (item.getId()) {
             case "Sword":
                 this.atk += 2;
                 System.out.println(this.atk);
@@ -99,6 +92,14 @@ public class Player extends Combatant {
                 System.out.println(this.hp);
                 break;
         }
+    }
+
+    public boolean canAttack(){
+        if (attackCooldownTicker > 0){
+            return true;
+        }
+        attackCooldownTicker++;
+        return false;
     }
 }
 
