@@ -2,7 +2,8 @@ package org.openjfx.model;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
 public class Player extends Combatant {
-
+    private final int baseAtk = 2;
+    private final int baseHp = 10;
     private int exp = 0;
     private Item[] inventory = new Item[4];
     private int selectedItem = 0;
@@ -13,6 +14,9 @@ public class Player extends Combatant {
 
     public void setSelectedItem(int selectedItem) {
         this.selectedItem = selectedItem;
+        this.hp = baseHp;
+        this.atk = baseAtk;
+        itemBonus(inventory[selectedItem -1]);
     }
 
     public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK, float ATKRANGE) {
@@ -76,7 +80,25 @@ public class Player extends Combatant {
     }
 
     public void setItem(Item item, int index) {
+
         this.inventory[index] = item;
+    }
+
+    public void itemBonus(Item item){
+        switch(item.getId()){
+            case "Sword":
+                this.atk += 2;
+                System.out.println(this.atk);
+                break;
+            case "Axe":
+                this.atk += 4;
+                System.out.println(this.atk);
+                break;
+            case "Armor":
+                this.hp += 20;
+                System.out.println(this.hp);
+                break;
+        }
     }
 }
 

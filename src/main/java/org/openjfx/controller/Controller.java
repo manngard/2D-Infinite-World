@@ -24,7 +24,7 @@ public class Controller {
             @Override
             public void handle(long now) {
                 long deltaTime = now - previousTime;
-                System.out.println(deltaTime / 1000000);
+                //System.out.println(deltaTime / 1000000);
                 if(deltaTime / 100000 > 500) {
                     model.moveMobsInWorld();
                     model.modelHasBeenUpdated();
