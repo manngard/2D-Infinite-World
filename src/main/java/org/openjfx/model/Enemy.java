@@ -1,9 +1,9 @@
 package org.openjfx.model;
 
 public class Enemy extends Combatant {
-    public Enemy(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE){
+    public Enemy(String ID, double XCOORD, double YCOORD, int HP, int ATK,float ATKRANGE, int def){
 
-        super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE);
+        super(ID,XCOORD,YCOORD, HP, ATK, ATKRANGE, def);
         this.moveSpeed = 0.125;
     }
 

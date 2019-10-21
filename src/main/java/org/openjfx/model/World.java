@@ -44,7 +44,7 @@ public class World {
         entityFactory = new EntityFactory();
 
 
-        player = new Player("Player", 0, 0, 10, 2, 2);
+        player = new Player("Player", 0, 0, 10, 2, 2, 0);
         players.add(player);
 
         this.worldHorizontalSideLength = 21;
@@ -123,7 +123,7 @@ public class World {
 
     public void attackHit(Combatant attacker, List<Combatant> hit) {
         for (Combatant damaged : hit) {
-            damaged.decHp(attacker.getAtk());
+            damaged.decHp(attacker.getAtk() - damaged.getDef());
             System.out.print("Player hit enemy");
             if (damaged.getHp() <= 0) {
                 activeEnemies.remove(damaged);

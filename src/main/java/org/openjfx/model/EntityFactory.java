@@ -18,7 +18,7 @@ public class EntityFactory {
         double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
         double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
         int randIndex = rand.nextInt(enemyTypes.size());
-        return new Enemy(enemyTypes.get(randIndex),randX,randY,10,1,2);
+        return new Enemy(enemyTypes.get(randIndex),randX,randY,10,2,2, 0);
     }
     public Chest generateChest() {
 

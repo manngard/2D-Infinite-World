@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    Player player = new Player("1", 0, 0, 100, 50, 32 );
+    Player player = new Player("1", 0, 0, 100, 50, 32 , 1);
 
     @Test
     public void createPlayerTest(){
