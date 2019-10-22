@@ -28,6 +28,10 @@ public abstract class Combatant extends Entity implements Movable{
         attackCooldownTicker = 0;
     }
 
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public int getHp() {
         return hp;
     }
