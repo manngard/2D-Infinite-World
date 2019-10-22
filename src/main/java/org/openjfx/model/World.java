@@ -78,7 +78,6 @@ public class World {
 
 
     public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
-//        System.out.print(player.direction);
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
         for (Combatant defender : defenders) {
             if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {
@@ -142,47 +141,68 @@ public class World {
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
-    public boolean isPathFree(Combatant c) {
-        double checkX1 = c.getXcoord();
-        double checkY1 = c.getYcoord();
-        double checkX2 = c.getXcoord();
-        double checkY2 = c.getYcoord();
+    public boolean isPathFree(Combatant c){
+        double checkX1 = (worldHorizontalSideLength - 1)/2;
+        double checkY1 = (worldVerticalSideLength - 1)/2;
+        double checkX2 = (worldHorizontalSideLength - 1)/2;
+        double checkY2 = (worldVerticalSideLength - 1)/2;
 
-        switch (c.direction) {
+        switch(c.direction) {
             case UP:
-                checkY1 = +0.5;
-                checkX1 = +0.5;
-                checkX2 = -0.5;
-                checkY2 = +0.5;
+                checkX2 += 1;
+                checkY1 -= 1;
+                checkY2 -= 1;
                 break;
             case DOWN:
-                checkY1 = -0.5;
-                checkX1 = +0.5;
-                checkX2 = -0.5;
-                checkY2 = -0.5;
+                checkX2 += 1;
+                checkY1 += 2;
+                checkY2 += 2;
                 break;
             case RIGHT:
-                checkY1 = +0.5;
-                checkX1 = +0.5;
-                checkX2 = +0.5;
-                checkY2 = -0.5;
+                checkX1 += 2;
+                checkX2 += 2;
+                checkY1 += 1;
                 break;
             case LEFT:
-                checkY1 = +0.5;
-                checkX1 = -0.5;
-                checkX2 = -0.5;
-                checkY2 = -0.5;
+                checkX1 -= 1;
+                checkX2 -= 1;
+                checkY1 += 1;
                 break;
         }
 
-        if (worldGrid.get(Math.toIntExact(Math.round(checkY1))).get(Math.toIntExact(Math.round(checkX1))).getISSolid()) {
+        if (worldGrid.get((int) checkY1).get((int)checkX1).getISSolid()){
+            System.out.print("tile is solid and a " + worldGrid.get((int) checkY1).get((int)checkX1).id);
             return false;
-        } else if (worldGrid.get(Math.toIntExact(Math.round(checkY2))).get(Math.toIntExact(Math.round(checkX2))).getISSolid()) {
+        }
+        else if (worldGrid.get((int) checkY2).get((int) checkX2).getISSolid()){
+            System.out.print("tile is solid and a " + worldGrid.get((int) checkY2).get((int)checkX2).id);
             return false;
         }
 
+        System.out.print("tiles are not solid and a " + worldGrid.get((int) checkY1).get((int)checkX1).id + " and a " + worldGrid.get((int) checkY2).get((int)checkX2).id);
         return true;
 
+    }
+
+    public boolean isEntityInPath(Combatant a, Entity b){
+
+        if(inSight(a,b)) {
+            switch (a.direction) {
+                case UP:
+                case DOWN:
+                    if ((a.coords.xCoord - 0.9) < b.coords.xCoord && b.coords.xCoord < (a.coords.xCoord + 0.9)) {
+                        return true;
+                    }
+                    break;
+                case LEFT:
+                case RIGHT:
+                    if ((a.coords.yCoord - 0.9) < b.coords.yCoord && b.coords.yCoord < (a.coords.yCoord + 0.9)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return false;
     }
 
 
