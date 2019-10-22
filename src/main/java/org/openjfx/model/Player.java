@@ -79,15 +79,15 @@ public class Player extends Combatant {
     public void itemBonus(Item item) {
         switch (item.getId()) {
             case "Sword":
-                this.atk += 2;
+                this.atk += 20;
                 System.out.println(this.atk);
                 break;
             case "Axe":
-                this.atk += 4;
+                this.atk += 40;
                 System.out.println(this.atk);
                 break;
             case "Armor":
-                this.def += 1;
+                this.def += 20;
                 System.out.println(this.def);
                 break;
         }

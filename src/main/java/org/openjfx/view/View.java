@@ -100,13 +100,13 @@ public class View {
 
 
     private void renderOverlay(int HP, Item[] inventory){
-        int healthbarWidth = 18 * HP;
+        double healthbarWidth = 1.8 * HP;
         playerHealthbar.setWidth(healthbarWidth);
         graphics.setFill(Color.WHITE);
-        graphics.fillRect(gameScreen.getWidth() - 200, 20, 180, 30);
+        graphics.fillRect(gameScreen.getWidth() - 250, 20, 180, 30);
         graphics.setFill(playerHealthbar.getFill());
-        graphics.fillRect(gameScreen.getWidth() - 200, 20, healthbarWidth, playerHealthbar.getHeight());
-        graphics.drawImage(ResourceHandler.getResource("PlayerHealthbarContainer"), gameScreen.getWidth() - 200, 20);
+        graphics.fillRect(gameScreen.getWidth() - 250, 20, healthbarWidth, playerHealthbar.getHeight());
+        graphics.drawImage(ResourceHandler.getResource("PlayerHealthbarContainer"), gameScreen.getWidth() - 250, 20);
 
         for (int i = 0; i < inventory.length; i++) {
             double xCoord = gameScreen.getWidth() - (pixelSize * 2 * (inventory.length - i) + 20);
@@ -136,7 +136,7 @@ public class View {
             double healthbarYCoord = translateY(e.getYcoord())-playerY - pixelSize/2;
             drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
             graphics.setFill(playerHealthbar.getFill());
-            graphics.fillRect(healthbarXCoord,healthbarYCoord,6*e.getHp(),10);
+            graphics.fillRect(healthbarXCoord,healthbarYCoord,6*e.getHp()/10,10);
             drawObject("EnemyHealthbarContainer",healthbarXCoord,healthbarYCoord);
         }
     }
