@@ -2,17 +2,16 @@ package org.openjfx.model;
 
 public class Weapon extends Item {
 
-    private float atk;
+    private int atk;
 
-    public Weapon(String s){
+    public Weapon(String s, int atk){
         super(s);
+        this.atk = atk;
     }
 
     public float getAtk(){
         return this.atk;
     }
-    public void  setAtk(float f){
-        this.atk = f;
-    }
+
 
 }
