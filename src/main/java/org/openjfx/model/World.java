@@ -60,26 +60,25 @@ public class World {
             inactiveChests.put((chest.getCoords()), chest);
         }
 
-        double xCoord = 0 - ((worldHorizontalSideLength - 1) / 2) - 1;
+        double xCoord = 0 - ((worldHorizontalSideLength + 1) / 2) - 1;
         double yCoord;
 
         worldGrid = new LinkedList<>();
-        for (int i = 0; i < worldHorizontalSideLength; i++) {
-            worldGrid.add(new LinkedList<Tile>());
-        }
-        for (List<Tile> worldrow : worldGrid) {
+        for (int i = 0; i < worldHorizontalSideLength + 2; i++) {
+            LinkedList<Tile> worldRow = new LinkedList<>();
             xCoord++;
-            yCoord = (0 - (worldVerticalSideLength - 1) / 2);
-            for (int i = 0; i < worldVerticalSideLength; i++) {
-                worldrow.add(tileFactory.generateTile(xCoord, yCoord));
+            yCoord = (0 - (worldVerticalSideLength + 1) / 2);
+            for (int j = 0; j < worldVerticalSideLength + 3; j++) {
+                worldRow.add(tileFactory.generateTile(xCoord, yCoord));
                 yCoord++;
             }
+            worldGrid.add(worldRow);
         }
     }
 
 
     public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
-        System.out.print(player.direction);
+//        System.out.print(player.direction);
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
         for (Combatant defender : defenders) {
             if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {
@@ -294,41 +293,50 @@ public class World {
             }
         }
 
-        public void updateWorldGrid () {
-            Player p = this.player;
-            final double maxYViewport = p.getYcoord() + (worldVerticalSideLength - 1) / 2;
-            final double minYViewport = p.getYcoord() - (worldVerticalSideLength - 1) / 2;
-            final double maxXViewport = p.getXcoord() + (worldHorizontalSideLength - 1) / 2;
-            final double minXViewport = p.getXcoord() - (worldHorizontalSideLength - 1) / 2;
-            switch (p.direction) {
-                case UP:
-                    for (LinkedList<Tile> column : worldGrid) {
-                        column.removeLast();
-                        column.addFirst(tileFactory.generateTile(column.getFirst().getXcoord(), minYViewport));
-                    }
-                    break;
-                case DOWN:
-                    for (LinkedList<Tile> column : worldGrid) {
-                        column.removeFirst();
-                        column.addLast(tileFactory.generateTile(column.getFirst().getXcoord(), maxYViewport));
-                    }
-                    break;
-                case LEFT:
-                    worldGrid.removeLast();
-                    LinkedList<Tile> newFirstColumn = new LinkedList<>();
-                    for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
-                        newFirstColumn.addLast(tileFactory.generateTile(minXViewport, y));
-                    }
-                    worldGrid.addFirst(newFirstColumn);
-                    break;
-                case RIGHT:
-                    worldGrid.removeFirst();
-                    LinkedList<Tile> newLastColumn = new LinkedList<>();
-                    for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
-                        newLastColumn.addLast(tileFactory.generateTile(maxXViewport, y));
-                    }
-                    worldGrid.addLast(newLastColumn);
-                    break;
+        void updateWorldGrid() {
+            final double playerXcoord = Math.round(this.player.getXcoord()); // To fix rounding error
+            final double playerYcoord = Math.round(this.player.getYcoord()); // To fix rounding error
+
+            final double maxYViewport = playerYcoord + (worldVerticalSideLength + 1) / 2;
+            final double minYViewport = playerYcoord - (worldVerticalSideLength + 1) / 2;
+            final double maxXViewport = playerXcoord + (worldHorizontalSideLength + 1) / 2;
+            final double minXViewport = playerXcoord - (worldHorizontalSideLength + 1) / 2;
+
+            final boolean shouldUpdateTiles =
+                    Math.round(this.player.getPrevYCoord()) != playerYcoord
+                 || Math.round(this.player.getPrevXCoord()) != playerXcoord;
+
+            if(shouldUpdateTiles){
+                switch (this.player.direction) {
+                    case UP:
+                        for (LinkedList<Tile> column : worldGrid) {
+                            column.removeLast();
+                            column.addFirst(tileFactory.generateTile(column.getFirst().getXcoord(), minYViewport));
+                        }
+                        break;
+                    case DOWN:
+                        for (LinkedList<Tile> column : worldGrid) {
+                            column.removeFirst();
+                            column.addLast(tileFactory.generateTile(column.getFirst().getXcoord(), maxYViewport));
+                        }
+                        break;
+                    case LEFT:
+                        worldGrid.removeLast();
+                        LinkedList<Tile> newFirstColumn = new LinkedList<>();
+                        for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
+                            newFirstColumn.addLast(tileFactory.generateTile(minXViewport, y));
+                        }
+                        worldGrid.addFirst(newFirstColumn);
+                        break;
+                    case RIGHT:
+                        worldGrid.removeFirst();
+                        LinkedList<Tile> newLastColumn = new LinkedList<>();
+                        for (int y = (int) minYViewport; y <= (int) maxYViewport; y++) {
+                            newLastColumn.addLast(tileFactory.generateTile(maxXViewport, y));
+                        }
+                        worldGrid.addLast(newLastColumn);
+                        break;
+                }
             }
         }
 

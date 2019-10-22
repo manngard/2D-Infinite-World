@@ -7,6 +7,8 @@ public class Player extends Combatant {
     private int exp = 0;
     private Item[] inventory = new Item[4];
     private int selectedItem = 0;
+    private double prevXCoord;
+    private double prevYCoord;
 
     public int getSelectedItem() {
         return selectedItem;
@@ -21,6 +23,7 @@ public class Player extends Combatant {
 
     public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK, float ATKRANGE, int def) {
         super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE, def);
+        this.moveSpeed = 0.2;
     }
 
     public String getId() {
@@ -94,6 +97,25 @@ public class Player extends Combatant {
         }
         attackCooldownTicker++;
         return false;
+    }
+
+    private void setPrevCoords(double x, double y) {
+        this.prevXCoord = x;
+        this.prevYCoord = y;
+    }
+
+    @Override
+    public void move(Direction direction) {
+        setPrevCoords(this.getXcoord(), this.getYcoord());
+        super.move(direction);
+    }
+
+    public double getPrevXCoord() {
+        return this.prevXCoord;
+    }
+
+    public double getPrevYCoord() {
+        return this.prevYCoord;
     }
 }
 
