@@ -141,7 +141,7 @@ public class World {
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
-    public boolean isPathFree(Combatant c){
+    public boolean isPathFree(Combatant c, List<Combatant> e){
 
         double checkX1 = (worldHorizontalSideLength - 1)/2;
         double checkY1 = (worldVerticalSideLength - 1)/2;
@@ -154,7 +154,7 @@ public class World {
         double checkX2 = checkX1;
         double checkY2 = checkY1;
 
-        final double s = this.player.getMoveSpeed() - 0.05;
+        final double s = c.getMoveSpeed() - 0.05;
 
         switch(c.direction) {
             case UP:
@@ -189,6 +189,17 @@ public class World {
             Tile tile = worldGrid.get((int) checkX2).get((int)checkY2);
             System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
+        }
+
+        for(Combatant en : e){
+
+            if(isEntityInPath(c, en)){
+                if(distance(c, en) < 1){
+
+                    System.out.print("There is an enemy in your path");
+                    return false;
+                }
+            }
         }
 
         System.out.print("tiles are not solid and a " + worldGrid.get((int) checkX1).get((int)checkY1).id + " and a " + worldGrid.get((int) checkX2).get((int)checkY2).id);

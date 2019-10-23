@@ -21,7 +21,7 @@ public class Model {
     public void movePlayerUp() {
         System.out.println("Up");
         world.player.setDirection(Movable.Direction.UP);
-        if(world.isPathFree(world.player)) {
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
             world.player.move(Movable.Direction.UP);
             world.updateWorldGrid();
         }
@@ -30,7 +30,7 @@ public class Model {
     public void movePlayerDown() {
         System.out.println("Down");
         world.player.setDirection(Movable.Direction.DOWN);
-        if(world.isPathFree(world.player)) {
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
             world.player.move(Movable.Direction.DOWN);
             world.updateWorldGrid();
         }
@@ -39,7 +39,7 @@ public class Model {
     public void movePlayerRight() {
         System.out.println("Right");
         world.player.setDirection(Movable.Direction.RIGHT);
-        if(world.isPathFree(world.player)) {
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
             world.player.move(Movable.Direction.RIGHT);
             world.updateWorldGrid();
         }
@@ -48,7 +48,7 @@ public class Model {
     public void movePlayerLeft() {
         System.out.println("Left");
         world.player.setDirection(Movable.Direction.LEFT);
-        if(world.isPathFree(world.player)) {
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
             world.player.move(Movable.Direction.LEFT);
             world.updateWorldGrid();
         }
