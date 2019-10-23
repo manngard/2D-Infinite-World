@@ -10,9 +10,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.openjfx.model.*;
 
-import org.openjfx.model.EventMessage;
-import org.openjfx.model.Item;
-import org.openjfx.model.World;
 import org.openjfx.model.tile.Tile;
 
 import org.openjfx.utils.event.Event;

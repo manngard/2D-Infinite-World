@@ -1,7 +1,6 @@
 package org.openjfx.model;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openjfx.model.tile.Tile;
 
@@ -21,10 +20,10 @@ public class WorldTest {
 
         int columns = 0;
         for (List<Tile> worldrow: world.worldGrid){
-            assertTrue(worldrow.size() == world.worldVerticalSideLength);
+            assertEquals(worldrow.size(), world.worldVerticalSideLength, 0.0);
             columns++;
         }
-        assertTrue(columns == world.worldHorizontalSideLength);
+        assertEquals(columns, world.worldHorizontalSideLength, 0.0);
     }
 
     //  Test to see if the attackHit method in world class works. This also ensures that the method inSight works.

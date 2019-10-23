@@ -1,9 +1,7 @@
 package org.openjfx.controller;
 
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.animation.AnimationTimer;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
 import org.openjfx.utils.event.EventListener;
@@ -12,13 +10,12 @@ import org.openjfx.view.ViewEventMessages;
 
 
 public class Controller {
-    private View view;
     private Model model;
     private long previousTime = 0;
 
     public Controller(Stage stage) {
         model = new Model(OpenSimplexAdapter.getInstance());
-        view = new View(stage, model.hasUpdateEvent);
+        View view = new View(stage, model.hasUpdateEvent);
         new AnimationTimer() {
             @Override
             public void handle(long now) {

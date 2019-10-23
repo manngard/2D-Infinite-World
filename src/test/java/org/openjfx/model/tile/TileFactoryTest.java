@@ -1,8 +1,5 @@
 package org.openjfx.model.tile;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 public class TileFactoryTest {
 
 

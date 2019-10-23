@@ -16,7 +16,7 @@ public class Event<MsgT extends Enum> {
         listeners = listeners.stream()
                 .filter(el -> !el.equals(eventListener))
                 .collect(Collectors.toList());
-    };
+    }
 
     public void dispatch(MsgT em, Object data) {
         for(EventListener l : listeners) {

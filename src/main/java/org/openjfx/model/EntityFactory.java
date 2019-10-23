@@ -1,14 +1,11 @@
 package org.openjfx.model;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class EntityFactory {
     private final List<String> enemyTypes = new ArrayList<>();
-    private int spawnAreaSide = 5000;
     private Random rand;
 
     public EntityFactory(){
@@ -29,8 +26,9 @@ public class EntityFactory {
 
     public Coordinates generateRandomCoordinates(){
         rand = new Random();
-        double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
-        double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide/2;
+        int spawnAreaSide = 5000;
+        double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
+        double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
         return new Coordinates(randX, randY);
     }
 }

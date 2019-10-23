@@ -1,13 +1,10 @@
 package org.openjfx.model.tile;
 
 import javafx.util.Pair;
-import org.openjfx.model.Chest;
-import org.openjfx.model.noise.DefaultNoiseGenerator;
 import org.openjfx.model.noise.NoiseGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TileFactory {
     private final List<Pair<String, Double>> tileTypes = new ArrayList<>();

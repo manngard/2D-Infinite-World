@@ -78,7 +78,7 @@ public class World {
 
 
     public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
-        List<Combatant> combatantsHit = new ArrayList<Combatant>();
+        List<Combatant> combatantsHit = new ArrayList<>();
         for (Combatant defender : defenders) {
             if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {
                 attacker.setAttackOnCooldown();
@@ -233,9 +233,7 @@ public class World {
     If less or equal to double range, returns true. If higher than double range, returns false  */
 
     public boolean isEntityWithinDistance(Entity target, Combatant requester, double range) {
-        if (distance(requester, target) <= range)
-            return true;
-        return false;
+        return distance(requester, target) <= range;
     }
 
     public void moveMobs() {

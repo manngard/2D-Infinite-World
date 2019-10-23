@@ -10,7 +10,6 @@ public class ItemFactory {
     private final List<Pair<String, Integer>> weapontypes = new ArrayList<>();
     private final List<Pair<String, Integer>> armortypes = new ArrayList<>();
     private static ItemFactory instance;
-    private Random rand;
 
     private ItemFactory(){
         weapontypes.add(new Pair<>("Sword", 20));
@@ -20,7 +19,7 @@ public class ItemFactory {
     }
 
     public Item getRandomItem(){
-        rand = new Random();
+        Random rand = new Random();
         int randIndex;
         String id;
         int bonusStat;

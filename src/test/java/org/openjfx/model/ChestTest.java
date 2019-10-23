@@ -1,9 +1,7 @@
 package org.openjfx.model;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.openjfx.model.tile.Tile;
 
 public class ChestTest {
 
