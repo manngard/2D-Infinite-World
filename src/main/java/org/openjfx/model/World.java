@@ -44,11 +44,11 @@ public class World {
         entityFactory = new EntityFactory();
 
 
-        player = new Player("Player", 0, 0, 100, 20, 2, 0);
+        player = new Player("Player", 0.05, 0.05, 100, 20, 2, 0);
         players.add(player);
 
-        this.worldHorizontalSideLength = 21;
-        this.worldVerticalSideLength = 13;
+        this.worldHorizontalSideLength = 23;
+        this.worldVerticalSideLength = 15;
 
         for (int i = 0; i < 100000; i++) {
             Combatant enemy = entityFactory.generateEnemy();
@@ -60,15 +60,15 @@ public class World {
             inactiveChests.put((chest.getCoords()), chest);
         }
 
-        double xCoord = 0 - ((worldHorizontalSideLength + 1) / 2) - 1;
+        double xCoord = 0 - ((worldHorizontalSideLength - 1) / 2) - 1;
         double yCoord;
 
         worldGrid = new LinkedList<>();
-        for (int i = 0; i < worldHorizontalSideLength + 2; i++) {
+        for (int i = 0; i < worldHorizontalSideLength; i++) {
             LinkedList<Tile> worldRow = new LinkedList<>();
             xCoord++;
-            yCoord = (0 - (worldVerticalSideLength + 1) / 2);
-            for (int j = 0; j < worldVerticalSideLength + 3; j++) {
+            yCoord = (0 - (worldVerticalSideLength - 1) / 2);
+            for (int j = 0; j < worldVerticalSideLength + 1; j++) {
                 worldRow.add(tileFactory.generateTile(xCoord, yCoord));
                 yCoord++;
             }
@@ -78,7 +78,6 @@ public class World {
 
 
     public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
-//        System.out.print(player.direction);
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
         for (Combatant defender : defenders) {
             if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {
@@ -142,47 +141,91 @@ public class World {
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
 
-    public boolean isPathFree(Combatant c) {
-        double checkX1 = c.getXcoord();
-        double checkY1 = c.getYcoord();
-        double checkX2 = c.getXcoord();
-        double checkY2 = c.getYcoord();
+    public boolean isPathFree(Combatant c, List<Combatant> e){
 
-        switch (c.direction) {
+        double checkX1 = (worldHorizontalSideLength - 1)/2;
+        double checkY1 = (worldVerticalSideLength - 1)/2;
+
+        Tile center = worldGrid.get((int) checkX1).get((int) checkY1);
+
+        checkX1 += (player.coords.xCoord - center.coords.xCoord);
+        checkY1 += (player.coords.yCoord - center.coords.yCoord);
+
+        double checkX2 = checkX1;
+        double checkY2 = checkY1;
+
+        final double s = c.getMoveSpeed() - 0.05;
+
+        switch(c.direction) {
             case UP:
-                checkY1 = +0.5;
-                checkX1 = +0.5;
-                checkX2 = -0.5;
-                checkY2 = +0.5;
+                checkX1 += 0.05;
+                checkX2 += 0.9;
+                checkY1 -= s;
+                checkY2 -= s;
                 break;
             case DOWN:
-                checkY1 = -0.5;
-                checkX1 = +0.5;
-                checkX2 = -0.5;
-                checkY2 = -0.5;
+                checkX2 += 0.9;
+                checkY1 += 0.9 + s; // -0.05 to combat a potential rounding error
+                checkY2 += 0.9 + s;
                 break;
             case RIGHT:
-                checkY1 = +0.5;
-                checkX1 = +0.5;
-                checkX2 = +0.5;
-                checkY2 = -0.5;
+                checkX1 += 0.9 + s;
+                checkX2 += 0.9 + s;
+                checkY2 += 0.9;
                 break;
             case LEFT:
-                checkY1 = +0.5;
-                checkX1 = -0.5;
-                checkX2 = -0.5;
-                checkY2 = -0.5;
+                checkX1 -= s;
+                checkX2 -= s;
+                checkY2 += 0.9;
                 break;
         }
 
-        if (worldGrid.get(Math.toIntExact(Math.round(checkY1))).get(Math.toIntExact(Math.round(checkX1))).getISSolid()) {
+        if (worldGrid.get((int) checkX1).get((int)checkY1).getISSolid()){
+            Tile tile = worldGrid.get((int) checkX1).get((int)checkY1);
+            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
-        } else if (worldGrid.get(Math.toIntExact(Math.round(checkY2))).get(Math.toIntExact(Math.round(checkX2))).getISSolid()) {
+        }
+        else if (worldGrid.get((int) checkX2).get((int) checkY2).getISSolid()){
+            Tile tile = worldGrid.get((int) checkX2).get((int)checkY2);
+            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
         }
 
+        for(Combatant en : e){
+
+            if(isEntityInPath(c, en)){
+                if(distance(c, en) < 1){
+
+                    System.out.print("There is an enemy in your path");
+                    return false;
+                }
+            }
+        }
+
+        System.out.print("tiles are not solid and a " + worldGrid.get((int) checkX1).get((int)checkY1).id + " and a " + worldGrid.get((int) checkX2).get((int)checkY2).id);
         return true;
 
+    }
+
+    public boolean isEntityInPath(Combatant a, Entity b){
+
+        if(inSight(a,b)) {
+            switch (a.direction) {
+                case UP:
+                case DOWN:
+                    if ((a.coords.xCoord - 0.9) < b.coords.xCoord && b.coords.xCoord < (a.coords.xCoord + 0.9)) {
+                        return true;
+                    }
+                    break;
+                case LEFT:
+                case RIGHT:
+                    if ((a.coords.yCoord - 0.9) < b.coords.yCoord && b.coords.yCoord < (a.coords.yCoord + 0.9)) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return false;
     }
 
 
@@ -297,10 +340,10 @@ public class World {
             final double playerXcoord = Math.round(this.player.getXcoord()); // To fix rounding error
             final double playerYcoord = Math.round(this.player.getYcoord()); // To fix rounding error
 
-            final double maxYViewport = playerYcoord + (worldVerticalSideLength + 1) / 2;
-            final double minYViewport = playerYcoord - (worldVerticalSideLength + 1) / 2;
-            final double maxXViewport = playerXcoord + (worldHorizontalSideLength + 1) / 2;
-            final double minXViewport = playerXcoord - (worldHorizontalSideLength + 1) / 2;
+            final double maxYViewport = playerYcoord + (worldVerticalSideLength - 1) / 2;
+            final double minYViewport = playerYcoord - (worldVerticalSideLength - 1) / 2;
+            final double maxXViewport = playerXcoord + (worldHorizontalSideLength - 1) / 2;
+            final double minXViewport = playerXcoord - (worldHorizontalSideLength - 1) / 2;
 
             final boolean shouldUpdateTiles =
                     Math.round(this.player.getPrevYCoord()) != playerYcoord

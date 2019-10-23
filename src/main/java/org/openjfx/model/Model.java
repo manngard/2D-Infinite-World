@@ -21,26 +21,38 @@ public class Model {
 
     public void movePlayerUp() {
         System.out.println("Up");
-        world.player.move(Movable.Direction.UP);
-        world.updateWorldGrid();
+        world.player.setDirection(Movable.Direction.UP);
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
+            world.player.move(Movable.Direction.UP);
+            world.updateWorldGrid();
+        }
     }
 
     public void movePlayerDown() {
         System.out.println("Down");
-        world.player.move(Movable.Direction.DOWN);
-        world.updateWorldGrid();
+        world.player.setDirection(Movable.Direction.DOWN);
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
+            world.player.move(Movable.Direction.DOWN);
+            world.updateWorldGrid();
+        }
     }
 
     public void movePlayerRight() {
         System.out.println("Right");
-        world.player.move(Movable.Direction.RIGHT);
-        world.updateWorldGrid();
+        world.player.setDirection(Movable.Direction.RIGHT);
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
+            world.player.move(Movable.Direction.RIGHT);
+            world.updateWorldGrid();
+        }
     }
 
     public void movePlayerLeft() {
         System.out.println("Left");
-        world.player.move(Movable.Direction.LEFT);
-        world.updateWorldGrid();
+        world.player.setDirection(Movable.Direction.LEFT);
+        if(world.isPathFree(world.player, world.getActiveEnemies())) {
+            world.player.move(Movable.Direction.LEFT);
+            world.updateWorldGrid();
+        }
     }
 
     public void modelHasBeenUpdated() {

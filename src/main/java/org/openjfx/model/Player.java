@@ -23,7 +23,7 @@ public class Player extends Combatant {
 
     public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK, float ATKRANGE, int def) {
         super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE, def);
-        this.moveSpeed = 0.2;
+        this.moveSpeed = 1.0/3.0;
     }
 
     public String getId() {
