@@ -5,7 +5,8 @@ import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.utils.event.Event;
 
 public class Model {
-    private World world;
+
+    World world;
 
     public Event<EventMessage> hasUpdateEvent;
 
