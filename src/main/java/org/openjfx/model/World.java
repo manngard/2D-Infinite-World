@@ -78,7 +78,6 @@ public class World {
 
 
     public List<Combatant> combatantAttacks(Combatant attacker, List<Combatant> defenders) {
-//        System.out.print(player.direction);
         List<Combatant> combatantsHit = new ArrayList<Combatant>();
         for (Combatant defender : defenders) {
             if (inSight(attacker, defender) && isEntityWithinDistance(defender, attacker, attacker.getAtkRange()) && attacker.canAttack()) {

@@ -21,6 +21,7 @@ import org.openjfx.utils.event.EventListener;
 import java.util.List;
 
 public class View {
+    boolean isKeyPressed = false;
     private Stage stage;
     private Canvas gameScreen;
     private int screenXSize;
@@ -51,6 +52,7 @@ public class View {
 
         viewEvent = new Event<>();
         stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> viewEvent.dispatch(ViewEventMessages.KEYPRESS ,event.getCode()));
+        stage.addEventFilter(KeyEvent.KEY_RELEASED, event -> viewEvent.dispatch(ViewEventMessages.KEYRELEASED ,event.getCode()));
         viewEvent = new Event<>();
 
         modelHasUpdateEvent.addListener(new EventListener<EventMessage>() {

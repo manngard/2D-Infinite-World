@@ -14,7 +14,8 @@ import org.openjfx.view.ViewEventMessages;
 public class Controller {
     private View view;
     private Model model;
-    private long previousTime = 0;
+    private double previousTime = 0;
+    private boolean moveUp, moveDown, moveLeft, moveRight;
 
     public Controller(Stage stage) {
         model = new Model(OpenSimplexAdapter.getInstance());
@@ -22,16 +23,32 @@ public class Controller {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                long deltaTime = now - previousTime;
-                System.out.println(deltaTime / 1000000);
-                if(deltaTime / 100000 > 500) {
+                double deltaTime = (now - previousTime) / (1000000/60);
+                System.out.println("FPS: " + deltaTime);
+                /*if(deltaTime / 100000 > 500) {
                     model.moveMobsInWorld();
+                    movePlayer();
                     model.mobsAttack();
                     model.modelHasBeenUpdated();
                     previousTime = now;
+                }*/
+
+                if(deltaTime >= (2)){   //Update world every 30/seconds
+                    model.moveMobsInWorld();
+                    movePlayer();
+                    model.mobsAttack();
+                    model.modelHasBeenUpdated();
+
                 }
+                if(deltaTime >= 1){ //Render world 60/seconds
+                    model.modelHasBeenUpdated();
+                    //System.out.println(deltaTime);
+                    previousTime = now;
+                }
+
             }
         }.start();
+
         model.modelHasBeenUpdated();
         view.getViewEvent().addListener(new EventListener() {
             @Override
@@ -39,6 +56,10 @@ public class Controller {
                 switch((ViewEventMessages) emsg) {
                     case KEYPRESS:
                         handleKeyPress((KeyCode) data);
+
+                        break;
+                    case KEYRELEASED:
+                        handleKeyReleased((KeyCode) data);
                         break;
                 }
             }
@@ -48,16 +69,31 @@ public class Controller {
     private void handleKeyPress(KeyCode keyCode) {
         switch(keyCode) {
             case UP:
-                model.movePlayerUp();
+                if(!moveUp){
+                    model.movePlayerUp();
+                }
+                moveUp = true;
                 break;
             case DOWN:
-                model.movePlayerDown();
+                if(!moveDown){
+                    model.movePlayerDown();
+                }
+                moveDown = true;
+                //model.movePlayerDown();
                 break;
             case RIGHT:
-                model.movePlayerRight();
+                if(!moveRight){
+                    model.movePlayerRight();
+                }
+                moveRight = true;
+                //model.movePlayerRight();
                 break;
             case LEFT:
-                model.movePlayerLeft();
+                if(!moveLeft){
+                    model.movePlayerLeft();
+                }
+                moveLeft = true;
+                //model.movePlayerLeft();
                 break;
             case SPACE:
                 model.playerAttacks();
@@ -71,6 +107,39 @@ public class Controller {
             case DIGIT4:
                 model.selectInventory(Integer.parseInt(keyCode.getName()));
                 break;
+        }
+    }
+
+    private void handleKeyReleased(KeyCode keyCode) {
+        switch(keyCode) {
+            case UP:
+                moveUp = false;
+                break;
+            case DOWN:
+                moveDown = false;
+                break;
+            case RIGHT:
+                moveRight = false;
+                break;
+            case LEFT:
+                moveLeft = false;
+                break;
+        }
+
+    }
+
+    public void movePlayer(){
+        if(moveUp){
+            model.movePlayerUp();
+        }
+        if(moveDown){
+            model.movePlayerDown();
+        }
+        if(moveRight){
+            model.movePlayerRight();
+        }
+        if(moveLeft){
+            model.movePlayerLeft();
         }
     }
 
