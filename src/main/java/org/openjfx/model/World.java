@@ -144,7 +144,11 @@ public class World {
         double yDist = Math.abs(a.getYcoord() - b.getYcoord());
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
-
+    public boolean isPathFree(Combatant c1, Combatant c2){
+        final ArrayList<Combatant> cs = new ArrayList<>();
+        cs.add(c2);
+        return isPathFree(c1, cs);
+    }
     public boolean isPathFree(Combatant c, List<Combatant> e){
 
         double checkX1 = (worldHorizontalSideLength - 1)/2;
@@ -152,8 +156,8 @@ public class World {
 
         Tile center = worldGrid.get((int) checkX1).get((int) checkY1);
 
-        checkX1 += (player.coords.xCoord - center.coords.xCoord);
-        checkY1 += (player.coords.yCoord - center.coords.yCoord);
+        checkX1 += (c.getXcoord() - center.getXcoord());
+        checkY1 += (c.getYcoord() - center.getYcoord());
 
         double checkX2 = checkX1;
         double checkY2 = checkY1;
@@ -184,29 +188,33 @@ public class World {
                 break;
         }
 
+        if(checkX1 < 0 || checkX2 < 0 || checkY1 < 0 || checkY2 < 0 || checkX1 > 21 || checkX2 > 21 || checkY1 > 13 || checkY2 > 13){
+            return false;
+        }
+
         if (worldGrid.get((int) checkX1).get((int)checkY1).getISSolid()){
             Tile tile = worldGrid.get((int) checkX1).get((int)checkY1);
-            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
+            //System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
         }
         else if (worldGrid.get((int) checkX2).get((int) checkY2).getISSolid()){
             Tile tile = worldGrid.get((int) checkX2).get((int)checkY2);
-            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
+            //System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
         }
 
         for(Combatant en : e){
 
             if(isEntityInPath(c, en)){
-                if(distance(c, en) < 1){
+                if(distance(c, en) < 1/2){
 
-                    System.out.print("There is an enemy in your path");
+                    //System.out.print("There is an enemy in your path");
                     return false;
                 }
             }
         }
 
-        System.out.print("tiles are not solid and a " + worldGrid.get((int) checkX1).get((int)checkY1).id + " and a " + worldGrid.get((int) checkX2).get((int)checkY2).id);
+        //System.out.print("tiles are not solid and a " + worldGrid.get((int) checkX1).get((int)checkY1).id + " and a " + worldGrid.get((int) checkX2).get((int)checkY2).id);
         return true;
 
     }
@@ -248,14 +256,26 @@ public class World {
         for (Combatant combatant : activeEnemies) {
             if (isEntityWithinDistance(player, combatant, enemyDetectDistance)) {
                 if (player.getXcoord() + 0.9 < combatant.getXcoord()) {
-                    combatant.move(Movable.Direction.LEFT);
+                    combatant.setDirection(Movable.Direction.LEFT);
+                    if(isPathFree(combatant, player)) {
+                        combatant.move(Movable.Direction.LEFT);
+                    }
                 } else if (player.getXcoord() - 0.9 > combatant.getXcoord()) {
-                    combatant.move(Movable.Direction.RIGHT);
+                    combatant.setDirection(Movable.Direction.RIGHT);
+                    if(isPathFree(combatant, player)) {
+                        combatant.move(Movable.Direction.RIGHT);
+                    }
                 }
                 if (player.getYcoord() + 0.9 < combatant.getYcoord()) {
-                    combatant.move(Movable.Direction.UP);
+                    combatant.setDirection(Movable.Direction.UP);
+                    if(isPathFree(combatant, player)) {
+                        combatant.move(Movable.Direction.UP);
+                    }
                 } else if (player.getYcoord() - 0.9 > combatant.getYcoord()) {
-                    combatant.move(Movable.Direction.DOWN);
+                    combatant.setDirection(Movable.Direction.DOWN);
+                    if(isPathFree(combatant, player)) {
+                        combatant.move(Movable.Direction.DOWN);
+                    }
                 }
             }
             //  If mobs are not within distance the mobs shall move freely.
@@ -263,16 +283,28 @@ public class World {
                 int rand = (int) Math.ceil(Math.random() * 5);
                 switch (rand) {
                     case 1:
-                        combatant.move(Movable.Direction.DOWN);
+                        combatant.setDirection(Movable.Direction.DOWN);
+                        if(isPathFree(combatant, player)) {
+                            combatant.move(Movable.Direction.DOWN);
+                        }
                         break;
                     case 2:
-                        combatant.move(Movable.Direction.UP);
+                        combatant.setDirection(Movable.Direction.UP);
+                        if(isPathFree(combatant, player)) {
+                            combatant.move(Movable.Direction.UP);
+                        }
                         break;
                     case 3:
-                        combatant.move(Movable.Direction.LEFT);
+                        combatant.setDirection(Movable.Direction.LEFT);
+                        if(isPathFree(combatant, player)) {
+                            combatant.move(Movable.Direction.LEFT);
+                        }
                         break;
                     case 4:
-                        combatant.move(Movable.Direction.RIGHT);
+                        combatant.setDirection(Movable.Direction.RIGHT);
+                        if(isPathFree(combatant, player)) {
+                            combatant.move(Movable.Direction.RIGHT);
+                        }
                         break;
                     case 5:
                         break;
