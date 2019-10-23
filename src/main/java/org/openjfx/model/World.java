@@ -44,11 +44,11 @@ public class World {
         entityFactory = new EntityFactory();
 
 
-        player = new Player("Player", 0, 0, 100, 20, 2, 0);
+        player = new Player("Player", 0.05, 0.05, 100, 20, 2, 0);
         players.add(player);
 
-        this.worldHorizontalSideLength = 21;
-        this.worldVerticalSideLength = 13;
+        this.worldHorizontalSideLength = 23;
+        this.worldVerticalSideLength = 15;
 
         for (int i = 0; i < 100000; i++) {
             Combatant enemy = entityFactory.generateEnemy();
@@ -60,15 +60,15 @@ public class World {
             inactiveChests.put((chest.getCoords()), chest);
         }
 
-        double xCoord = 0 - ((worldHorizontalSideLength + 1) / 2) - 1;
+        double xCoord = 0 - ((worldHorizontalSideLength - 1) / 2) - 1;
         double yCoord;
 
         worldGrid = new LinkedList<>();
-        for (int i = 0; i < worldHorizontalSideLength + 2; i++) {
+        for (int i = 0; i < worldHorizontalSideLength; i++) {
             LinkedList<Tile> worldRow = new LinkedList<>();
             xCoord++;
-            yCoord = (0 - (worldVerticalSideLength + 1) / 2);
-            for (int j = 0; j < worldVerticalSideLength + 3; j++) {
+            yCoord = (0 - (worldVerticalSideLength - 1) / 2);
+            for (int j = 0; j < worldVerticalSideLength + 1; j++) {
                 worldRow.add(tileFactory.generateTile(xCoord, yCoord));
                 yCoord++;
             }
@@ -142,44 +142,56 @@ public class World {
     }
 
     public boolean isPathFree(Combatant c){
+
         double checkX1 = (worldHorizontalSideLength - 1)/2;
         double checkY1 = (worldVerticalSideLength - 1)/2;
-        double checkX2 = (worldHorizontalSideLength - 1)/2;
-        double checkY2 = (worldVerticalSideLength - 1)/2;
+
+        Tile center = worldGrid.get((int) checkX1).get((int) checkY1);
+
+        checkX1 += (player.coords.xCoord - center.coords.xCoord);
+        checkY1 += (player.coords.yCoord - center.coords.yCoord);
+
+        double checkX2 = checkX1;
+        double checkY2 = checkY1;
+
+        final double s = this.player.getMoveSpeed() - 0.05;
 
         switch(c.direction) {
             case UP:
-                checkX2 += 1;
-                checkY1 -= 1;
-                checkY2 -= 1;
+                checkX1 += 0.05;
+                checkX2 += 0.9;
+                checkY1 -= s;
+                checkY2 -= s;
                 break;
             case DOWN:
-                checkX2 += 1;
-                checkY1 += 2;
-                checkY2 += 2;
+                checkX2 += 0.9;
+                checkY1 += 0.9 + s; // -0.05 to combat a potential rounding error
+                checkY2 += 0.9 + s;
                 break;
             case RIGHT:
-                checkX1 += 2;
-                checkX2 += 2;
-                checkY1 += 1;
+                checkX1 += 0.9 + s;
+                checkX2 += 0.9 + s;
+                checkY2 += 0.9;
                 break;
             case LEFT:
-                checkX1 -= 1;
-                checkX2 -= 1;
-                checkY1 += 1;
+                checkX1 -= s;
+                checkX2 -= s;
+                checkY2 += 0.9;
                 break;
         }
 
-        if (worldGrid.get((int) checkY1).get((int)checkX1).getISSolid()){
-            System.out.print("tile is solid and a " + worldGrid.get((int) checkY1).get((int)checkX1).id);
+        if (worldGrid.get((int) checkX1).get((int)checkY1).getISSolid()){
+            Tile tile = worldGrid.get((int) checkX1).get((int)checkY1);
+            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
         }
-        else if (worldGrid.get((int) checkY2).get((int) checkX2).getISSolid()){
-            System.out.print("tile is solid and a " + worldGrid.get((int) checkY2).get((int)checkX2).id);
+        else if (worldGrid.get((int) checkX2).get((int) checkY2).getISSolid()){
+            Tile tile = worldGrid.get((int) checkX2).get((int)checkY2);
+            System.out.print("tile is solid and a " + tile.id + " has coord x: " + tile.getXcoord() + ", y: " + tile.getYcoord());
             return false;
         }
 
-        System.out.print("tiles are not solid and a " + worldGrid.get((int) checkY1).get((int)checkX1).id + " and a " + worldGrid.get((int) checkY2).get((int)checkX2).id);
+        System.out.print("tiles are not solid and a " + worldGrid.get((int) checkX1).get((int)checkY1).id + " and a " + worldGrid.get((int) checkX2).get((int)checkY2).id);
         return true;
 
     }
@@ -317,10 +329,10 @@ public class World {
             final double playerXcoord = Math.round(this.player.getXcoord()); // To fix rounding error
             final double playerYcoord = Math.round(this.player.getYcoord()); // To fix rounding error
 
-            final double maxYViewport = playerYcoord + (worldVerticalSideLength + 1) / 2;
-            final double minYViewport = playerYcoord - (worldVerticalSideLength + 1) / 2;
-            final double maxXViewport = playerXcoord + (worldHorizontalSideLength + 1) / 2;
-            final double minXViewport = playerXcoord - (worldHorizontalSideLength + 1) / 2;
+            final double maxYViewport = playerYcoord + (worldVerticalSideLength - 1) / 2;
+            final double minYViewport = playerYcoord - (worldVerticalSideLength - 1) / 2;
+            final double maxXViewport = playerXcoord + (worldHorizontalSideLength - 1) / 2;
+            final double minXViewport = playerXcoord - (worldHorizontalSideLength - 1) / 2;
 
             final boolean shouldUpdateTiles =
                     Math.round(this.player.getPrevYCoord()) != playerYcoord

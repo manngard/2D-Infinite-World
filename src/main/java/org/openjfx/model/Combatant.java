@@ -5,6 +5,7 @@ public abstract class Combatant extends Entity implements Movable{
     protected int atk;
     protected int def;
     protected double atkRange;
+
     protected double moveSpeed = 1;
     protected int attackCooldownTicker = 20;
     Direction direction = Direction.LEFT;
@@ -53,6 +54,10 @@ public abstract class Combatant extends Entity implements Movable{
 
         hp = hp + incAmount;
 
+    }
+
+    public double getMoveSpeed() {
+        return moveSpeed;
     }
 
     @Override
