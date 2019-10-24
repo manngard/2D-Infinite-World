@@ -9,13 +9,15 @@ import java.util.*;
 
 public class World {
     private TileFactory tileFactory;
-    private EntityFactory entityFactory;
+    private EnemyFactory enemyFactory;
+    private ChestFactory chestFactory;
     LinkedList<LinkedList<Tile>> worldGrid;
     double worldVerticalSideLength;
     double worldHorizontalSideLength;
 
     private final double enemyDetectDistance = 7;
     private final double activeDistance = 22;
+    private final int spawnAreaSide = 5000;
     final private List<Combatant> activeEnemies = new ArrayList<>();
     final private Map<Coordinates, Combatant> inactiveEnemies = new HashMap<>();
     final private List<Chest> activeChests = new ArrayList<>();
@@ -41,7 +43,9 @@ public class World {
         } else {
             tileFactory = new TileFactory(new DefaultNoiseGenerator());
         }
-        entityFactory = new EntityFactory();
+        chestFactory = new ChestFactory();
+        enemyFactory = new EnemyFactory();
+
 
 
         player = new Player("Player", 0.05, 0.05, 100, 20, 2, 0);
@@ -51,12 +55,12 @@ public class World {
         this.worldVerticalSideLength = 15;
 
         for (int i = 0; i < 100000; i++) {
-            Combatant enemy = entityFactory.generateEnemy();
+            Combatant enemy = enemyFactory.generateEnemy(spawnAreaSide);
             inactiveEnemies.put((enemy.getCoords()), enemy);
         }
 
         for (int i = 0; i < 100000; i++) {
-            Chest chest = entityFactory.generateChest();
+            Chest chest = chestFactory.generateChest(spawnAreaSide);
             inactiveChests.put((chest.getCoords()), chest);
         }
 
