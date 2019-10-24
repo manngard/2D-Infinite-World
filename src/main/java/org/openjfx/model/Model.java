@@ -8,7 +8,7 @@ public class Model {
 
     World world;
 
-    public Event<EventMessage> hasUpdateEvent;
+    public Event<ModelEventMessage> hasUpdateEvent;
 
     public Model() {
         this(null);
@@ -56,7 +56,7 @@ public class Model {
     }
 
     public void modelHasBeenUpdated() {
-        hasUpdateEvent.dispatch(EventMessage.UPDATE, world);
+        hasUpdateEvent.dispatch(ModelEventMessage.UPDATE, world);
     }
 
     public void playerAttacks() {

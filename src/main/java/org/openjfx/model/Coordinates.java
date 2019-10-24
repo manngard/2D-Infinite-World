@@ -13,7 +13,6 @@ public class Coordinates {
 
     static Coordinates generateRandomCoordinates(int spawnAreaSide){
         Random rand = new Random();
-        rand = new Random();
         double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
         double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
         return new Coordinates(randX, randY);

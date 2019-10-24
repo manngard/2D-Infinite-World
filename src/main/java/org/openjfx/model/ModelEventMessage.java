@@ -1,5 +1,5 @@
 package org.openjfx.model;
 
-public enum EventMessage {
+public enum ModelEventMessage {
     UPDATE
 }

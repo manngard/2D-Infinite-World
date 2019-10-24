@@ -10,11 +10,11 @@ public abstract class Combatant extends Entity implements Movable{
     protected int attackCooldownTicker = 20;
     Direction direction = Direction.LEFT;
 
-    public Combatant(String i, double a, double b, int HP, int ATK, double ATKRANGE, int defense){
-        super(i, a, b);
-        this .hp = HP;
-        this.atk = ATK;
-        this.atkRange = ATKRANGE;
+    public Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
+        super(id, x, y);
+        this.hp = hitpoints;
+        this.atk = attack;
+        this.atkRange = attackRange;
         this.def = defense;
 
     }
