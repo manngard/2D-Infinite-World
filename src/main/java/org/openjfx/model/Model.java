@@ -66,8 +66,8 @@ public class Model {
 
     public void playerInteracts() {
         for (Chest chest : world.getActiveChests()) {
-            if (world.isEntityWithinDistance(chest,world.getPlayer(), 1) & world.inSight(world.getPlayer(), chest)) {
-                for (int i = 0; i < 4; i++)
+            if (world.isEntityWithinDistance(chest,world.getPlayer(), 1.2) & world.inSight(world.getPlayer(), chest)) {
+                for (int i = 0; i < chest.getInventorySize(); i++)
                     world.player.setItem(chest.getItem(i), i);
                 if(world.player.getSelectedItem() == 0){
                     selectInventory(1);

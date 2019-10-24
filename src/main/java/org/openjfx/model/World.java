@@ -95,22 +95,22 @@ public class World {
     public boolean inSight(Combatant a, Entity b) {
         switch (a.direction) {
             case UP:
-                if (b.getYcoord() < (a.getYcoord() - 0.5)) {
+                if (b.getYcoord() < (a.getYcoord() - 0.4)) {
                     return true;
                 }
                 break;
             case DOWN:
-                if (b.getYcoord() > (a.getYcoord() + 0.5)) {
+                if (b.getYcoord() > (a.getYcoord() + 0.4)) {
                     return true;
                 }
                 break;
             case LEFT:
-                if (b.getXcoord() < (a.getXcoord() - 0.5)) {
+                if (b.getXcoord() < (a.getXcoord() - 0.4)) {
                     return true;
                 }
                 break;
             case RIGHT:
-                if (b.getXcoord() > (a.getXcoord() + 0.5)) {
+                if (b.getXcoord() > (a.getXcoord() + 0.4)) {
                     return true;
                 }
                 break;

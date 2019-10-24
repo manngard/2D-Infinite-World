@@ -19,8 +19,8 @@ public class Player extends Combatant {
         itemBonus(inventory[selectedItem -1]);
     }
 
-    public Player(String ID, double XCOORD, double YCOORD, int HP, int ATK, float ATKRANGE, int def) {
-        super(ID, XCOORD, YCOORD, HP, ATK, ATKRANGE, def);
+    public Player(String id, double xCoord, double yCoord, int hitpoints, int attack, float atkRange, int defense) {
+        super(id, xCoord, yCoord, hitpoints, attack, atkRange, defense);
         this.moveSpeed = 1.0/3.0;
     }
 
