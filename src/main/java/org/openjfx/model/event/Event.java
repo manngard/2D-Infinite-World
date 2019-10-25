@@ -1,4 +1,4 @@
-package org.openjfx.utils.event;
+package org.openjfx.model.event;
 
 import java.util.ArrayList;
 import java.util.List;

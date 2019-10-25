@@ -2,7 +2,7 @@ package org.openjfx.model;
 
 import org.openjfx.model.noise.NoiseGenerator;
 
-import org.openjfx.utils.event.Event;
+import org.openjfx.model.event.Event;
 
 public class Model {
 

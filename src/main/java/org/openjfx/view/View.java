@@ -12,8 +12,8 @@ import org.openjfx.model.*;
 
 import org.openjfx.model.tile.Tile;
 
-import org.openjfx.utils.event.Event;
-import org.openjfx.utils.event.EventListener;
+import org.openjfx.model.event.Event;
+import org.openjfx.model.event.EventListener;
 
 import java.util.List;
 

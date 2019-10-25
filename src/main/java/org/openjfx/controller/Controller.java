@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import javafx.animation.AnimationTimer;
 import javafx.stage.Stage;
 import org.openjfx.model.Model;
-import org.openjfx.utils.event.EventListener;
+import org.openjfx.model.event.EventListener;
 import org.openjfx.view.View;
 import org.openjfx.view.ViewEventMessages;
 
