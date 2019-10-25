@@ -5,9 +5,8 @@ import javafx.stage.Stage;
 import org.openjfx.controller.Controller;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the whole application
+  Uses: Controller
   */
 
 public class App extends Application {
