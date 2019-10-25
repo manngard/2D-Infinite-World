@@ -4,9 +4,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.openjfx.controller.Controller;
 
-/**
- * JavaFX Controller
- */
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class App extends Application {
 
     @Override

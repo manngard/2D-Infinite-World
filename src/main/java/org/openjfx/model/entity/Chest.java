@@ -3,6 +3,12 @@ package org.openjfx.model.entity;
 import org.openjfx.model.item.Item;
 import org.openjfx.model.item.ItemFactory;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class Chest extends Entity{
 
     private final Item[] inventory = new Item[4];

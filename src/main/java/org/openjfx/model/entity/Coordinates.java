@@ -2,6 +2,12 @@ package org.openjfx.model.entity;
 
 import java.util.Random;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class Coordinates {
     private double xCoord;
     private double yCoord;
@@ -10,6 +16,7 @@ public class Coordinates {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
+
     /*Generates a coordinate object with random xCoord/yCoord within the area of a Square that has
     center in (0,0) and side spawnAreaSide**/
 

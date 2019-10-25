@@ -1,5 +1,11 @@
 package org.openjfx.model.entity;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public abstract class Entity{
 
     //Describes what type of Entity

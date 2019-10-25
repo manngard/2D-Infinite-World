@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class EnemyFactory {
     private final List<String> enemyTypes = new ArrayList<>();
 
@@ -14,7 +20,7 @@ public class EnemyFactory {
 
     /*Generates a random enemy from enemyTypes Enemy with that has coordinates within a Square that has
         center in (0,0) and side spawnAreaSide*/
-    
+
     public Combatant generateEnemy(int spawnAreaSide) {
         Random rand = new Random();
         Coordinates coordinates = Coordinates.generateRandomCoordinates(spawnAreaSide);

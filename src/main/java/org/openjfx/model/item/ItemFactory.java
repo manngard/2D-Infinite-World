@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class ItemFactory {
     private final List<Pair<String, Integer>> weaponTypes = new ArrayList<>();
     private final List<Pair<String, Integer>> armorTypes = new ArrayList<>();

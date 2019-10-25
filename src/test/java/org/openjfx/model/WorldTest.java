@@ -12,6 +12,12 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class WorldTest {
 
 

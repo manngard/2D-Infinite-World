@@ -1,5 +1,11 @@
 package org.openjfx.model.item;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public abstract class Item {
 
     private String id;

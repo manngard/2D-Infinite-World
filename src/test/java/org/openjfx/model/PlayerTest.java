@@ -5,6 +5,12 @@ import org.junit.Test;
 import org.openjfx.model.entity.Movable;
 import org.openjfx.model.entity.Player;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class PlayerTest {
 
     private final Player player = new Player("1", 0, 0, 100, 50, 32 , 1);

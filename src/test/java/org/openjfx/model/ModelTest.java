@@ -8,8 +8,13 @@ import org.openjfx.model.entity.Movable;
 
 import static org.junit.Assert.*;
 
-public class ModelTest {
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
 
+public class ModelTest {
     private Model model;
 
     @Before

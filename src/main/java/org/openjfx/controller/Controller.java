@@ -8,6 +8,11 @@ import org.openjfx.model.event.EventListener;
 import org.openjfx.view.View;
 import org.openjfx.view.ViewEventMessages;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
 
 public class Controller {
     private final Model model;

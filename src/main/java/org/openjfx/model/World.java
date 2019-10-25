@@ -8,6 +8,12 @@ import org.openjfx.model.entity.tile.TileFactory;
 
 import java.util.*;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class World {
     private final TileFactory tileFactory;
     final LinkedList<LinkedList<Tile>> worldGrid;

@@ -9,6 +9,12 @@ import org.openjfx.model.noise.NoiseGenerator;
 
 import org.openjfx.model.event.Event;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class Model {
 
     final World world;

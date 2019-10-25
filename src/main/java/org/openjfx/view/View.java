@@ -20,6 +20,12 @@ import org.openjfx.model.event.EventListener;
 
 import java.util.List;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility:
+  Used by:
+  Uses:
+  */
+
 public class View {
     private final Canvas gameScreen;
     private final int screenXSize;
