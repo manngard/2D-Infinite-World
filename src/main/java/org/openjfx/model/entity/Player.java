@@ -80,14 +80,8 @@ public class Player extends Combatant {
     }
 
     private void itemBonus(Item item) {
-
-        if(item instanceof Weapon){
-            this.atk += ((Weapon) item).getAtk();
-        }
-        else if(item instanceof Armor){
-            this.def += ((Armor) item).getDef();
-        }
-
+        this.atk += item.getAtk();
+        this.def += item.getDef();
     }
 
     public boolean canAttack(){

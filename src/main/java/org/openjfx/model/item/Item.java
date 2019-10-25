@@ -7,12 +7,16 @@ package org.openjfx.model.item;
 
 public abstract class Item {
 
+    int def;
+    int atk;
     private String id;
     private  boolean isSelected = false;
 
 
-    Item(String id){
+    Item(String id) {
         this.id = id;
+        this.def = 0;
+        this.atk = 0;
     }
 
     public String getId(){
@@ -29,6 +33,14 @@ public abstract class Item {
 
     public boolean getIsItemSelected(){
         return isSelected;
+    }
+
+    public float getDef(){
+        return this.def;
+    }
+
+    public float getAtk(){
+        return this.atk;
     }
 
 }

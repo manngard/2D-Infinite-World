@@ -21,7 +21,7 @@ public class ItemFactory {
         weaponTypes.add(new Pair<>("Sword", 20));
         weaponTypes.add(new Pair<>("Axe", 30));
 
-        armorTypes.add(new Pair<>("Armor", 10));
+        armorTypes.add(new Pair<>("Armor", 15));
     }
 
     /*Generates a random item from available ones in weapontypes and armortypes*/
