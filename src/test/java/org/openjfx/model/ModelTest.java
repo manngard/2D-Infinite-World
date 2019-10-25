@@ -69,13 +69,13 @@ public class ModelTest {
 
     @Test
     public void moveMobsInWorld(){
-        Enemy enemy = new Enemy("e",-1,0,100,30,2,0);
+        Enemy enemy = new Enemy("e",4,3,100,30,2,0);
         double prevXCoord = enemy.getXCoord();
         double prevYCoord = enemy.getYCoord();
         model.world.getActiveEnemies().add(enemy);
 
         model.moveMobsInWorld();
         assertTrue(enemy.getXCoord() != prevXCoord);
-        assertTrue(enemy.getYCoord() != prevXCoord);
+        assertTrue(enemy.getYCoord() != prevYCoord);
     }
 }
