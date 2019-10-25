@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class ModelTest {
 
-    Model model = new Model();
+    private final Model model = new Model();
 
     @Test
     public void modelMovePlayerTest(){

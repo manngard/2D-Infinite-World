@@ -6,9 +6,9 @@ import org.openjfx.model.event.Event;
 
 public class Model {
 
-    World world;
+    final World world;
 
-    public Event<ModelEventMessage> hasUpdateEvent;
+    public final Event<ModelEventMessage> hasUpdateEvent;
 
     public Model() {
         this(null);

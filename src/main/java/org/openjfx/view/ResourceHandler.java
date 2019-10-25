@@ -2,7 +2,7 @@ package org.openjfx.view;
 
 import javafx.scene.image.Image;
 
-public class ResourceHandler {
+class ResourceHandler {
 
     //Fetches PNG Image called id.png
     static Image getResource(String id){

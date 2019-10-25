@@ -10,7 +10,7 @@ import org.openjfx.view.ViewEventMessages;
 
 
 public class Controller {
-    private Model model;
+    private final Model model;
     private long previousTime = 0;
 
     public Controller(Stage stage) {

@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class WorldTest {
 
 
-    private World world = new World();
+    private final World world = new World();
 
     // World size test
     @Test

@@ -1,8 +1,8 @@
 package org.openjfx.model;
 
-public class Weapon extends Item {
+class Weapon extends Item {
 
-    private int atk;
+    private final int atk;
 
     public Weapon(String s, int atk){
         super(s);

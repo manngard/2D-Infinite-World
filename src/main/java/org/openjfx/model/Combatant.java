@@ -1,16 +1,16 @@
 package org.openjfx.model;
 
 public abstract class Combatant extends Entity implements Movable{
-    protected int hp;
-    protected int atk;
-    protected int def;
-    protected double atkRange;
+    int hp;
+    int atk;
+    int def;
+    final double atkRange;
 
-    protected double moveSpeed = 1;
-    protected int attackCooldownTicker = 20;
+    double moveSpeed = 1;
+    int attackCooldownTicker = 20;
     Direction direction = Direction.LEFT;
 
-    public Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
+    Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
         super(id, x, y);
         this.hp = hitpoints;
         this.atk = attack;
@@ -48,12 +48,6 @@ public abstract class Combatant extends Entity implements Movable{
     public void decHp(int decAmount) {
 
         hp = hp - decAmount;
-    }
-
-    public void incHp(int incAmount){
-
-        hp = hp + incAmount;
-
     }
 
     public double getMoveSpeed() {

@@ -18,17 +18,16 @@ import org.openjfx.model.event.EventListener;
 import java.util.List;
 
 public class View {
-    private Stage stage;
-    private Canvas gameScreen;
-    private int screenXSize;
-    private int screenYSize;
-    private Rectangle playerHealthbar;
+    private final Canvas gameScreen;
+    private final int screenXSize;
+    private final int screenYSize;
+    private final Rectangle playerHealthbar;
     private Event<ViewEventMessages> viewEvent;
     private final int pixelSize = 32;
-    private GraphicsContext graphics;
+    private final GraphicsContext graphics;
 
     public View(Stage stage, Event<ModelEventMessage> modelHasUpdateEvent) {
-        this.stage = stage;
+
 
         StackPane layers = new StackPane();
 

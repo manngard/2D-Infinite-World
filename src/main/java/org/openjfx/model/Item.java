@@ -6,7 +6,7 @@ public abstract class Item {
     private  boolean isSelected = false;
 
 
-    public Item(String id){
+    Item(String id){
         this.id = id;
     }
 

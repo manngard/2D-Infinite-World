@@ -1,8 +1,8 @@
 package org.openjfx.model;
 
-public class Armor extends Item{
+class Armor extends Item{
 
-    private int def;
+    private final int def;
 
     public Armor(String s, int def){
         super(s);

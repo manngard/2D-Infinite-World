@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class PlayerTest {
 
-    Player player = new Player("1", 0, 0, 100, 50, 32 , 1);
+    private final Player player = new Player("1", 0, 0, 100, 50, 32 , 1);
 
     @Test
     public void createPlayerTest(){
@@ -23,12 +23,6 @@ public class PlayerTest {
         // Test of decHp when decAmount < Hp
         player.decHp(50);
         Assert.assertEquals(player.getHp(), 50);
-
-        player.incHp(30);
-        Assert.assertEquals(player.getHp(), 80);
-
-        player.incHp(500);
-        Assert.assertEquals(player.getHp(), 580);
 
         player.decHp(200);
         Assert.assertEquals(player.getHp(), 380);

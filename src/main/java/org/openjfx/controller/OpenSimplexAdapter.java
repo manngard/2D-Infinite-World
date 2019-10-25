@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class OpenSimplexAdapter implements NoiseGenerator {
 
-    private OpenSimplexNoise noiseGenerator;
+    private final OpenSimplexNoise noiseGenerator;
     private static OpenSimplexAdapter instance;
 
     private OpenSimplexAdapter() {

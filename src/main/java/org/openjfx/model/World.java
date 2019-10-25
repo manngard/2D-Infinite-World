@@ -8,22 +8,18 @@ import org.openjfx.model.tile.TileFactory;
 import java.util.*;
 
 public class World {
-    private TileFactory tileFactory;
-    private EnemyFactory enemyFactory;
-    private ChestFactory chestFactory;
-    LinkedList<LinkedList<Tile>> worldGrid;
-    double worldVerticalSideLength;
-    double worldHorizontalSideLength;
+    private final TileFactory tileFactory;
+    final LinkedList<LinkedList<Tile>> worldGrid;
+    final double worldVerticalSideLength;
+    final double worldHorizontalSideLength;
 
-    private final double enemyDetectDistance = 7;
     private final double activeDistance = 22;
-    private final int spawnAreaSide = 5000;
     final private List<Combatant> activeEnemies = new ArrayList<>();
     final private Map<Coordinates, Combatant> inactiveEnemies = new HashMap<>();
     final private List<Chest> activeChests = new ArrayList<>();
     final private Map<Coordinates, Chest> inactiveChests = new HashMap<>();
     final private List<Combatant> players = new ArrayList<>();
-    public Player player;
+    public final Player player;
 
     public World() {
         this(null);
@@ -43,8 +39,8 @@ public class World {
         } else {
             tileFactory = new TileFactory(new DefaultNoiseGenerator());
         }
-        chestFactory = new ChestFactory();
-        enemyFactory = new EnemyFactory();
+        ChestFactory chestFactory = new ChestFactory();
+        EnemyFactory enemyFactory = new EnemyFactory();
 
 
 
@@ -54,6 +50,7 @@ public class World {
         this.worldHorizontalSideLength = 23;
         this.worldVerticalSideLength = 15;
 
+        int spawnAreaSide = 5000;
         for (int i = 0; i < 100000; i++) {
             Combatant enemy = enemyFactory.generateEnemy(spawnAreaSide);
             inactiveEnemies.put((enemy.getCoords()), enemy);
@@ -139,12 +136,12 @@ public class World {
     /*Calculates the absolute distance between entity a and b using the pythagorean theorem and
      returns the corresponding double value */
 
-    public double distance(Entity a, Entity b) {
+    private double distance(Entity a, Entity b) {
         double xDist = Math.abs(a.getXcoord() - b.getXcoord());
         double yDist = Math.abs(a.getYcoord() - b.getYcoord());
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
-    public boolean isPathFree(Combatant c1, Combatant c2){
+    private boolean isPathFree(Combatant c1, Combatant c2){
         final ArrayList<Combatant> cs = new ArrayList<>();
         cs.add(c2);
         return isPathFree(c1, cs);
@@ -219,7 +216,7 @@ public class World {
 
     }
 
-    public boolean isEntityInPath(Combatant a, Entity b){
+    private boolean isEntityInPath(Combatant a, Entity b){
 
         if(inSight(a,b)) {
             switch (a.direction) {
@@ -254,6 +251,7 @@ public class World {
         //Int to use for future random mob movement
         //int rand = (int)Math.ceil(Math.random() * 2);
         for (Combatant combatant : activeEnemies) {
+            double enemyDetectDistance = 7;
             if (isEntityWithinDistance(player, combatant, enemyDetectDistance)) {
                 if (player.getXcoord() + 0.9 < combatant.getXcoord()) {
                     combatant.setDirection(Movable.Direction.LEFT);
@@ -320,7 +318,7 @@ public class World {
     If they have come into viewport they are removed from inactiveChests or inactiveEnemies Map
     and added to activeChests or activeEnemies List*/
 
-    public void checkIfEntitiesInactive() {
+    private void checkIfEntitiesInactive() {
         List<Combatant> newlyInactiveEnemies = new ArrayList<>();
         for (Combatant combatant : activeEnemies) {
             if (!isEntityWithinDistance(combatant, player, activeDistance)) {
@@ -347,7 +345,7 @@ public class World {
     If they are no longer in viewport they are stored in inactiveChests or inactiveEnemies Map and
     removed from activeChests or activeEnemies List*/
 
-        public void checkIfEntitiesActive () {
+        private void checkIfEntitiesActive() {
             List<Combatant> newlyActive = new ArrayList<>();
             for (Combatant combatant : inactiveEnemies.values()) {
                 if (isEntityWithinDistance(combatant, player, activeDistance)) {

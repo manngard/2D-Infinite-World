@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TileFactory {
     private final List<Pair<String, Double>> tileTypes = new ArrayList<>();
-    private NoiseGenerator noiseGenerator;
+    private final NoiseGenerator noiseGenerator;
 
     public TileFactory(NoiseGenerator ng) {
         this.noiseGenerator = ng;

@@ -1,6 +1,6 @@
 package org.openjfx.model.tile;
 
-public class TileFactoryTest {
+class TileFactoryTest {
 
 
 //    @Test

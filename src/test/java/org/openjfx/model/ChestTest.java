@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class ChestTest {
 
-    private Chest chest = new Chest("Chest", 1, 1);
+    private final Chest chest = new Chest("Chest", 1, 1);
 
     @Test //    Test to see if the items in the chest are random. Prints out the items in the chest.
     public void chestRandomTest() {
