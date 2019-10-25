@@ -21,14 +21,12 @@ public class Controller {
             public void handle(long now) {
                 long deltaTime = now - previousTime;
                 if(deltaTime / 100000 > 500) {
-                    model.moveMobsInWorld();
-                    model.mobsAttack();
-                    model.modelHasBeenUpdated();
+                    model.runTick();
                     previousTime = now;
                 }
             }
         }.start();
-        model.modelHasBeenUpdated();
+        model.initModel();
         view.getViewEvent().addListener(new EventListener() {
             @Override
             public void func(Object emsg, Object data) {

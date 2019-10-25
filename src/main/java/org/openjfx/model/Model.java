@@ -56,8 +56,12 @@ public class Model {
         }
     }
 
-    public void modelHasBeenUpdated() {
+    private void modelHasUpdate() {
         hasUpdateEvent.dispatch(ModelEventMessage.UPDATE, world);
+    }
+
+    public void initModel() {
+        modelHasUpdate();
     }
 
     public void playerAttacks() {
@@ -105,6 +109,12 @@ public class Model {
 
     public void registerListener(EventListener<ModelEventMessage> listener) {
         hasUpdateEvent.addListener(listener);
+    }
+
+    public void runTick() {
+        this.moveMobsInWorld();
+        this.mobsAttack();
+        this.modelHasUpdate();
     }
 
 }
