@@ -11,6 +11,10 @@ public class EnemyFactory {
         enemyTypes.add("Goblin");
         enemyTypes.add("Rat");
     }
+
+    /*Generates a random enemy from enemyTypes Enemy with that has coordinates within a Square that has
+        center in (0,0) and side spawnAreaSide*/
+    
     public Combatant generateEnemy(int spawnAreaSide) {
         Random rand = new Random();
         Coordinates coordinates = Coordinates.generateRandomCoordinates(spawnAreaSide);

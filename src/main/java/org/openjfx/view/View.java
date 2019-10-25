@@ -60,6 +60,9 @@ public class View {
         });
     }
 
+
+    /*Receives a ModelEventMessage UPDATE and renders the Object data and overlays onto the screen*/
+
     private void rerender(ModelEventMessage emsg, Object data) {
         switch (emsg) {
             case UPDATE:
@@ -83,20 +86,25 @@ public class View {
     }
 
 
+    /*Translates x-coordinate from the coordinate system in model to JavaFX coordinate system*/
+
     private double translateY(double modelY) {
         return gameScreen.getHeight() / 2 + modelY * pixelSize - 16;
     }
+
+    /*Translates y-coordinate from the coordinate system in model to JavaFX coordinate system*/
 
     private double translateX(double modelX) {
         return gameScreen.getWidth() / 2 + modelX * pixelSize - 16;
     }
 
-    //Draws object with String id
+    /*Draws sprite for object with String id onto coordinates (x,y)*/
 
     private void drawObject(String id, double x, double y) {
         graphics.drawImage(ResourceHandler.getResource(id), x, y);
     }
 
+    /*Takes in HP and inventory and uses this to render overlays for the gameScreen*/
 
     private void renderOverlay(int HP, Item[] inventory){
         double healthBarWidth = 1.8 * HP;
@@ -126,6 +134,8 @@ public class View {
         }
     }
 
+    /*Takes in enemies and chests and renders all of the entities onto the screen offset from Player position*/
+
     private void renderEntities(List <Combatant> enemies, List<Chest> chests, double playerX, double playerY){
         for (Chest chest : chests){
             graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(chest.getXCoord()) - playerX, translateY(chest.getYCoord()) - playerY);
@@ -139,6 +149,8 @@ public class View {
             drawObject("EnemyHealthbarContainer",healthBarXCoord,healthBarYCoord);
         }
     }
+
+    /*Takes in the world and renders all tiles onto the screen offset from Player position*/
 
     private void renderTileWorld(World world, double playerX, double playerY) {
         for (List<Tile> tileRow: world.getWorldGrid()){

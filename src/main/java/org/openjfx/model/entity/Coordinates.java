@@ -10,8 +10,10 @@ public class Coordinates {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
+    /*Generates a coordinate object with random xCoord/yCoord within the area of a Square that has
+    center in (0,0) and side spawnAreaSide**/
 
-    public static Coordinates generateRandomCoordinates(int spawnAreaSide){
+    static Coordinates generateRandomCoordinates(int spawnAreaSide){
         Random rand = new Random();
         double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
         double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;

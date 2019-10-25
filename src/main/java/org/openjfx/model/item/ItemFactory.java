@@ -18,6 +18,8 @@ public class ItemFactory {
         armorTypes.add(new Pair<>("Armor", 10));
     }
 
+    /*Generates a random item from available ones in weapontypes and armortypes*/
+
     public Item getRandomItem(){
         Random rand = new Random();
         int randIndex;
