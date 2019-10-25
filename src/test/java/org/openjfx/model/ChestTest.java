@@ -18,18 +18,14 @@ public class ChestTest {
                         "\n" + "Item is: " + chest.getItem(3).getId() + " at [3]");
 
         if (chest.getItem(0).getId().equals("Axe")) {
-            System.out.println("Item is: Axe at [0]");
             Assert.assertEquals(chest.getItem(0).getId(), "Axe");
         } else if (chest.getItem(1).getId().equals("Sword")) {
-            System.out.println("Item is: Sword at [1]");
             Assert.assertEquals(chest.getItem(1).getId(), "Sword");
 
         } else if (chest.getItem(2).getId().equals("Plate armor")) {
-            System.out.println("Item is: Plate armor at [2]");
             Assert.assertEquals(chest.getItem(2).getId(), "Plate armor");
 
         } else if (chest.getItem(3).getId().equals("Cloth armor")) {
-            System.out.println("Item is: Cloth armor at [3]");
             Assert.assertEquals(chest.getItem(3).getId(), "Cloth armor");
 
         }

@@ -25,9 +25,6 @@ public class PlayerTest {
         // Test of decHp when decAmount < Hp
         player.decHp(50);
         Assert.assertEquals(player.getHp(), 50);
-
-        player.decHp(200);
-        Assert.assertEquals(player.getHp(), 380);
     }
 
     @Test   //Test of Exp methods
@@ -40,12 +37,15 @@ public class PlayerTest {
 
     @Test   //  Test of move functions
     public void moveTest(){
+        final double x = player.getXcoord();
+        final double y = player.getYcoord();
+
         player.move(Movable.Direction.UP);
         player.move(Movable.Direction.DOWN);
         player.move(Movable.Direction.LEFT);
         player.move(Movable.Direction.RIGHT);
 
-        Assert.assertEquals(player.getXcoord(), 0,0);
-        Assert.assertEquals(player.getYcoord(), 0,0);
+        Assert.assertEquals(player.getXcoord(), x,0);
+        Assert.assertEquals(player.getYcoord(), y,0);
     }
 }

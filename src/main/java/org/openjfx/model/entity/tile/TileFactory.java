@@ -24,7 +24,7 @@ public class TileFactory {
         double tileValue = noiseGenerator.getValue((int) x, (int) y);
         double prevVal = 0.0;
         for(int i = 0; i < tileTypes.size(); i++) {
-            if(prevVal < tileValue && tileValue <= tileTypes.get(i).getValue() + prevVal) {
+            if(prevVal <= tileValue && tileValue <= tileTypes.get(i).getValue() + prevVal) {
                 return new Tile(tileTypes.get(i).getKey(), x, y);
             }
             prevVal += tileTypes.get(i).getValue();
