@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-class
-EnemyFactory {
+class EnemyFactory {
     private final List<String> enemyTypes = new ArrayList<>();
 
     public EnemyFactory(){
