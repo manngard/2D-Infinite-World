@@ -29,7 +29,7 @@ public class View {
     private final int pixelSize = 32;
     private final GraphicsContext graphics;
 
-    public View(Stage stage, Event<ModelEventMessage> modelHasUpdateEvent) {
+    public View(Stage stage, Model model) {
 
 
         StackPane layers = new StackPane();
@@ -52,7 +52,7 @@ public class View {
         stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> viewEvent.dispatch(ViewEventMessages.KEYPRESS ,event.getCode()));
         viewEvent = new Event<>();
 
-        modelHasUpdateEvent.addListener(new EventListener<ModelEventMessage>() {
+        model.registerListener(new EventListener<ModelEventMessage>() {
             @Override
             public void func(ModelEventMessage emsg, Object data) {
                 rerender(emsg, data);

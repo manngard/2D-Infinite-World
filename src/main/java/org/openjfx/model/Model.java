@@ -3,6 +3,7 @@ package org.openjfx.model;
 import org.openjfx.model.entity.Chest;
 import org.openjfx.model.entity.Combatant;
 import org.openjfx.model.entity.Movable;
+import org.openjfx.model.event.EventListener;
 import org.openjfx.model.item.Item;
 import org.openjfx.model.noise.NoiseGenerator;
 
@@ -12,7 +13,7 @@ public class Model {
 
     final World world;
 
-    public final Event<ModelEventMessage> hasUpdateEvent;
+    private final Event<ModelEventMessage> hasUpdateEvent;
 
     public Model() {
         this(null);
@@ -100,6 +101,10 @@ public class Model {
         for (Combatant enemy : world.getActiveEnemies()) {
             world.attackHit(enemy, world.combatantAttacks(enemy, world.getPlayers()));
         }
+    }
+
+    public void registerListener(EventListener<ModelEventMessage> listener) {
+        hasUpdateEvent.addListener(listener);
     }
 
 }

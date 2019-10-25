@@ -15,7 +15,7 @@ public class Controller {
 
     public Controller(Stage stage) {
         model = new Model(OpenSimplexAdapter.getInstance());
-        View view = new View(stage, model.hasUpdateEvent);
+        View view = new View(stage, model);
         new AnimationTimer() {
             @Override
             public void handle(long now) {
