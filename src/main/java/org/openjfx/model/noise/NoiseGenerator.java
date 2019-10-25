@@ -1,9 +1,8 @@
 package org.openjfx.model.noise;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Allows for usability of diffrent noise generators
+  Used by: TileFactory, Model, OpenSimplexAdapter
   */
 
 public interface NoiseGenerator {

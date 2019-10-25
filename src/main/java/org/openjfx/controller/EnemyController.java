@@ -3,6 +3,12 @@ package org.openjfx.controller;
 import javafx.animation.AnimationTimer;
 import org.openjfx.model.Model;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility: Controller for tick timer.
+  Used by: Controller
+  Uses: Model, AnimationTimer
+  */
+
 public class EnemyController {
     private long previousTime = 0;
 

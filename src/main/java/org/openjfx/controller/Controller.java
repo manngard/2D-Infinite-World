@@ -7,7 +7,7 @@ import org.openjfx.view.View;
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
   Responsibility: Controller component in MVC structure.
   Used by: App
-  Uses:
+  Uses: Model, View, EnemyController, PlayerController, Stage
   */
 
 public class Controller {

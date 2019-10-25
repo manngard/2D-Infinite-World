@@ -6,6 +6,12 @@ import org.openjfx.model.event.EventListener;
 import org.openjfx.view.View;
 import org.openjfx.view.ViewEventMessages;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility: Controller for user input.
+  Used by: Controller
+  Uses: Model, View, EventListener, ViewEventMessages
+  */
+
 public class PlayerController {
     final Model model;
 

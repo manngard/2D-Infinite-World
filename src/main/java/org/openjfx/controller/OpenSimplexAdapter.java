@@ -6,10 +6,10 @@ import org.openjfx.staticlibrary.OpenSimplexNoise;
 import java.util.Random;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
-  */
+  Responsibility: Adapter between OpenSimplexNoise library and NoiseGenerator
+  Used by: Controller
+  Uses: NoiseGenerator, OpenSimplexNoise
+*/
 
 public class OpenSimplexAdapter implements NoiseGenerator {
 

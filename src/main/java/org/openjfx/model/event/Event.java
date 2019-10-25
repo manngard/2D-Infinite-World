@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Generic event system to replace the deprecated one from java
+  Used by: Controller, Model
+  Uses: EventListener
   */
 
 public class Event<MsgT extends Enum> {
