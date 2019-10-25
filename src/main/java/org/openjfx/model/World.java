@@ -145,6 +145,12 @@ public class World {
         cs.add(c2);
         return isPathFree(c1, cs);
     }
+
+    /*
+     * This method checks if the path an entity is obstructed by either a tile or an opposing Combatant
+     * First it measures which tiles are ahead of the entity, if they are solid it returns false
+     * After that it goes through a list of all opposing Combatants and runs the isEntityInPath method */
+
     public boolean isPathFree(Combatant c, List<Combatant> e){
 
         double checkX1 = (worldHorizontalSideLength - 1)/2;
@@ -198,7 +204,7 @@ public class World {
         for(Combatant en : e){
 
             if(isEntityInPath(c, en)){
-                if(distance(c, en) < 1/2){
+                if(distance(c, en) < 1.1){
                     return false;
                 }
             }
@@ -208,19 +214,30 @@ public class World {
 
     }
 
-    private boolean isEntityInPath(Combatant a, Entity b){
+    /*
+     *    A method that takes in two Entities and checks if the target entity is in the path of the requester.
+     */
 
-        if(inSight(a,b)) {
-            switch (a.getDirection()) {
+    private boolean isEntityInPath(Combatant requester, Entity target){
+        if(inSight(requester,target)) {
+            switch (requester.getDirection()) {
                 case UP:
+                    if ((requester.getCoords().getXCoord() - 0.9) < target.getCoords().getXCoord() && target.getCoords().getXCoord() < (requester.getCoords().getXCoord() + 0.9) && (requester.getCoords().getYCoord() > target.getCoords().getYCoord())) {
+                        return true;
+                    }
+                    break;
                 case DOWN:
-                    if ((a.getCoords().getXCoord() - 0.9) < b.getCoords().getXCoord() && b.getCoords().getXCoord() < (a.getCoords().getXCoord() + 0.9)) {
+                    if ((requester.getCoords().getXCoord() - 0.9) < target.getCoords().getXCoord() && target.getCoords().getXCoord() < (requester.getCoords().getXCoord() + 0.9) && (requester.getCoords().getYCoord() < target.getCoords().getYCoord())) {
                         return true;
                     }
                     break;
                 case LEFT:
+                    if ((requester.getCoords().getYCoord() - 0.9) < target.getCoords().getYCoord() && target.getCoords().getYCoord() < (requester.getCoords().getYCoord() + 0.9) && (requester.getCoords().getXCoord() > target.getCoords().getXCoord())) {
+                        return true;
+                    }
+                    break;
                 case RIGHT:
-                    if ((a.getCoords().getYCoord() - 0.9) < b.getCoords().getYCoord() && b.getCoords().getYCoord() < (a.getCoords().getYCoord() + 0.9)) {
+                    if ((requester.getCoords().getYCoord() - 0.9) < target.getCoords().getYCoord() && target.getCoords().getYCoord() < (requester.getCoords().getYCoord() + 0.9) && (requester.getCoords().getXCoord() < target.getCoords().getXCoord())) {
                         return true;
                     }
                     break;
@@ -236,6 +253,12 @@ public class World {
     public boolean isEntityWithinDistance(Entity target, Combatant requester, double range) {
         return distance(requester, target) <= range;
     }
+
+    /*
+     * This method runs the checkifEntitiesInactive and checkIfEntitiesActive methods.
+     * Then it checks if any enemies are close enough to see and move towards the player, if they are and the pathIsFree method returns true it will move towards the player
+     * If not it will attempt to move in another random direction, if pathIsFree method returns false it will simply not move
+     */
 
     public void moveMobs() {
         checkIfEntitiesInactive();

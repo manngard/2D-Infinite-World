@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openjfx.model.entity.Combatant;
 import org.openjfx.model.entity.Enemy;
+import org.openjfx.model.entity.Movable;
 import org.openjfx.model.entity.tile.Tile;
 
 import java.util.ArrayList;
@@ -16,21 +17,9 @@ public class WorldTest {
 
     private final World world = new World();
 
-    // World size test
-    @Test
-    public void worldConstructorTest(){
-
-        int columns = 0;
-        for (List<Tile> worldrow: world.worldGrid){
-//            assertEquals(worldrow.size(), world.worldVerticalSideLength, 0.0);
-            columns++;
-        }
-        assertEquals(columns, world.worldHorizontalSideLength, 0.0);
-    }
-
     //  Test to see if the attackHit method in world class works. This also ensures that the method inSight works.
     @Test
-    public void worldCombatTest(){
+    public void worldCombatTest() {
         List<Combatant> enemies = new ArrayList<>();
         Enemy enemy = new Enemy("e1", -1, 0, 100, 20, 2, 0);
         enemies.add(enemy);
@@ -49,5 +38,33 @@ public class WorldTest {
         Assert.assertEquals(100, enemy2.getHp());
     }
 
+    @Test
+    public void CollisionTest() {
+        List<Combatant> enemies = new ArrayList<>();
+        Enemy enemy = new Enemy("e1", -1.0, 0, 100, 20, 2, 0);
+        enemies.add(enemy);
+        world.player.setDirection(Movable.Direction.LEFT);
+        Assert.assertFalse(world.isPathFree(world.player, enemies));
+        world.player.setDirection(Movable.Direction.RIGHT);
+        Assert.assertTrue(world.isPathFree(world.player, enemies));
+    }
 
+    @Test
+    public void moveMobsTest() {
+
+        world.getActiveEnemies().clear();
+        world.getActiveEnemies().add(new Enemy("Tester", 2, 2, 3, 3, 3, 3));
+        world.player.move(Movable.Direction.RIGHT);
+        Assert.assertTrue(world.getActiveEnemies().get(0).getId().equals("Tester"));
+        world.getActiveEnemies().clear();
+        world.getActiveEnemies().add(new Enemy("Tester", 30, 30, 3, 3, 3, 3));
+        world.moveMobs();
+        for (Combatant c : world.getActiveEnemies()) {
+
+            Assert.assertFalse(c.getId().equals("Tester"));
+
+        }
+
+
+    }
 }
