@@ -9,9 +9,9 @@ import org.openjfx.model.entity.tile.TileFactory;
 import java.util.*;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the World behavior
+  Used by: Model, View
+  Uses: Player, Enemy, Combatant, Entity, Tile, Chest, TileFactory, ChestFactory, EnemyFactory
   */
 
 public class World {

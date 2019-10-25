@@ -3,9 +3,8 @@ package org.openjfx.model.entity;
 import java.util.Random;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the Coordinates behavior and generating random coordinates
+  Used by: ChestFactory, EnemyFactory, Player, World
   */
 
 public class Coordinates {

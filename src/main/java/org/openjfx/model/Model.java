@@ -10,9 +10,9 @@ import org.openjfx.model.noise.NoiseGenerator;
 import org.openjfx.model.event.Event;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the Model and acting as a facade for model package
+  Used by: Controller
+  Uses: ModelEventMessage, Event, World
   */
 
 public class Model {

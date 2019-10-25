@@ -1,12 +1,9 @@
 package org.openjfx.model;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Listing all types of eventmessages the Model class can handle
+  Used by: Model
   */
-
-/*Lists all types of eventmessages the model can handle*/
 
 public enum ModelEventMessage {
     UPDATE
