@@ -11,7 +11,7 @@ import java.util.*;
 public class World {
     private final TileFactory tileFactory;
     final LinkedList<LinkedList<Tile>> worldGrid;
-    final double worldVerticalSideLength;
+    private final double worldVerticalSideLength;
     final double worldHorizontalSideLength;
 
     private final double activeDistance = 22;
@@ -93,22 +93,22 @@ public class World {
     public boolean inSight(Combatant a, Entity b) {
         switch (a.getDirection()) {
             case UP:
-                if (b.getYcoord() < (a.getYcoord() - 0.4)) {
+                if (b.getYCoord() < (a.getYCoord() - 0.4)) {
                     return true;
                 }
                 break;
             case DOWN:
-                if (b.getYcoord() > (a.getYcoord() + 0.4)) {
+                if (b.getYCoord() > (a.getYCoord() + 0.4)) {
                     return true;
                 }
                 break;
             case LEFT:
-                if (b.getXcoord() < (a.getXcoord() - 0.4)) {
+                if (b.getXCoord() < (a.getXCoord() - 0.4)) {
                     return true;
                 }
                 break;
             case RIGHT:
-                if (b.getXcoord() > (a.getXcoord() + 0.4)) {
+                if (b.getXCoord() > (a.getXCoord() + 0.4)) {
                     return true;
                 }
                 break;
@@ -136,8 +136,8 @@ public class World {
      returns the corresponding double value */
 
     private double distance(Entity a, Entity b) {
-        double xDist = Math.abs(a.getXcoord() - b.getXcoord());
-        double yDist = Math.abs(a.getYcoord() - b.getYcoord());
+        double xDist = Math.abs(a.getXCoord() - b.getXCoord());
+        double yDist = Math.abs(a.getYCoord() - b.getYCoord());
         return Math.sqrt((yDist * yDist) + (xDist * xDist));
     }
     private boolean isPathFree(Combatant c1, Combatant c2){
@@ -152,8 +152,8 @@ public class World {
 
         Tile center = worldGrid.get((int) checkX1).get((int) checkY1);
 
-        checkX1 += (c.getXcoord() - center.getXcoord());
-        checkY1 += (c.getYcoord() - center.getYcoord());
+        checkX1 += (c.getXCoord() - center.getXCoord());
+        checkY1 += (c.getYCoord() - center.getYCoord());
 
         double checkX2 = checkX1;
         double checkY2 = checkY1;
@@ -189,11 +189,9 @@ public class World {
         }
 
         if (worldGrid.get((int) checkX1).get((int)checkY1).getISSolid()){
-            Tile tile = worldGrid.get((int) checkX1).get((int)checkY1);
             return false;
         }
         else if (worldGrid.get((int) checkX2).get((int) checkY2).getISSolid()){
-            Tile tile = worldGrid.get((int) checkX2).get((int)checkY2);
             return false;
         }
 
@@ -216,13 +214,13 @@ public class World {
             switch (a.getDirection()) {
                 case UP:
                 case DOWN:
-                    if ((a.getCoords().getxCoord() - 0.9) < b.getCoords().getxCoord() && b.getCoords().getxCoord() < (a.getCoords().getxCoord() + 0.9)) {
+                    if ((a.getCoords().getXCoord() - 0.9) < b.getCoords().getXCoord() && b.getCoords().getXCoord() < (a.getCoords().getXCoord() + 0.9)) {
                         return true;
                     }
                     break;
                 case LEFT:
                 case RIGHT:
-                    if ((a.getCoords().getyCoord() - 0.9) < b.getCoords().getyCoord() && b.getCoords().getyCoord() < (a.getCoords().getyCoord() + 0.9)) {
+                    if ((a.getCoords().getYCoord() - 0.9) < b.getCoords().getYCoord() && b.getCoords().getYCoord() < (a.getCoords().getYCoord() + 0.9)) {
                         return true;
                     }
                     break;
@@ -247,23 +245,23 @@ public class World {
         for (Combatant combatant : activeEnemies) {
             double enemyDetectDistance = 7;
             if (isEntityWithinDistance(player, combatant, enemyDetectDistance)) {
-                if (player.getXcoord() + 0.9 < combatant.getXcoord()) {
+                if (player.getXCoord() + 0.9 < combatant.getXCoord()) {
                     combatant.setDirection(Movable.Direction.LEFT);
                     if(isPathFree(combatant, player)) {
                         combatant.move(Movable.Direction.LEFT);
                     }
-                } else if (player.getXcoord() - 0.9 > combatant.getXcoord()) {
+                } else if (player.getXCoord() - 0.9 > combatant.getXCoord()) {
                     combatant.setDirection(Movable.Direction.RIGHT);
                     if(isPathFree(combatant, player)) {
                         combatant.move(Movable.Direction.RIGHT);
                     }
                 }
-                if (player.getYcoord() + 0.9 < combatant.getYcoord()) {
+                if (player.getYCoord() + 0.9 < combatant.getYCoord()) {
                     combatant.setDirection(Movable.Direction.UP);
                     if(isPathFree(combatant, player)) {
                         combatant.move(Movable.Direction.UP);
                     }
-                } else if (player.getYcoord() - 0.9 > combatant.getYcoord()) {
+                } else if (player.getYCoord() - 0.9 > combatant.getYCoord()) {
                     combatant.setDirection(Movable.Direction.DOWN);
                     if(isPathFree(combatant, player)) {
                         combatant.move(Movable.Direction.DOWN);
@@ -363,30 +361,30 @@ public class World {
         }
 
         void updateWorldGrid() {
-            final double playerXcoord = Math.round(this.player.getXcoord()); // To fix rounding error
-            final double playerYcoord = Math.round(this.player.getYcoord()); // To fix rounding error
+            final double playerXCoord = Math.round(this.player.getXCoord()); // To fix rounding error
+            final double playerYCoord = Math.round(this.player.getYCoord()); // To fix rounding error
 
-            final double maxYViewport = playerYcoord + (worldVerticalSideLength - 1) / 2;
-            final double minYViewport = playerYcoord - (worldVerticalSideLength - 1) / 2;
-            final double maxXViewport = playerXcoord + (worldHorizontalSideLength - 1) / 2;
-            final double minXViewport = playerXcoord - (worldHorizontalSideLength - 1) / 2;
+            final double maxYViewport = playerYCoord + (worldVerticalSideLength - 1) / 2;
+            final double minYViewport = playerYCoord - (worldVerticalSideLength - 1) / 2;
+            final double maxXViewport = playerXCoord + (worldHorizontalSideLength - 1) / 2;
+            final double minXViewport = playerXCoord - (worldHorizontalSideLength - 1) / 2;
 
             final boolean shouldUpdateTiles =
-                    Math.round(this.player.getPrevYCoord()) != playerYcoord
-                 || Math.round(this.player.getPrevXCoord()) != playerXcoord;
+                    Math.round(this.player.getPrevYCoord()) != playerYCoord
+                 || Math.round(this.player.getPrevXCoord()) != playerXCoord;
 
             if(shouldUpdateTiles){
                 switch (this.player.getDirection()) {
                     case UP:
                         for (LinkedList<Tile> column : worldGrid) {
                             column.removeLast();
-                            column.addFirst(tileFactory.generateTile(column.getFirst().getXcoord(), minYViewport));
+                            column.addFirst(tileFactory.generateTile(column.getFirst().getXCoord(), minYViewport));
                         }
                         break;
                     case DOWN:
                         for (LinkedList<Tile> column : worldGrid) {
                             column.removeFirst();
-                            column.addLast(tileFactory.generateTile(column.getFirst().getXcoord(), maxYViewport));
+                            column.addLast(tileFactory.generateTile(column.getFirst().getXCoord(), maxYViewport));
                         }
                         break;
                     case LEFT:

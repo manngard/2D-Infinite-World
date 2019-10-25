@@ -15,6 +15,6 @@ public class EnemyFactory {
         Random rand = new Random();
         Coordinates coordinates = Coordinates.generateRandomCoordinates(spawnAreaSide);
         int randIndex = rand.nextInt(enemyTypes.size());
-        return new Enemy(enemyTypes.get(randIndex),coordinates.getxCoord(),coordinates.getyCoord(),100,30,2, 0);
+        return new Enemy(enemyTypes.get(randIndex),coordinates.getXCoord(),coordinates.getYCoord(),100,30,2, 0);
     }
 }

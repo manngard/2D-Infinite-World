@@ -1,22 +1,19 @@
 package org.openjfx.model.entity;
 
-import org.openjfx.model.entity.Entity;
-import org.openjfx.model.entity.Movable;
-
 public abstract class Combatant extends Entity implements Movable {
-    protected int hp;
-    protected int atk;
-    protected int def;
-    protected final double atkRange;
+    int hp;
+    int atk;
+    int def;
+    final double atkRange;
 
-    protected double moveSpeed = 1;
-    protected int attackCooldownTicker = 20;
+    double moveSpeed = 1;
+    int attackCooldownTicker = 20;
 
-    protected Direction direction = Direction.LEFT;
+    private Direction direction = Direction.LEFT;
 
-    protected Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
+    Combatant(String id, double x, double y, int hitPoints, int attack, double attackRange, int defense){
         super(id, x, y);
-        this.hp = hitpoints;
+        this.hp = hitPoints;
         this.atk = attack;
         this.atkRange = attackRange;
         this.def = defense;
@@ -66,22 +63,22 @@ public abstract class Combatant extends Entity implements Movable {
     public void move(Direction direction){
         switch(direction){
             case UP:
-                coords.decyCoord(moveSpeed);
+                coords.decYCoord(moveSpeed);
                 this.direction = Direction.UP;
                 break;
 
             case DOWN:
-                coords.incyCoord(moveSpeed);
+                coords.incYCoord(moveSpeed);
                 this.direction = Direction.DOWN;
                 break;
 
             case LEFT:
-                coords.decxCoord(moveSpeed);
+                coords.decXCoord(moveSpeed);
                 this.direction = Direction.LEFT;
                 break;
 
             case RIGHT:
-                coords.incxCoord(moveSpeed);
+                coords.incXCoord(moveSpeed);
                 this.direction = Direction.RIGHT;
                 break;
         }

@@ -23,8 +23,8 @@ public class Player extends Combatant {
         itemBonus(inventory[selectedItem -1]);
     }
 
-    public Player(String id, double xCoord, double yCoord, int hitpoints, int attack, float atkRange, int defense) {
-        super(id, xCoord, yCoord, hitpoints, attack, atkRange, defense);
+    public Player(String id, double xCoord, double yCoord, int hitPoints, int attack, float atkRange, int defense) {
+        super(id, xCoord, yCoord, hitPoints, attack, atkRange, defense);
         this.moveSpeed = 1.0/3.0;
     }
 
@@ -100,7 +100,7 @@ public class Player extends Combatant {
 
     @Override
     public void move(Direction direction) {
-        setPrevCoords(this.getXcoord(), this.getYcoord());
+        setPrevCoords(this.getXCoord(), this.getYCoord());
         super.move(direction);
     }
 

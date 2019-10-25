@@ -67,8 +67,8 @@ public class View {
 
                 double xOffset = (screenXSize / 2) - pixelSize / 2;
                 double yOffset = (screenYSize / 2) - pixelSize / 2;
-                double playerX = translateX(world.player.getXcoord()) - xOffset;
-                double playerY = translateY(world.player.getYcoord()) - yOffset;
+                double playerX = translateX(world.player.getXCoord()) - xOffset;
+                double playerY = translateY(world.player.getYCoord()) - yOffset;
                 int playerHP = world.player.getHp();
 
                 Item[] playerInventory = world.player.getInventory();
@@ -99,12 +99,12 @@ public class View {
 
 
     private void renderOverlay(int HP, Item[] inventory){
-        double healthbarWidth = 1.8 * HP;
-        playerHealthbar.setWidth(healthbarWidth);
+        double healthBarWidth = 1.8 * HP;
+        playerHealthbar.setWidth(healthBarWidth);
         graphics.setFill(Color.WHITE);
         graphics.fillRect(gameScreen.getWidth() - 250, 20, 180, 30);
         graphics.setFill(playerHealthbar.getFill());
-        graphics.fillRect(gameScreen.getWidth() - 250, 20, healthbarWidth, playerHealthbar.getHeight());
+        graphics.fillRect(gameScreen.getWidth() - 250, 20, healthBarWidth, playerHealthbar.getHeight());
         graphics.drawImage(ResourceHandler.getResource("PlayerHealthbarContainer"), gameScreen.getWidth() - 250, 20);
 
         for (int i = 0; i < inventory.length; i++) {
@@ -128,22 +128,22 @@ public class View {
 
     private void renderEntities(List <Combatant> enemies, List<Chest> chests, double playerX, double playerY){
         for (Chest chest : chests){
-            graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(chest.getXcoord()) - playerX, translateY(chest.getYcoord()) - playerY);
+            graphics.drawImage(ResourceHandler.getResource(chest.getId()), translateX(chest.getXCoord()) - playerX, translateY(chest.getYCoord()) - playerY);
         }
         for(Combatant e : enemies){
-            double healthbarXCoord = translateX(e.getXcoord())-playerX - 15;
-            double healthbarYCoord = translateY(e.getYcoord())-playerY - pixelSize/2;
-            drawObject(e.getId(), translateX(e.getXcoord())-playerX, translateY(e.getYcoord())-playerY);
+            double healthBarXCoord = translateX(e.getXCoord())-playerX - 15;
+            double healthBarYCoord = translateY(e.getYCoord())-playerY - pixelSize/2;
+            drawObject(e.getId(), translateX(e.getXCoord())-playerX, translateY(e.getYCoord())-playerY);
             graphics.setFill(playerHealthbar.getFill());
-            graphics.fillRect(healthbarXCoord,healthbarYCoord,6*e.getHp()/10,10);
-            drawObject("EnemyHealthbarContainer",healthbarXCoord,healthbarYCoord);
+            graphics.fillRect(healthBarXCoord,healthBarYCoord,6*e.getHp()/10,10);
+            drawObject("EnemyHealthbarContainer",healthBarXCoord,healthBarYCoord);
         }
     }
 
     private void renderTileWorld(World world, double playerX, double playerY) {
         for (List<Tile> tileRow: world.getWorldGrid()){
             for (Tile tile: tileRow){
-                graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXcoord()) - playerX,translateY(tile.getYcoord()) - playerY);
+                graphics.drawImage(ResourceHandler.getResource(tile.getId()),translateX(tile.getXCoord()) - playerX,translateY(tile.getYCoord()) - playerY);
             }
         }
     }

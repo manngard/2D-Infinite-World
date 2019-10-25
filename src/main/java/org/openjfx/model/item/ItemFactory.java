@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemFactory {
-    private final List<Pair<String, Integer>> weapontypes = new ArrayList<>();
-    private final List<Pair<String, Integer>> armortypes = new ArrayList<>();
+    private final List<Pair<String, Integer>> weaponTypes = new ArrayList<>();
+    private final List<Pair<String, Integer>> armorTypes = new ArrayList<>();
     private static ItemFactory instance;
 
     private ItemFactory(){
-        weapontypes.add(new Pair<>("Sword", 20));
-        weapontypes.add(new Pair<>("Axe", 30));
+        weaponTypes.add(new Pair<>("Sword", 20));
+        weaponTypes.add(new Pair<>("Axe", 30));
 
-        armortypes.add(new Pair<>("Armor", 10));
+        armorTypes.add(new Pair<>("Armor", 10));
     }
 
     public Item getRandomItem(){
@@ -23,17 +23,17 @@ public class ItemFactory {
         int randIndex;
         String id;
         int bonusStat;
-        int itemtype = rand.nextInt(2);
-        switch(itemtype){
+        int itemType = rand.nextInt(2);
+        switch(itemType){
             case 0:
-                randIndex = rand.nextInt(weapontypes.size());
-                id = weapontypes.get(randIndex).getKey();
-                bonusStat = weapontypes.get(randIndex).getValue();
+                randIndex = rand.nextInt(weaponTypes.size());
+                id = weaponTypes.get(randIndex).getKey();
+                bonusStat = weaponTypes.get(randIndex).getValue();
                 return new Weapon(id, bonusStat);
             case 1:
-                randIndex = rand.nextInt(armortypes.size());
-                id = armortypes.get(randIndex).getKey();
-                bonusStat = armortypes.get(randIndex).getValue();
+                randIndex = rand.nextInt(armorTypes.size());
+                id = armorTypes.get(randIndex).getKey();
+                bonusStat = armorTypes.get(randIndex).getValue();
                 return new Armor(id, bonusStat);
         }
         return null; //will never happen

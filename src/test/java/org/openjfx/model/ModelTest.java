@@ -3,7 +3,6 @@ package org.openjfx.model;
 import org.junit.Before;
 import org.junit.Test;
 import org.openjfx.model.entity.Chest;
-import org.openjfx.model.entity.ChestFactory;
 import org.openjfx.model.entity.Enemy;
 import org.openjfx.model.entity.Movable;
 
@@ -12,7 +11,6 @@ import static org.junit.Assert.*;
 public class ModelTest {
 
     private Model model;
-    private final ChestFactory chestFactory = new ChestFactory();
 
     @Before
     public void beforeEach(){
@@ -21,15 +19,15 @@ public class ModelTest {
 
     @Test
     public void modelMovePlayerTest() {
-        final double x = model.world.player.getXcoord();
-        final double y = model.world.player.getYcoord();
+        final double x = model.world.player.getXCoord();
+        final double y = model.world.player.getYCoord();
         model.movePlayerUp();
         model.movePlayerDown();
         model.movePlayerLeft();
         model.movePlayerRight();
 
-        assertEquals(x,model.world.player.getXcoord(),0.01);
-        assertEquals(y,model.world.player.getYcoord(),0.01);
+        assertEquals(x,model.world.player.getXCoord(),0.01);
+        assertEquals(y,model.world.player.getYCoord(),0.01);
     }
 
     @Test
@@ -57,7 +55,7 @@ public class ModelTest {
         model.playerAttacks();
         assertEquals(enemy.getHp(),80); // Player has attacked enemy in front of him and damaged his hp from 100 down to 80.
 
-        Enemy enemy2 = new Enemy("e",model.world.player.getXcoord()+1,model.world.player.getYcoord(),100,30,2,0);
+        Enemy enemy2 = new Enemy("e",model.world.player.getXCoord()+1,model.world.player.getYCoord(),100,30,2,0);
         model.world.getActiveEnemies().add(enemy2);
         model.mobsAttack();
         model.mobsAttack();
@@ -67,12 +65,12 @@ public class ModelTest {
     @Test
     public void moveMobsInWorld(){
         Enemy enemy = new Enemy("e",-1,0,100,30,2,0);
-        double prevXCoord = enemy.getXcoord();
-        double prevYCoord = enemy.getYcoord();
+        double prevXCoord = enemy.getXCoord();
+        double prevYCoord = enemy.getYCoord();
         model.world.getActiveEnemies().add(enemy);
 
         model.moveMobsInWorld();
-        assertTrue(enemy.getXcoord() != prevXCoord);
-        assertTrue(enemy.getYcoord() != prevXCoord);
+        assertTrue(enemy.getXCoord() != prevXCoord);
+        assertTrue(enemy.getYCoord() != prevXCoord);
     }
 }

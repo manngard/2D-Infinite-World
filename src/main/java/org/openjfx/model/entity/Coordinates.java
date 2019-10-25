@@ -18,27 +18,27 @@ public class Coordinates {
         return new Coordinates(randX, randY);
     }
 
-    public double getxCoord() {
+    public double getXCoord() {
         return xCoord;
     }
 
-    public double getyCoord() {
+    public double getYCoord() {
         return yCoord;
     }
 
-    public void incxCoord(double d) {
+    public void incXCoord(double d) {
         this.xCoord += d;
     }
 
-    public void decxCoord(double d) {
+    public void decXCoord(double d) {
         this.xCoord -= d;
     }
 
-    public void incyCoord(double d) {
+    public void incYCoord(double d) {
         this.yCoord += d;
     }
 
-    public void decyCoord(double d) {
+    public void decYCoord(double d) {
         this.yCoord -= d;
     }
 }
