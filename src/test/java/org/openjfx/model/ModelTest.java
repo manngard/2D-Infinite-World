@@ -1,6 +1,10 @@
 package org.openjfx.model;
 
 import org.junit.Test;
+import org.openjfx.model.entity.Chest;
+import org.openjfx.model.entity.ChestFactory;
+import org.openjfx.model.entity.Enemy;
+import org.openjfx.model.entity.Movable;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +14,7 @@ public class ModelTest {
     private final ChestFactory chestFactory = new ChestFactory();
 
     @Test
-    public void modelMovePlayerTest(){
+    public void modelMovePlayerTest() {
         model.movePlayerUp();
         model.movePlayerDown();
         model.movePlayerLeft();
@@ -28,7 +32,7 @@ public class ModelTest {
 
         model.playerInteracts();
 
-        assertEquals(model.world.player.direction, Movable.Direction.LEFT);
+        assertEquals(model.world.player.getDirection(), Movable.Direction.LEFT);
         assertTrue(!model.world.player.getInventory().equals(null));    // Player has interacted with the chest and the player's inventory has been filled with the items from the chest
 
     }

@@ -2,6 +2,8 @@ package org.openjfx.model;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openjfx.model.entity.Movable;
+import org.openjfx.model.entity.Player;
 
 public class PlayerTest {
 

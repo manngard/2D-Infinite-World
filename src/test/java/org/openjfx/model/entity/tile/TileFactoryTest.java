@@ -1,4 +1,4 @@
-package org.openjfx.model.tile;
+package org.openjfx.model.entity.tile;
 
 class TileFactoryTest {
 

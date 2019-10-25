@@ -1,5 +1,9 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
+
+import org.openjfx.model.item.Armor;
+import org.openjfx.model.item.Item;
+import org.openjfx.model.item.Weapon;
 
 //  This is the Player class, with variables related to the player . Obs: Should also inherit Interfaces in the future
 public class Player extends Combatant {

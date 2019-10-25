@@ -1,4 +1,4 @@
-package org.openjfx.model;
+package org.openjfx.model.item;
 
 public abstract class Item {
 

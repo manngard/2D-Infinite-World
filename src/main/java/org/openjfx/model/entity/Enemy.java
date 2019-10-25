@@ -1,4 +1,4 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
 public class Enemy extends Combatant {
     public Enemy(String id, double xCoord, double yCoord, int hp, int attack,float attackRange, int defense){

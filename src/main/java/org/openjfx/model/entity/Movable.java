@@ -1,4 +1,4 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
 public interface Movable {
     enum Direction{

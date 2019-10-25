@@ -1,6 +1,6 @@
-package org.openjfx.model;
+package org.openjfx.model.item;
 
-class Weapon extends Item {
+public class Weapon extends Item {
 
     private final int atk;
 

@@ -10,7 +10,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.openjfx.model.*;
 
-import org.openjfx.model.tile.Tile;
+import org.openjfx.model.entity.Chest;
+import org.openjfx.model.entity.Combatant;
+import org.openjfx.model.item.Item;
+import org.openjfx.model.entity.tile.Tile;
 
 import org.openjfx.model.event.Event;
 import org.openjfx.model.event.EventListener;
@@ -68,7 +71,7 @@ public class View {
                 double playerY = translateY(world.player.getYcoord()) - yOffset;
                 int playerHP = world.player.getHp();
 
-                Item [] playerInventory = world.player.getInventory();
+                Item[] playerInventory = world.player.getInventory();
 
                 gameScreen.getGraphicsContext2D().clearRect(0, 0, 1000,1000);
                 renderTileWorld(world,playerX,playerY);

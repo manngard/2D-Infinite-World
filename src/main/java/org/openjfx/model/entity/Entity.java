@@ -1,10 +1,10 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
 public abstract class Entity{
 
     //Describes what type of Entity
     protected final String id;
-    Coordinates coords;
+    protected Coordinates coords;
 
     protected Entity(String i, double a, double b){
         this.id = i;

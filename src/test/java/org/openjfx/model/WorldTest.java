@@ -2,7 +2,9 @@ package org.openjfx.model;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openjfx.model.tile.Tile;
+import org.openjfx.model.entity.Combatant;
+import org.openjfx.model.entity.Enemy;
+import org.openjfx.model.entity.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

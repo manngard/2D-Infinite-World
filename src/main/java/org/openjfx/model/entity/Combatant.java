@@ -1,16 +1,20 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
-public abstract class Combatant extends Entity implements Movable{
-    int hp;
-    int atk;
-    int def;
-    final double atkRange;
+import org.openjfx.model.entity.Entity;
+import org.openjfx.model.entity.Movable;
 
-    double moveSpeed = 1;
-    int attackCooldownTicker = 20;
-    Direction direction = Direction.LEFT;
+public abstract class Combatant extends Entity implements Movable {
+    protected int hp;
+    protected int atk;
+    protected int def;
+    protected final double atkRange;
 
-    Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
+    protected double moveSpeed = 1;
+    protected int attackCooldownTicker = 20;
+
+    protected Direction direction = Direction.LEFT;
+
+    protected Combatant(String id, double x, double y, int hitpoints, int attack, double attackRange, int defense){
         super(id, x, y);
         this.hp = hitpoints;
         this.atk = attack;
@@ -54,26 +58,30 @@ public abstract class Combatant extends Entity implements Movable{
         return moveSpeed;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
     @Override
     public void move(Direction direction){
         switch(direction){
             case UP:
-                coords.yCoord -= moveSpeed;
+                coords.decyCoord(moveSpeed);
                 this.direction = Direction.UP;
                 break;
 
             case DOWN:
-                coords.yCoord += moveSpeed;
+                coords.incyCoord(moveSpeed);
                 this.direction = Direction.DOWN;
                 break;
 
             case LEFT:
-                coords.xCoord -= moveSpeed;
+                coords.decxCoord(moveSpeed);
                 this.direction = Direction.LEFT;
                 break;
 
             case RIGHT:
-                coords.xCoord += moveSpeed;
+                coords.incxCoord(moveSpeed);
                 this.direction = Direction.RIGHT;
                 break;
         }

@@ -1,10 +1,10 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-class EnemyFactory {
+public class EnemyFactory {
     private final List<String> enemyTypes = new ArrayList<>();
 
     public EnemyFactory(){

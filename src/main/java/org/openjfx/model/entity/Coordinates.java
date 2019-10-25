@@ -1,17 +1,17 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
 
 import java.util.Random;
 
 public class Coordinates {
-    double xCoord;
-    double yCoord;
+    private double xCoord;
+    private double yCoord;
 
     public Coordinates(double xCoord, double yCoord){
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
 
-    static Coordinates generateRandomCoordinates(int spawnAreaSide){
+    public static Coordinates generateRandomCoordinates(int spawnAreaSide){
         Random rand = new Random();
         double randX = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
         double randY = rand.nextInt(spawnAreaSide) - spawnAreaSide /2;
@@ -24,5 +24,21 @@ public class Coordinates {
 
     public double getyCoord() {
         return yCoord;
+    }
+
+    public void incxCoord(double d) {
+        this.xCoord += d;
+    }
+
+    public void decxCoord(double d) {
+        this.xCoord -= d;
+    }
+
+    public void incyCoord(double d) {
+        this.yCoord += d;
+    }
+
+    public void decyCoord(double d) {
+        this.yCoord -= d;
     }
 }

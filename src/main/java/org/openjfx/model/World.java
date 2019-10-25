@@ -1,9 +1,10 @@
 package org.openjfx.model;
 
+import org.openjfx.model.entity.*;
 import org.openjfx.model.noise.DefaultNoiseGenerator;
 import org.openjfx.model.noise.NoiseGenerator;
-import org.openjfx.model.tile.Tile;
-import org.openjfx.model.tile.TileFactory;
+import org.openjfx.model.entity.tile.Tile;
+import org.openjfx.model.entity.tile.TileFactory;
 
 import java.util.*;
 
@@ -90,7 +91,7 @@ public class World {
     }
 
     public boolean inSight(Combatant a, Entity b) {
-        switch (a.direction) {
+        switch (a.getDirection()) {
             case UP:
                 if (b.getYcoord() < (a.getYcoord() - 0.4)) {
                     return true;
@@ -159,7 +160,7 @@ public class World {
 
         final double s = c.getMoveSpeed() - 0.05;
 
-        switch(c.direction) {
+        switch(c.getDirection()) {
             case UP:
                 checkX1 += 0.05;
                 checkX2 += 0.9;
@@ -212,16 +213,16 @@ public class World {
     private boolean isEntityInPath(Combatant a, Entity b){
 
         if(inSight(a,b)) {
-            switch (a.direction) {
+            switch (a.getDirection()) {
                 case UP:
                 case DOWN:
-                    if ((a.coords.xCoord - 0.9) < b.coords.xCoord && b.coords.xCoord < (a.coords.xCoord + 0.9)) {
+                    if ((a.getCoords().getxCoord() - 0.9) < b.getCoords().getxCoord() && b.getCoords().getxCoord() < (a.getCoords().getxCoord() + 0.9)) {
                         return true;
                     }
                     break;
                 case LEFT:
                 case RIGHT:
-                    if ((a.coords.yCoord - 0.9) < b.coords.yCoord && b.coords.yCoord < (a.coords.yCoord + 0.9)) {
+                    if ((a.getCoords().getyCoord() - 0.9) < b.getCoords().getyCoord() && b.getCoords().getyCoord() < (a.getCoords().getyCoord() + 0.9)) {
                         return true;
                     }
                     break;
@@ -375,7 +376,7 @@ public class World {
                  || Math.round(this.player.getPrevXCoord()) != playerXcoord;
 
             if(shouldUpdateTiles){
-                switch (this.player.direction) {
+                switch (this.player.getDirection()) {
                     case UP:
                         for (LinkedList<Tile> column : worldGrid) {
                             column.removeLast();

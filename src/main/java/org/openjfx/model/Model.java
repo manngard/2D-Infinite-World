@@ -1,5 +1,9 @@
 package org.openjfx.model;
 
+import org.openjfx.model.entity.Chest;
+import org.openjfx.model.entity.Combatant;
+import org.openjfx.model.entity.Movable;
+import org.openjfx.model.item.Item;
 import org.openjfx.model.noise.NoiseGenerator;
 
 import org.openjfx.model.event.Event;

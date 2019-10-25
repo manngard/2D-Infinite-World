@@ -1,6 +1,6 @@
-package org.openjfx.model.tile;
+package org.openjfx.model.entity.tile;
 
-import org.openjfx.model.Entity;
+import org.openjfx.model.entity.Entity;
 
 public class Tile extends Entity {
     //Describes if the Tile can be moved through

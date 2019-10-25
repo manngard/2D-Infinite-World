@@ -1,4 +1,4 @@
-package org.openjfx.model;
+package org.openjfx.model.item;
 
 import javafx.util.Pair;
 

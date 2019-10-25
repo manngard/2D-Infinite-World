@@ -2,6 +2,7 @@ package org.openjfx.model;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openjfx.model.entity.Chest;
 
 public class ChestTest {
 

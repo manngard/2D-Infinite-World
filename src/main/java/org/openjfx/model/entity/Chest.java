@@ -1,4 +1,7 @@
-package org.openjfx.model;
+package org.openjfx.model.entity;
+
+import org.openjfx.model.item.Item;
+import org.openjfx.model.item.ItemFactory;
 
 public class Chest extends Entity{
 
