@@ -1,9 +1,9 @@
 package org.openjfx.model.item;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the Armor Object behavior
+  Used by: ItemFactory
+  Uses: Item
   */
 
 public class Armor extends Item{

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Random;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Creating Items
+  Used by: Chest
+  Uses: Item, Weapon, Armor
   */
 
 public class ItemFactory {

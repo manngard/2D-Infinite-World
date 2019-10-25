@@ -21,9 +21,9 @@ import org.openjfx.model.event.EventListener;
 import java.util.List;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Handles all rendering on the screen for the application
+  Used by: Controller
+  Uses: ResourceHandler, World, ViewEventMessage
   */
 
 public class View {

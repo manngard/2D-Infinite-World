@@ -4,12 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openjfx.model.entity.Chest;
 
-/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
-  */
-
 public class ChestTest {
 
     private final Chest chest = new Chest("Chest", 1, 1);

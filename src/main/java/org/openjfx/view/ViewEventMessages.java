@@ -4,8 +4,7 @@ package org.openjfx.view;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
   Responsibility:
-  Used by:
-  Uses:
+  Used by: View
   */
 
 public enum ViewEventMessages {

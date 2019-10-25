@@ -3,9 +3,8 @@ package org.openjfx.view;
 import javafx.scene.image.Image;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Handling all interaction with the resource folder
+  Used by: View
   */
 
 class ResourceHandler {

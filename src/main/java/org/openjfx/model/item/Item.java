@@ -1,9 +1,8 @@
 package org.openjfx.model.item;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompassing the Item Object behavior
+  Used by: Armor, Weapon, Chest, Player, ItemFactory
   */
 
 public abstract class Item {
