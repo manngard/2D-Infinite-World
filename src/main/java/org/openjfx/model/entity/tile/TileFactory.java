@@ -6,6 +6,12 @@ import org.openjfx.model.noise.NoiseGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
+  Responsibility: Creates Tile objects.
+  Used by: World
+  Uses: NoiseGenerator and Tile
+  */
+
 public class TileFactory {
     private final List<Pair<String, Double>> tileTypes = new ArrayList<>();
     private final NoiseGenerator noiseGenerator;

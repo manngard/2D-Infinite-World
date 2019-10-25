@@ -4,9 +4,9 @@ import org.openjfx.model.item.Item;
 import org.openjfx.model.item.ItemFactory;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Contains an array of items and encompasses the Chest object behaviour
+  Used by: World and ChestFactory
+  Uses: Item, Entity and ItemFactory
   */
 
 public class Chest extends Entity{

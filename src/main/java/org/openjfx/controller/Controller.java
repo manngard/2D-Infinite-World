@@ -5,8 +5,8 @@ import org.openjfx.model.Model;
 import org.openjfx.view.View;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
+  Responsibility: Controller component in MVC structure.
+  Used by: App
   Uses:
   */
 

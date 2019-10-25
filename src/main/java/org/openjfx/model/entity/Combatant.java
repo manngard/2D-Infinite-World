@@ -1,9 +1,9 @@
 package org.openjfx.model.entity;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompasses the behaviour shared for all Combatants.
+  Used by: World, Enemy and Player
+  Uses: Entity and Movable
   */
 
 public abstract class Combatant extends Entity implements Movable {

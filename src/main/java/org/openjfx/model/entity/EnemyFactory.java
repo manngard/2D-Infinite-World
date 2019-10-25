@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility:Factory for enemy objects
+  Used by: World
+  Uses: Enemy
   */
 
 public class EnemyFactory {

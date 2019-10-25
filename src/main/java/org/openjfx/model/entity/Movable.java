@@ -1,8 +1,8 @@
 package org.openjfx.model.entity;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
+  Responsibility: Encompasses behaviour shared for all classes that are Movable.
+  Used by: Combatant, World and Model
   Uses:
   */
 

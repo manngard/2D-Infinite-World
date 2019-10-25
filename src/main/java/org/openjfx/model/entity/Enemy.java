@@ -1,9 +1,9 @@
 package org.openjfx.model.entity;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Encompasses the behaviour of enemy objects.
+  Used by: World and EnemyFactory
+  Uses: Combatant
   */
 
 public class Enemy extends Combatant {

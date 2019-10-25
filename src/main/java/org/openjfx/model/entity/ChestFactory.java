@@ -1,9 +1,9 @@
 package org.openjfx.model.entity;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
-  Uses:
+  Responsibility: Creates Chest objects.
+  Used by: World
+  Uses: Chest
   */
 
 public class ChestFactory {

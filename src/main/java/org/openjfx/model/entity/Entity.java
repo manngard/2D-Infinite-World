@@ -1,8 +1,8 @@
 package org.openjfx.model.entity;
 
 /*Author: Carl Manngard, Patrik Emanuelsson, Edward Karlsson, Johan Davidsson
-  Responsibility:
-  Used by:
+  Responsibility: Encompasses the behaviour shared for all Entities.
+  Used by: Combatant and World
   Uses:
   */
 
