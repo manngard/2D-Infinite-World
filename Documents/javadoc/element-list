@@ -1,0 +1,11 @@
+module:org.openjfx
+org.openjfx
+org.openjfx.controller
+org.openjfx.model
+org.openjfx.model.entity
+org.openjfx.model.entity.tile
+org.openjfx.model.event
+org.openjfx.model.item
+org.openjfx.model.noise
+org.openjfx.staticlibrary
+org.openjfx.view
