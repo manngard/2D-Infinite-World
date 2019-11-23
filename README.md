@@ -1,2 +1,2 @@
-# stprnibko-med-kicka
-Top down survival game with a focus on using an OO-design
+# 2D-Infinite-World
+Top down survival game built in Object oriented Java. Uses the "OpenSimplex Noise" library for world generation.
